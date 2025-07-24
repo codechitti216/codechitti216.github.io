@@ -1,10 +1,10 @@
-import matter from 'gray-matter';
+import fm from 'front-matter';
 
 export function loadProjectPosts() {
-  const modules = import.meta.glob('/content/projects/*.md', { as: 'raw', eager: true });
+  const modules = import.meta.glob('/content/projects/*.md', { query: '?raw', import: 'default', eager: true });
 
   const posts = Object.entries(modules).map(([path, rawContent]) => {
-    const { data, content } = matter(rawContent);
+    const { attributes: data, body: content } = fm(rawContent);
     const slug = path.split('/').pop().replace('.md', '');
 
     return {
@@ -20,6 +20,5 @@ export function loadProjectPosts() {
     };
   });
 
-  // Sort by date (optional)
   return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 } 
