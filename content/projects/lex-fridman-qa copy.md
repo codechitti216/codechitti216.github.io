@@ -9,6 +9,6 @@ status: "evolving"
 
 # Decided Architecture
 
-![Architecture Diagram](/public/image.png)
+![Architecture Diagram](/image.png)
 
 weiou 8o
