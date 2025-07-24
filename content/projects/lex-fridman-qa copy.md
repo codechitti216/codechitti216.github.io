@@ -5,10 +5,10 @@ tags: ["Machine Learning", "Computer Vision", "Simulation", "Domain Adaptation"]
 status: "evolving"
 ---
 
-# Dummy
-# Dummy
-# Dummy
-# Dummy
-# Dummy
-# Dummy
-# Dummy
+# The idea is to make use of both SONAR point clouds and RGB Monocular Images for Scene reconstruction
+
+# Decided Architecture
+
+![alt text](/Utils/image.png)
+
+weiou 8o
