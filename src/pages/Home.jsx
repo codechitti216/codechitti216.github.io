@@ -2,9 +2,17 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 
-const Home = () => {
+export default function Home() {
   return (
     <div className="space-y-12">
+      {/* Profile Photo */}
+      <div className="flex justify-center pt-8">
+        <img
+          src="/assets/profile.jpg"
+          alt="Surya G S Chitti"
+          className="rounded-full w-32 h-32 object-cover shadow-lg border-4 border-white"
+        />
+      </div>
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <h1 className="font-serif text-4xl md:text-5xl font-semibold text-gray-900">
@@ -16,7 +24,6 @@ const Home = () => {
         <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
           Researcher, Builder, and Thinker focused on bridging synthetic-to-real gaps and pushing beyond benchmarks toward real-world field robustness.
         </p>
-        
         <div className="flex justify-center space-x-4 pt-4">
           <Button asChild>
             <Link to="/projects">
@@ -28,7 +35,6 @@ const Home = () => {
           </Button>
         </div>
       </section>
-
       {/* Quick Links */}
       <section className="grid md:grid-cols-3 gap-6">
         <div className="content-card">
@@ -40,7 +46,6 @@ const Home = () => {
             Explore current work →
           </Link>
         </div>
-        
         <div className="content-card">
           <h3 className="font-serif text-xl font-semibold mb-3">Research Areas</h3>
           <div className="space-y-2 mb-4">
@@ -54,7 +59,6 @@ const Home = () => {
             Browse knowledge garden →
           </Link>
         </div>
-        
         <div className="content-card">
           <h3 className="font-serif text-xl font-semibold mb-3">Connect</h3>
           <div className="space-y-3">
@@ -73,7 +77,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* About Section */}
       <section className="prose max-w-none">
         <h2>About Me</h2>
@@ -92,7 +95,5 @@ const Home = () => {
       </section>
     </div>
   );
-};
-
-export default Home;
+}
 
