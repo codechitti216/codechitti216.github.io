@@ -11,7 +11,3 @@ body::after {
   z-index: 9999;
   font-size: 20px;
 }
-
-body {
-  @apply bg-yellow-100;
-}

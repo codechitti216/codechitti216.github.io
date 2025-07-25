@@ -7,6 +7,8 @@ console.log('Home page rendered');
 export default function Home() {
   return (
     <div className="space-y-12">
+      {/* Debug: Tailwind utility class test */}
+      <div className="bg-yellow-100 text-center py-2 font-bold">TAILWIND UTILITY TEST</div>
       {/* Profile Photo */}
       <div className="flex justify-center pt-8">
         <img
