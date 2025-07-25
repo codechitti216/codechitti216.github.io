@@ -21,10 +21,10 @@ export default function Home() {
           Surya G S Chitti
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-          Machine Perception Engineer with a mathematics core—building robust autonomy stacks across sensor modalities.
+          Machine Perception Engineer with a mathematics core. Currently building robust autonomy stacks across modalities.
         </p>
         <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-          Researcher, Builder, and Thinker focused on bridging synthetic-to-real gaps and pushing beyond benchmarks toward real-world field robustness.
+          Researcher | Engineer 
         </p>
         <div className="flex justify-center space-x-4 pt-4">
           <Button asChild>
@@ -42,7 +42,7 @@ export default function Home() {
         <div className="content-card">
           <h3 className="font-serif text-xl font-semibold mb-3">Current Focus</h3>
           <p className="text-gray-700 mb-4">
-            Working on precision navigation systems using dual-stage ML pipelines for DVL beam and velocity estimation at IISc Bangalore.
+            Wrapped up my work at IISc Bangalore in the field of underwater perception and navigation.
           </p>
           <Link to="/projects" className="academic-link">
             Explore current work →
@@ -54,7 +54,7 @@ export default function Home() {
             <span className="tag">Computer Vision</span>
             <span className="tag">3D Perception</span>
             <span className="tag">Visual Navigation</span>
-            <span className="tag">Sensor Fusion</span>
+            <span className="tag">Multi-Modal Fusion</span>
             <span className="tag">Deep Learning</span>
           </div>
           <Link to="/garden" className="academic-link">
@@ -83,16 +83,16 @@ export default function Home() {
       <section className="prose max-w-none">
         <h2>About Me</h2>
         <p>
-          I am a Machine Perception Engineer with a strong mathematical foundation, currently pursuing M.Sc. Mathematics + B.E. Civil Engineering at BITS Pilani, Hyderabad Campus, along with a Diploma in Data Science and Programming from IIT Madras.
+          I am a Machine Perception Engineer with a strong mathematical foundation. I am completing my education at BITS Pilani with a Major in Mathematics and a Minor in Computing and Intelligence.
         </p>
         <p>
-          My work spans across multiple domains in robotics perception, from classical computer vision projects to cutting-edge deep learning applications. I have experience in building robust autonomy stacks across various sensor modalities including vision, LiDAR, and DVL (Doppler Velocity Log).
+          I am still exploring Robotics, Perception and AI. From classical computer vision projects to designing deep learning architectures. I have experience in building robust autonomy stacks across various sensor modalities including vision, LiDAR, and DVL (Doppler Velocity Logger).
         </p>
         <p>
-          Currently, I am working as a Research Assistant Intern at the AI & Robotics Lab, IISc Bangalore, where I focus on precision navigation systems and visual navigation agent debugging. My research interests include bridging the synthetic-to-real gap in machine learning models and developing field-robust solutions that go beyond benchmark performance.
+          I worked as a Research Assistant Intern at the AI & Robotics Lab, IISc Bangalore under <a href="https://aero.iisc.ac.in/people/sureshsundaram/" target="_blank">Professor Suresh Sundaram</a> where I focused on precision navigation systems and visual navigation of underwater drones. My interests include bridging the synthetic-to-real gap in machine learning models and developing field-robust solutions that go beyond benchmark performance.
         </p>
         <p>
-          This website serves as my digital lab notebook—a place where I document my research journey, share insights, and maintain a knowledge system that grows with my learning. It's designed to be both a professional portfolio and a personal knowledge garden.
+          This website serves as my digital lab notebook. A place where I will document my research journey, share insights, and maintain a knowledge system that grows with my learning. It's designed to be both a professional portfolio and a personal knowledge garden.
         </p>
       </section>
     </div>
