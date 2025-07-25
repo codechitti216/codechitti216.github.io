@@ -6,3 +6,5 @@ status: "evolving"
 ---
 
 # DUMMY
+
+![Article](/dist/image.png)
