@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 
+console.log('Home page rendered');
+
 export default function Home() {
   return (
     <div className="space-y-12">

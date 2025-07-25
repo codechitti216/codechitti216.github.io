@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body::after {
+  content: "TAILWIND CSS LOADED";
+  color: red;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+  font-size: 20px;
+}
+
+body {
+  @apply bg-yellow-100;
+}
