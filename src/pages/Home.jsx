@@ -89,7 +89,7 @@ export default function Home() {
           I am still exploring Robotics, Perception and AI. From classical computer vision projects to designing deep learning architectures. I have experience in building robust autonomy stacks across various sensor modalities including vision, LiDAR, and DVL (Doppler Velocity Logger).
         </p>
         <p>
-          I worked as a Research Assistant Intern at the AI & Robotics Lab, IISc Bangalore under <a href="https://aero.iisc.ac.in/people/sureshsundaram/" target="_blank">Professor Suresh Sundaram</a> where I focused on precision navigation systems and visual navigation of underwater drones. My interests include bridging the synthetic-to-real gap in machine learning models and developing field-robust solutions that go beyond benchmark performance.
+          I worked as a Research Assistant Intern at the AI & Robotics Lab, IISc Bangalore under <a href="https://aero.iisc.ac.in/people/sureshsundaram/" target="_blank" style="color: blue;">Professor Suresh Sundaram</a> where I focused on precision navigation systems and visual navigation of underwater drones. My interests include bridging the synthetic-to-real gap in machine learning models and developing field-robust solutions that go beyond benchmark performance.
         </p>
         <p>
           This website serves as my digital lab notebook. A place where I will document my research journey, share insights, and maintain a knowledge system that grows with my learning. It's designed to be both a professional portfolio and a personal knowledge garden.
