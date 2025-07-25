@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surya G S Chitti - Researcher, Builder, Thinker</title>
+    <script>
+      // Early debug: check for CSS link
+      window.addEventListener('DOMContentLoaded', function() {
+        var links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+        if (links.length === 0) {
+          console.error('[DEBUG] No CSS <link> found in <head> at DOMContentLoaded');
+        } else {
+          links.forEach(function(link) {
+            console.log('[DEBUG] CSS <link> found:', link.href);
+          });
+        }
+      });
+    </script>
+    <style>
+      /* Fallback: if no CSS loads, this will show */
+      body::before {
+        content: 'NO CSS LOADED';
+        color: white;
+        background: red;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        font-size: 24px;
+        padding: 8px 16px;
+      }
+    </style>
+    <!-- Vite injects CSS and JS here -->
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html> 
