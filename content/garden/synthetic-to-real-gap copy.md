@@ -7,4 +7,4 @@ status: "evolving"
 
 # DUMMY
 
-![Article](../../dist/image.png)
+![Article](../../public/image.png)
