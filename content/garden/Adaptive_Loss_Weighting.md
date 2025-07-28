@@ -1,5 +1,5 @@
 ---
-title: "What happens when you train an Architecture on multiple loss functions?"
+title: "Handling Task Complexity and Model Capacity in Multi-Task Learning via Adaptive Loss Weighting"
 date: "2025-07-28"
 tags: ["Multi Task Learning", "Learning Mechanism", "Explorations", "Thoughts", "Adaptation"]
 status: "ongoing"
