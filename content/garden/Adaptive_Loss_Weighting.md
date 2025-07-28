@@ -5,30 +5,40 @@ tags: ["Multi Task Learning", "Learning Mechanism", "Explorations", "Thoughts", 
 status: "ongoing"
 ---
 
-# Fundamental issues in Multi Task Learning
+# Fundamental Issues in Multi-Task Learning
 
 ## What is MTL?
 
-Lets take human perception when we are driving in traffic for instance. We are doing multiple tasks at once... Object Detection, Obstacle Avoidance, Depth Estimation, Planning.. 
+Consider human perception while driving in traffic. We perform multiple tasks simultaneously—object detection, obstacle avoidance, depth estimation, and planning, among others.
 
-Mimicking this through architecture and enabling one architecture/model to learn multiple tasks at once is called multi task learning. 
+Mimicking this ability in a single architecture or model that learns multiple tasks concurrently is known as **multi-task learning (MTL)**.
 
-## How is MTL enabled? 
+## How is MTL Enabled?
 
-Learning is often associated with optimising the error you make. So, multi task learning is enabled by? You guessed it right.. Multiple Loss functions. 
+Learning is typically associated with minimizing error. Multi-task learning is enabled by optimizing multiple loss functions simultaneously.
 
-When multiple loss functions are associated, the total loss which is back propagated is most oftenly a linear combination of the individual losses. 
+The total loss that is backpropagated is usually a linear combination of the individual task losses.
 
-The weights associated with each of these losses are either static (equal and unequal) but rarely dynamic. Some works have been done with deal with adaptive weighting strategies in the loss functions at training session. 
+Weights assigned to each task loss are often static (either equal or unequal), but rarely dynamic. Some research has explored **adaptive weighting strategies** to adjust loss contributions during training.
 
-## Task complexity
+## Task Complexity
 
-Some tasks can be complex like normals calculation and some tasks can be simple like a regression loss optimisation.. So, the update on the model's weights based on the errors across both complex tasks and simple tasks without any normalisation would mislead the model and *GradNorm* focuses this problem. 
+Tasks can vary greatly in complexity—for example, surface normal estimation is more complex than a simple regression task.
 
-## Models Capacity
+Updating the model weights based on errors from both complex and simple tasks *without normalization* can mislead training. The **GradNorm** method addresses this issue by balancing gradient magnitudes across tasks.
 
-The entire point of training a model on data with a loss function is to get the best combination of weights of the architecture for the given data which understand the pattern across the dimension of the information space captured by the loss function. So, when we train a model on a data with static weights, it is practically analogous to say a school kid to ask him to give his best and leave the rest. 
+## Model Capacity
 
-Now, my intention during training is not to hold hands and pray god that the model optimises the loss across all the loss functions.. It is to enable it to understand the evolution of an individual loss value over epochs and time and enable the model to give preference on slow learning tasks or tasks which are hard to learn.. 
+Training a model aims to find the optimal set of weights that capture patterns in the data through the lens of the loss functions.
 
-Though the formulation and the ideation are close to GradNorm, the intentions are completely different.. GradNorm tries to balance the effect of all the loss functions on the weights and My idea is to enable the model to become more analytical and agressive in its learning. 
+Using static loss weights during training is analogous to telling a student to "just do your best" without guidance.
+
+My intention is not to passively hope the model optimizes all tasks equally, but to enable it to *analyze* the evolution of each loss over epochs and dynamically prioritize slow-learning or hard tasks.
+
+While this idea shares conceptual similarities with GradNorm, the intentions differ:
+
+- **GradNorm** aims to balance the influence of all losses on the model weights.
+- **My approach** seeks to make the model more analytical and *aggressive* in learning by prioritizing difficult tasks dynamically.
+
+---
+
