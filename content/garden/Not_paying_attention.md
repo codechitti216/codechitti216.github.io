@@ -7,12 +7,12 @@ status: "evolving"
 
 # Where is attention usually used? 
 
-In most of the architectures, attention is usually used after the feature extraction after the encoder to make the features rich or in the decoder to understand the output at a more deeper level. 
+In most architectures, attention mechanisms are typically applied after feature extraction by the encoder to enrich the feature representations or within the decoder to gain a deeper understanding of the output sequence.
 
-Chris Evert, one of the most successful tennis legends of all time said.. *"“To me, consistency is the essence of tennis technique. It’s not about hitting winners—it’s about making fewer mistakes.”"*
+Christine Marie Evert, one of tennis’s all-time legends, once said: “To me, consistency is the essence of tennis technique. It’s not about hitting winners... it’s about making fewer mistakes.”
 
-But in reality, a person performs the best when his entire focus is completely on avoiding the errors.. 
+This insight reflects how peak performance often comes from focusing intensely on minimizing errors rather than solely maximizing success.
 
-I hypothesis that adding a small attention layer at the loss calculation would be a really helpful to the training process and will make it more fast, effective and efficient
+Inspired by this, I hypothesize that incorporating a small attention layer directly into the loss calculation stage could significantly improve the training process—making it faster, more effective, and more efficient.
 
-This is still a hunch.. I need to work on this.. formulate it, design the experimental setup.. 
+This is still a working hypothesis. I plan to formalize this idea, design a rigorous experimental setup, and explore its potential.
