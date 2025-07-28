@@ -1,5 +1,5 @@
 ---
-title: "Not paying attention in the right place"
+title: "Paying Attention in the Wrong Place?"
 date: "2025-07-28"
 tags: ["Machine Learning", "Learning Dynamics", "Ideas", "Thoughts"]
 status: "evolving"
