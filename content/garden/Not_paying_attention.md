@@ -9,7 +9,7 @@ status: "evolving"
 
 In most of the architectures, attention is usually used after the feature extraction after the encoder to make the features rich or in the decoder to understand the output at a more deeper level. 
 
-Chris Evert, one of the most successful tennis legends of all time said.. /"“To me, consistency is the essence of tennis technique. It’s not about hitting winners—it’s about making fewer mistakes.”"/
+Chris Evert, one of the most successful tennis legends of all time said.. *"“To me, consistency is the essence of tennis technique. It’s not about hitting winners—it’s about making fewer mistakes.”"*
 
 But in reality, a person performs the best when his entire focus is completely on avoiding the errors.. 
 
