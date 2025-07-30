@@ -2,7 +2,7 @@
 title: "Backtrack: Visual Recovery from Localization Failure in Embodied Navigation"
 date: "2025-07-30"
 tags: ["Embodied AI", "Navigation", "Visual Policies", "Diffusion", "Robustness"]
-status: "sharpening"
+status: "evolving"
 ---
 
 # Visual Navigation Fails When Localization Breaks
