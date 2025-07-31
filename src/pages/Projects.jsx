@@ -4,7 +4,7 @@ import { loadProjectPosts } from '../lib/loadProjects';
 
 export default function Projects() {
   const projects = loadProjectPosts();
-  const allTags = ['All', ...new Set(projects.flatMap(project => project.tags))];
+  const allTags = ['All', ...new Set(projects.flatMap(project => Array.isArray(project.tags) ? project.tags : []))];
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagClick = (tag) => {
@@ -21,7 +21,7 @@ export default function Projects() {
     selectedTags.length === 0
       ? projects
       : projects.filter((project) =>
-          project.tags.some((tag) => selectedTags.includes(tag))
+          Array.isArray(project.tags) && project.tags.some((tag) => selectedTags.includes(tag))
         );
 
   return (
@@ -63,7 +63,7 @@ export default function Projects() {
               {project.excerpt}
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map(tag => (
+              {Array.isArray(project.tags) && project.tags.map(tag => (
                 <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">
                   {tag}
                 </span>

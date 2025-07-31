@@ -19,7 +19,7 @@ function getStatusColor(status) {
 
 export default function Garden() {
   const gardenData = loadGardenPosts();
-  const allTags = ['All', ...new Set(gardenData.flatMap(entry => entry.tags))];
+  const allTags = ['All', ...new Set(gardenData.flatMap(entry => Array.isArray(entry.tags) ? entry.tags : []))];
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagClick = (tag) => {
@@ -36,7 +36,7 @@ export default function Garden() {
     selectedTags.length === 0
       ? gardenData
       : gardenData.filter((entry) =>
-          entry.tags.some((tag) => selectedTags.includes(tag))
+          Array.isArray(entry.tags) && entry.tags.some((tag) => selectedTags.includes(tag))
         );
 
   return (
@@ -85,7 +85,7 @@ export default function Garden() {
               </div>
             </div>
             <div className="flex flex-wrap gap-2 mt-2 mb-4">
-              {entry.tags.map((tag) => (
+              {Array.isArray(entry.tags) && entry.tags.map((tag) => (
                 <span
                   key={tag}
                   className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded"
