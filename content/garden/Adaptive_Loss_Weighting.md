@@ -25,11 +25,11 @@ Humans solve multiple perceptual and reasoning tasks simultaneously—for exampl
 In MTL, we optimize multiple task losses simultaneously:
 
 \[
-\mathcal{L}_{total} = \sum_{t=1}^{T} \lambda_t \mathcal{L}_t
+\mathcal{L}_{\text{total}} = \sum_{t=1}^{T} \lambda_t \, \mathcal{L}_t
 \]
 
-- \( \mathcal{L}_t \) : loss for task \( t \)  
-- \( \lambda_t \) : static weight for task \( t \)
+- \(\mathcal{L}_t\): loss for task \(t\)  
+- \(\lambda_t\): weight for task \(t\)
 
 Traditionally, these weights are:
 
