@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { loadProjectPosts } from '../lib/loadProjects';
-import ReactMarkdown from 'react-markdown';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -11,7 +11,7 @@ export default function ProjectDetail() {
     return (
       <div className="container">
         <h1 className="text-2xl font-bold text-red-600">Project not found</h1>
-        <p className="text-gray-600">No project entry found for “{id}”.</p>
+        <p className="text-gray-600">No project entry found for "{id}".</p>
         <Link to="/projects" className="text-blue-600 hover:underline">Back to Projects</Link>
       </div>
     );
@@ -32,7 +32,7 @@ export default function ProjectDetail() {
           </span>
         ))}
       </div>
-      <ReactMarkdown>{project.content}</ReactMarkdown>
+      <MarkdownRenderer content={project.content} />
       <div className="pt-8 border-t border-gray-200 mt-8">
         <Link to="/projects" className="text-blue-600 hover:underline">Back to Projects</Link>
       </div>

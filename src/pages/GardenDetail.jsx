@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { loadGardenPosts } from '../lib/loadGarden';
-import ReactMarkdown from 'react-markdown';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 export default function GardenDetail() {
   const { id } = useParams();
@@ -11,7 +11,7 @@ export default function GardenDetail() {
     return (
       <div className="container">
         <h1 className="text-2xl font-bold text-red-600">Post not found</h1>
-        <p className="text-gray-600">No garden entry found for “{id}”.</p>
+        <p className="text-gray-600">No garden entry found for "{id}".</p>
       </div>
     );
   }
@@ -28,7 +28,7 @@ export default function GardenDetail() {
         ))}
       </div>
 
-      <ReactMarkdown>{post.content}</ReactMarkdown>
+      <MarkdownRenderer content={post.content} />
     </article>
   );
 }
