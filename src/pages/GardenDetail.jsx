@@ -44,7 +44,7 @@ function ResearchProgress({ post }) {
           <div>
             <div className="text-purple-800 font-medium text-sm mb-1">Exploratory Notes</div>
             <div className="text-purple-700 text-sm">
-              This is a learning journal entry. Use it to explore ideas and insights without the pressure of formal research validation.
+              This is a learning journal entry. I use it to explore ideas and insights without any pressure of formal research validation.
             </div>
           </div>
         </div>
