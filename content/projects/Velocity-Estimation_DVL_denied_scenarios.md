@@ -6,6 +6,8 @@ status: "completed"
 kind: "research"
 published: true
 visibility: "public"
+institution: "IISc Bangalore"
+duration: "June 2025"
 
 # Research Fields
 hypothesis: "Integrating deep learning models, specifically those with memory-augmented architectures, into traditional state estimation frameworks like Kalman filters can significantly improve the accuracy and robustness of AUV navigation, particularly in scenarios with sensor degradation, noise, and data dropouts common in underwater environments."

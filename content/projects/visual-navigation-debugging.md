@@ -4,7 +4,7 @@ date: "2024-12-01"
 status: "Completed"
 tags: ["Visual Navigation", "Transformer", "Deep Learning", "Debugging"]
 institution: "IISc Bangalore"
-duration: "Dec 2024"
+duration: "June 2025"
 ---
 
 # Visual Navigation Agent Debugging
