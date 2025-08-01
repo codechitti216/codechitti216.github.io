@@ -18,10 +18,14 @@ function getStatusColor(status) {
 }
 
 export default function Garden() {
+  console.log('🔍 DEBUG: Garden component rendering');
+  console.log('🔍 DEBUG: About to load garden posts');
   const gardenData = loadGardenPosts();
+  console.log('🔍 DEBUG: Garden data loaded, total posts:', gardenData.length);
   
   // Filter for public posts only
   const publicEntries = gardenData.filter(entry => entry.published === true);
+  console.log('🔍 DEBUG: Public entries filtered:', publicEntries.length);
   
   const allTags = ['All', ...new Set(publicEntries.flatMap(entry => Array.isArray(entry.tags) ? entry.tags : []))];
   const [selectedTags, setSelectedTags] = useState([]);

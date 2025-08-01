@@ -6,16 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Surya G S Chitti - Researcher, Builder, Thinker</title>
     <script>
-      // Early debug: check for CSS link
+      // Early debug: check for CSS link and module loading
+      console.log('🔍 DEBUG: Early debug script loaded');
+      console.log('🔍 DEBUG: Document readyState:', document.readyState);
+      
       window.addEventListener('DOMContentLoaded', function() {
+        console.log('🔍 DEBUG: DOMContentLoaded - checking CSS links');
         var links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
         if (links.length === 0) {
-          console.error('[DEBUG] No CSS <link> found in <head> at DOMContentLoaded');
+          console.error('❌ DEBUG: No CSS <link> found in <head> at DOMContentLoaded');
         } else {
           links.forEach(function(link) {
-            console.log('[DEBUG] CSS <link> found:', link.href);
+            console.log('🔍 DEBUG: CSS <link> found:', link.href);
           });
         }
+        
+        // Check for script tags
+        var scripts = Array.from(document.querySelectorAll('script[type="module"]'));
+        console.log('🔍 DEBUG: Module scripts found:', scripts.length);
+        scripts.forEach(function(script) {
+          console.log('🔍 DEBUG: Module script:', script.src);
+        });
+      });
+      
+      // Track script loading errors
+      window.addEventListener('error', function(e) {
+        console.error('❌ DEBUG: Script loading error:', e);
+        console.error('❌ DEBUG: Error target:', e.target);
+        console.error('❌ DEBUG: Error type:', e.type);
       });
     </script>
     <style>
@@ -38,15 +56,26 @@
     <div id="root"></div>
     <script>
       // GitHub Pages SPA redirect - run after DOM is loaded
+      console.log('🔍 DEBUG: GitHub Pages redirect script loaded');
       document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔍 DEBUG: DOMContentLoaded event fired');
         var l = window.location;
+        console.log('🔍 DEBUG: Current location:', l.href);
+        console.log('🔍 DEBUG: Search params:', l.search);
+        console.log('🔍 DEBUG: Pathname:', l.pathname);
+        
         if (l.search && l.search[1] === '/' ) {
+          console.log('🔍 DEBUG: Redirect condition met, processing redirect');
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
           }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+          console.log('🔍 DEBUG: Decoded search:', decoded);
+          var newUrl = l.pathname.slice(0, -1) + decoded + l.hash;
+          console.log('🔍 DEBUG: New URL:', newUrl);
+          window.history.replaceState(null, null, newUrl);
+          console.log('🔍 DEBUG: History state updated');
+        } else {
+          console.log('🔍 DEBUG: No redirect needed');
         }
       });
     </script>

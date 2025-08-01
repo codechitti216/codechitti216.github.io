@@ -3,11 +3,15 @@ import { useState, useEffect } from 'react';
 const INNER_CIRCLE_PASSWORD = 'research2025'; // In production, this would be an environment variable
 
 export function useInnerCircleAccess() {
+  console.log('🔍 DEBUG: useInnerCircleAccess hook called');
   const [hasAccess, setHasAccess] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
+    console.log('🔍 DEBUG: useInnerCircleAccess useEffect running');
     const access = localStorage.getItem('inner_circle') === 'true';
+    console.log('🔍 DEBUG: localStorage inner_circle value:', localStorage.getItem('inner_circle'));
+    console.log('🔍 DEBUG: Access granted:', access);
     setHasAccess(access);
     setIsChecking(false);
   }, []);

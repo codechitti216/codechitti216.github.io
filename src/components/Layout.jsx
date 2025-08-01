@@ -3,8 +3,11 @@ import { Button } from '@/components/ui/button';
 import { useInnerCircleAccess } from './AccessControl';
 
 const Layout = ({ children }) => {
+  console.log('🔍 DEBUG: Layout component rendering');
   const location = useLocation();
+  console.log('🔍 DEBUG: Layout location:', location.pathname);
   const { hasAccess: isInnerCircle, revokeAccess } = useInnerCircleAccess();
+  console.log('🔍 DEBUG: Inner Circle access:', isInnerCircle);
 
   const navigation = [
     { name: 'Home', href: '/' },

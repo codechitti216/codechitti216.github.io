@@ -11,6 +11,12 @@ import Contact from './pages/Contact';
 import './App.css';
 
 function App() {
+  console.log('🔍 DEBUG: App component rendering');
+  console.log('🔍 DEBUG: Current window.location:', window.location.href);
+  console.log('🔍 DEBUG: Current pathname:', window.location.pathname);
+  console.log('🔍 DEBUG: Current search:', window.location.search);
+  console.log('🔍 DEBUG: Current hash:', window.location.hash);
+  
   return (
     <Router>
       <Layout>

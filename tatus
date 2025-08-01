@@ -1,0 +1,81 @@
+[33m401c05c2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Added Inner Circle Functionality 3.0
+[33m56251aa9[m Added Inner Circle Functionality 2.0
+[33m4df3ccc3[m Added Inner Circle Functionality
+[33mf6e19dfd[m Added Inner Circle Functionality
+[33m0704490c[m Embeddings Understanding added
+[33m953c01a3[m Embeddings Understanding added
+[33mb310a55c[m Embeddings Understanding added
+[33m05dd067b[m Embeddings Understanding added
+[33ma1f758ac[m Embeddings Understanding added
+[33me29bb9d6[m Embeddings Understanding added
+[33md31d6a1e[m Embeddings Understanding added
+[33m71e69d81[m Embeddings Understanding added
+[33m06197878[m Adaptive weights ideation modified
+[33meac43eb9[m Math Rendering Test
+[33m3691d20a[m Math Rendering Test
+[33me32b63b1[m Adaptive weights ideation modified
+[33mc8116949[m Adaptive weights ideation modified
+[33m4d2f87be[m Adaptive weights ideation modified
+[33m1fbede1c[m Update profile picture
+[33m4157e1e6[m Back Track Added
+[33m0111b5a6[m Back Track Added
+[33m0c469ed2[m Update Adaptive_Loss_Weighting.md
+[33mf64de479[m Update Not_paying_attention.md
+[33meff53afa[m Update Not_paying_attention.md
+[33mbf841dae[m Update Not_paying_attention.md
+[33mdc9f1863[m Update Adaptive_Loss_Weighting.md
+[33mb3856d6c[m Create Not_paying_attention.md
+[33mda8e907e[m Create Adaptive_Loss_Weighting.md
+[33m1d98fe38[m Delete content/garden/synthetic-to-real-gap copy.md
+[33m07202550[m Delete content/garden/synthetic-to-real-gap copy 3.md
+[33m6e2bab2f[m Delete content/garden/synthetic-to-real-gap copy 2.md
+[33m5d026210[m Update README.md
+[33m40c0afdd[m Update README.md
+[33m1c26d4fa[m hyperlink highlighted
+[33mddd28cef[m Bio Changed
+[33m0f4ce5f3[m Bio Changed
+[33m63b9867e[m tags system added
+[33m88e071e0[m Status Functionality Added
+[33mdb2bdc94[m Cleanup
+[33m55a6313d[m Cleanup
+[33m1edfb3dc[m Cleanup: remove Tailwind debug bar and debug styles
+[33mf31f5793[m Debug: Add extensive CSS/JS pipeline logging
+[33m879e67f0[m Debug: Add extensive CSS/JS pipeline logging
+[33m5d02e655[m Debug: Add extensive CSS/JS pipeline logging
+[33mcf4e99a4[m Debug: Add extensive CSS/JS pipeline logging
+[33m2764e55c[m Debug: Add extensive CSS/JS pipeline logging
+[33mcfd31605[m Debug: Add extensive CSS/JS pipeline logging
+[33m9022ad86[m Debug: Add extensive CSS/JS pipeline logging
+[33m5c651d90[m Debug: Remove @apply error and add Tailwind utility test div
+[33m3f11fb01[m Debug: Add CSS and JS logs to trace Tailwind and app loading
+[33mb53ef4bf[m Fix: add @ alias for src in Vite config
+[33m85c0239c[m Fix: update PostCSS config for Tailwind v4+
+[33m02ca78a8[m Fix: Add Tailwind CSS setup and config
+[33m522bd71c[m Add .nojekyll to ensure static asset serving on GitHub Pages
+[33m055d6e12[m Fix: Add 404.html and workflow step for SPA routing on GitHub Pages
+[33m32e3cdc4[m Final Sanity Push
+[33m53171f6c[m Fix: force clean deploy for GitHub Pages
+[33m9ed688f7[m Add GitHub Actions workflow for automated GitHub Pages deployment
+[33md8b7cae6[m functionalities improvised
+[33m3dd2fec6[m Sonar Net Example
+[33m2bf7feda[m Sonar Net Example
+[33m2a03f957[m Sonar Net Example
+[33md2d4b3d6[m Sonar Net Example
+[33m3f59dd2f[m Sonar Net Example
+[33m4be9390d[m Projects Dummy Added
+[33m082ffc95[m Clean install: remove lock files and node_modules, fresh npm install
+[33m5e73e075[m Clean install: remove lock files and node_modules, fresh npm install
+[33mc8025c74[m Remove node_modules from repo
+[33m0a7e9faa[m Add .gitignore to exclude node_modules and build artifacts
+[33m33455482[m Fix: dynamic markdown loading, browser compatibility, and dependency conflicts
+[33m0ee9ee21[m Fix dynamic markdown loading and resolve all dependency issues
+[33m30a3c3eb[m dummy push
+[33meded47c7[m dummy push
+[33mcb7859d0[m dummy push
+[33m1cf1f339[m Website Initial Commit
+[33mdef255dc[m Add files via upload
+[33m6f6bd0e0[m Delete main.js
+[33m045ce617[m Delete main.css
+[33m573b52ce[m Update index.html
+[33mb605e76b[m Create index.html
+[33m34e8a71f[m Add files via upload
