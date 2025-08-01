@@ -70,7 +70,7 @@
             return s.replace(/~and~/g, '&')
           }).join('?');
           console.log('🔍 DEBUG: Decoded search:', decoded);
-          var newUrl = l.pathname.slice(0, -1) + decoded + l.hash;
+          var newUrl = '/' + decoded + l.hash;
           console.log('🔍 DEBUG: New URL:', newUrl);
           window.history.replaceState(null, null, newUrl);
           console.log('🔍 DEBUG: History state updated');
