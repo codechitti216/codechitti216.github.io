@@ -70,9 +70,12 @@ const Layout = ({ children }) => {
       <footer className="border-t border-gray-200 mt-16">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="text-center text-sm text-gray-600">
-            <p>© 2025 Surya G S Chitti. Built with React and deployed via Vercel.</p>
+            <p>© 2025 Surya G S Chitti. Built with React and deployed via GitHub Pages.</p>
             <p className="mt-2">
               <span className="italic">A researcher's lab notebook in digital form.</span>
+            </p>
+            <p className="mt-1 text-xs text-gray-400">
+              Version 2.1 - Research Dashboard removed, SPA routing fixed
             </p>
           </div>
         </div>
