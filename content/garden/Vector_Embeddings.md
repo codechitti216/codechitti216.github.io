@@ -1,6 +1,6 @@
 ---
 
-title: "Understanding Embeddings: A First-Person Journey"
+title: "Understanding Embeddings"
 date: "2025-08-01"
 tags: ["Embeddings", "Machine Learning", "Vectors", "Cosine Similarity", "Neural Networks"]
 status: "ongoing"
