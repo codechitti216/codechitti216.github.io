@@ -1,5 +1,3 @@
-Of course. Here is a detailed markdown file, following the structure you've provided, based on the thesis "AI Enabled Precision Navigation for Autonomous Underwater Vehicles (AUVs)".
-
 ---
 title: "Robust AUV Navigation through Hybrid Deep Learning and State Estimation"
 date: "2025-05-28"
