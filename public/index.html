@@ -37,9 +37,10 @@
   <body>
     <div id="root"></div>
     <script>
-      // GitHub Pages SPA redirect
-      (function(l) {
-        if (l.search[1] === '/' ) {
+      // GitHub Pages SPA redirect - run after DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        var l = window.location;
+        if (l.search && l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
           }).join('?');
@@ -47,7 +48,7 @@
               l.pathname.slice(0, -1) + decoded + l.hash
           );
         }
-      }(window.location))
+      });
     </script>
   </body>
 </html> 

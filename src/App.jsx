@@ -21,8 +21,8 @@ function App() {
           <Route path="/garden" element={<Garden />} />
           <Route path="/garden/:id" element={<GardenDetail />} />
           <Route path="/inner-circle" element={<InnerCircle />} />
-        <Route path="/cv" element={<CV />} />
-        <Route path="/contact" element={<Contact />} />
+          <Route path="/cv" element={<CV />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
     </Router>
