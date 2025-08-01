@@ -2,7 +2,19 @@
 title: "Backtrack: Visual Recovery from Localization Failure in Embodied Navigation"
 date: "2025-07-30"
 tags: ["Embodied AI", "Navigation", "Visual Policies", "Diffusion", "Robustness"]
-status: "evolving"
+status: "hypothesis"
+hypothesis: "Diffusion-based policy models can learn to reverse trajectories using only first-person visual input and a keyframe from the last reliable pose, enabling visual recovery from localization failures."
+experiment:
+  defined: false
+  description: null
+  baseline: null
+  metric: null
+  expected_outcome: null
+results:
+  executed: false
+  outcome: null
+  summary: null
+next_action: "Conduct literature survey on visual navigation and diffusion models, then design the Recovery-from-Drift benchmark."
 ---
 
 # Visual Navigation Fails When Localization Breaks

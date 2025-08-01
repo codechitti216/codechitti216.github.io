@@ -1,8 +1,20 @@
 ---
-title: "Paying Attention in the Wrong Place?"
+title: "Not Paying Attention"
 date: "2025-07-28"
-tags: ["Machine Learning", "Learning Dynamics", "Ideas", "Thoughts"]
-status: "evolving"
+tags: ["Attention Mechanisms", "Neural Networks", "Interpretability"]
+status: "hypothesis"
+hypothesis: "Attention mechanisms can fail to capture meaningful patterns when the underlying data distribution shifts or when the model is not properly trained to attend to relevant features."
+experiment:
+  defined: false
+  description: null
+  baseline: null
+  metric: null
+  expected_outcome: null
+results:
+  executed: false
+  outcome: null
+  summary: null
+next_action: "Investigate attention failure modes and design experiments to understand when attention mechanisms break down."
 ---
 
 # Where is attention usually used? 

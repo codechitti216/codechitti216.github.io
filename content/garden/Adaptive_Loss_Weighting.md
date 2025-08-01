@@ -2,7 +2,28 @@
 title: "Handling Task Complexity and Model Capacity in Multi-Task Learning via Adaptive and Context-Aware Loss Weighting"
 date: "2025-07-31"
 tags: ["Multi-Task Learning", "Adaptive Loss", "Task Complexity", "Meta-Learning", "Explorations"]
-status: "ongoing"
+status: "hypothesis"
+published: false
+visibility: "inner-circle"
+hypothesis: "Aggressively upweight slow-learning tasks improves convergence over GradNorm by allowing the model to dynamically select and weight losses based on context rather than just balancing gradients."
+experiment:
+  defined: true
+  description: "Synthetic 2-task regression with scale imbalance; compare baseline vs adaptive weighting with dynamic loss selection."
+  baseline: "GradNorm"
+  metric: "Normalized task loss sum, convergence speed, task-specific performance"
+  expected_outcome: "Faster convergence and lower combined loss through context-aware loss weighting."
+results:
+  executed: false
+  outcome: null
+  summary: null
+next_action: "Implement adaptive weighting with dynamic loss selection and compare on toy dataset."
+evolution:
+  - date: "2025-07-20"
+    note: "Initial hypothesis: Adaptive loss weighting could improve MTL convergence."
+  - date: "2025-07-25"
+    note: "Refined scope to focus on context-aware loss selection beyond GradNorm."
+  - date: "2025-07-31"
+    note: "Defined minimal experiment with synthetic 2-task regression setup."
 ---
 
 # Fundamental Issues in Multi-Task Learning

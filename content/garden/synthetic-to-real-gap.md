@@ -1,8 +1,20 @@
 ---
-title: "Bridging the Synthetic-to-Real Gap in Machine Learning"
-date: "2024-12-15"
-tags: ["Machine Learning", "Computer Vision", "Simulation", "Domain Adaptation"]
-status: "evolving"
+title: "Synthetic-to-Real Gap"
+date: "2025-07-29"
+tags: ["Domain Adaptation", "Simulation", "Transfer Learning", "Robotics"]
+status: "hypothesis"
+hypothesis: "The synthetic-to-real gap can be bridged through systematic domain adaptation techniques that align feature distributions between simulated and real-world data."
+experiment:
+  defined: false
+  description: null
+  baseline: null
+  metric: null
+  expected_outcome: null
+results:
+  executed: false
+  outcome: null
+  summary: null
+next_action: "Review literature on domain adaptation methods and design experiments to test synthetic-to-real transfer."
 ---
 
 # Bridging the Synthetic-to-Real Gap in Machine Learning

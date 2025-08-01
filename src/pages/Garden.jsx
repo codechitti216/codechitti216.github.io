@@ -19,7 +19,11 @@ function getStatusColor(status) {
 
 export default function Garden() {
   const gardenData = loadGardenPosts();
-  const allTags = ['All', ...new Set(gardenData.flatMap(entry => Array.isArray(entry.tags) ? entry.tags : []))];
+  
+  // Filter for public posts only
+  const publicEntries = gardenData.filter(entry => entry.published === true);
+  
+  const allTags = ['All', ...new Set(publicEntries.flatMap(entry => Array.isArray(entry.tags) ? entry.tags : []))];
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagClick = (tag) => {
@@ -34,8 +38,8 @@ export default function Garden() {
 
   const filteredEntries =
     selectedTags.length === 0
-      ? gardenData
-      : gardenData.filter((entry) =>
+      ? publicEntries
+      : publicEntries.filter((entry) =>
           Array.isArray(entry.tags) && entry.tags.some((tag) => selectedTags.includes(tag))
         );
 
@@ -76,12 +80,31 @@ export default function Garden() {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
+                {/* Kind badge */}
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    entry.kind === 'learning' 
+                      ? 'bg-purple-100 text-purple-800' 
+                      : 'bg-blue-100 text-blue-800'
+                  }`}
+                  title={entry.kind}
+                >
+                  {entry.kind === 'learning' ? 'Learning' : 'Research'}
+                </span>
+                
+                {/* Status badge */}
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(entry.status)}`}
                   title={entry.status}
                 >
                   {entry.status}
                 </span>
+                
+                {entry.status === 'archived' && (
+                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                    Archived
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex flex-wrap gap-2 mt-2 mb-4">
