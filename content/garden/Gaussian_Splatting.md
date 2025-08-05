@@ -4,7 +4,7 @@ date: "2025-08-05"
 tags: ["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
 status: "ongoing"
 kind: "learning"
-published: truw
+published: true
 visibility: "public"
 evolution:
   - date: "2025-08-05"
