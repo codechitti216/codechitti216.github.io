@@ -19,7 +19,6 @@ evolution:
     note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
 ---
 
-
 # 🧠 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting
 
 ### 2025 - 08 - 05
