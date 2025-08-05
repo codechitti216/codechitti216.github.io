@@ -1,26 +1,24 @@
 ---
-
 title: "NeRFs and Gaussian Splatting"
 date: "2025-08-05"
-tags: \["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
+tags: ["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
 status: "ongoing"
 kind: "learning"
-published: false
-visibility: "inner-circle"
+published: truw
+visibility: "public"
 evolution:
-
-* date: "2025-08-05"
-  note: "Initial curiosity about rendering and Gaussian Splatting."
-* date: "2025-08-05"
-  note: "Learned what NeRF is and how it uses volume rendering and MLPs."
-* date: "2025-08-05"
-  note: "Understood Gaussian Splatting as explicit, differentiable geometry proxy."
-* date: "2025-08-05"
-  note: "Refined understanding of inference, initialization, and learned geometry."
-* date: "2025-08-05"
-  note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
-
+  - date: "2025-08-05"
+    note: "Initial curiosity about rendering and Gaussian Splatting."
+  - date: "2025-08-05"
+    note: "Learned what NeRF is and how it uses volume rendering and MLPs."
+  - date: "2025-08-05"
+    note: "Understood Gaussian Splatting as explicit, differentiable geometry proxy."
+  - date: "2025-08-05"
+    note: "Refined understanding of inference, initialization, and learned geometry."
+  - date: "2025-08-05"
+    note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
 ---
+
 
 # 🧠 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting
 
