@@ -7,13 +7,13 @@ kind: "learning"
 published: true
 visibility: "public"
 evolution:
-  - date: "2024-12-01"
+  - date: "2024-08-01"
     note: "Initial exploration of word embeddings and their mathematical foundations."
-  - date: "2024-12-15"
+  - date: "2024-08-01"
     note: "Extended to vision embeddings and cross-modal applications."
-  - date: "2025-01-15"
+  - date: "2025-08-01"
     note: "Validated effectiveness through systematic experimentation and comparison."
-  - date: "2025-01-XX"
+  - date: "2025-07-31"
     note: "Led to formal hypothesis about cosine similarity and sparsity - see research post: Investigating Cosine Similarity Robustness with Sparse Embeddings"
 ---
 

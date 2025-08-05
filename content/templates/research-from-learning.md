@@ -15,7 +15,6 @@ experiment:
   baseline: "What you're comparing against"
   metric: "How you'll measure success"
   expected_outcome: "What you expect to find"
-
 results:
   executed: false
   outcome: null

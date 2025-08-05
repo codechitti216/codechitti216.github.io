@@ -13,6 +13,7 @@ export default function Home() {
           className="rounded-full w-32 h-32 object-cover shadow-lg border-4 border-white"
         />
       </div>
+      
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <h1 className="font-serif text-4xl md:text-5xl font-semibold text-gray-900">
@@ -35,6 +36,7 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
       {/* Quick Links */}
       <section className="grid md:grid-cols-3 gap-6">
         <div className="content-card">
@@ -62,21 +64,22 @@ export default function Home() {
         <div className="content-card">
           <h3 className="font-serif text-xl font-semibold mb-3">Connect</h3>
           <div className="space-y-3">
-            <a href="mailto:suryachitti216@gmail.com" className="flex items-center text-gray-700 hover:text-gray-900">
-              <Mail className="h-4 w-4 mr-2" />
-              suryachitti216@gmail.com
+            <a href="mailto:suryachitti216@gmail.com" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
+              <Mail className="h-4 w-4 mr-2 flex-shrink-0" />
+              <span className="truncate">suryachitti216@gmail.com</span>
             </a>
-            <a href="https://github.com/codechitti216" className="flex items-center text-gray-700 hover:text-gray-900">
-              <Github className="h-4 w-4 mr-2" />
-              GitHub
+            <a href="https://github.com/codechitti216" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
+              <Github className="h-4 w-4 mr-2 flex-shrink-0" />
+              <span>GitHub</span>
             </a>
-            <a href="https://linkedin.com/in/surya-g-s-chitti" className="flex items-center text-gray-700 hover:text-gray-900">
-              <Linkedin className="h-4 w-4 mr-2" />
-              LinkedIn
+            <a href="https://linkedin.com/in/surya-g-s-chitti" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
+              <Linkedin className="h-4 w-4 mr-2 flex-shrink-0" />
+              <span>LinkedIn</span>
             </a>
           </div>
         </div>
       </section>
+
       {/* About Section */}
       <section className="prose max-w-none">
         <h2>About Me</h2>
