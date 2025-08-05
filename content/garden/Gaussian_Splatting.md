@@ -1,6 +1,6 @@
 ---
 
-title: "From Rays to Blobs: My Journey into NeRFs and Gaussian Splatting"
+title: "NeRFs and Gaussian Splatting"
 date: "2025-08-05"
 tags: \["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
 status: "ongoing"
