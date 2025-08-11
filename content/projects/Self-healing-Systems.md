@@ -46,7 +46,8 @@ vendor_alignment: "Loosely inspired by how big vendors (e.g., Oracle OCI) do age
 performance_needs: "Near-real-time within a few seconds — enough to see events happen live."
 
 # Deliverables (learning goals)
-deliverables:
+deliverables:ui9l-;[=
+\4l. ]
   - "A working Python simulation of agents + control plane"
   - "Local PostgreSQL setup via Docker"
   - "Simple REST endpoints"

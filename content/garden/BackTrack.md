@@ -31,6 +31,8 @@ Given the agent’s current view and a stored visual reference of the last local
 
 This is not relocalization. This is **learned visual recovery**.
 
+
+
 > Just a hunch for now—still need to do the full literature survey, experiments, and ablations. But this feels like a missing capability in current visual navigation stacks. We’ll know soon enough.
 
 # A New Benchmark: Recovery from Drift
