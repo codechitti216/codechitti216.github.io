@@ -328,8 +328,8 @@ def generate_single_visualizer_multiviews():
 
 <div style="display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1000px; margin: 20px 0;">
   <div style="text-align: center;">
-    <a href="../../public/camera_positions_3d.png" target="_blank">
-      <img src="../../public/camera_positions_3d.png" alt="3D Camera Positions - The Complete Architecture" 
+    <a href="/assets/camera_positions_3d.png" target="_blank">
+      <img src="/assets/camera_positions_3d.png" alt="3D Camera Positions - The Complete Architecture" 
            style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
            transition: transform 0.3s ease, box-shadow 0.3s ease;" 
            onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
@@ -339,8 +339,8 @@ def generate_single_visualizer_multiviews():
   </div>
   
   <div style="text-align: center;">
-    <a href="../../public/camera_positions_3d_with_images.png" target="_blank">
-      <img src="../../public/camera_positions_3d_with_images.png" alt="Camera Positions with Sample Images - The Complete System" 
+    <a href="/assets/camera_positions_3d_with_images.png" target="_blank">
+      <img src="/assets/camera_positions_3d_with_images.png" alt="Camera Positions with Sample Images - The Complete System" 
            style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
            transition: transform 0.3s ease, box-shadow 0.3s ease;" 
            onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
@@ -350,8 +350,8 @@ def generate_single_visualizer_multiviews():
   </div>
   
   <div style="text-align: center;">
-    <a href="../../public/camera_positions_with_perspective_images.png" target="_blank">
-      <img src="../../public/camera_positions_with_perspective_images.png" alt="Perspective Analysis - The Strategic Coverage" 
+    <a href="/assets/camera_positions_with_perspective_images.png" target="_blank">
+      <img src="/assets/camera_positions_with_perspective_images.png" alt="Perspective Analysis - The Strategic Coverage" 
            style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
            transition: transform 0.3s ease, box-shadow 0.3s ease;" 
            onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
@@ -375,36 +375,36 @@ def generate_single_visualizer_multiviews():
 <summary>Top Level Views (Looking Down - 36 views)</summary>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-  <a href="../../public/top_view_000.png" target="_blank">
-    <img src="../../public/top_view_000.png" alt="Top view at 0° rotation" 
+  <a href="/assets/top_view_000.png" target="_blank">
+    <img src="/assets/top_view_000.png" alt="Top view at 0° rotation" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/top_view_009.png" target="_blank">
-    <img src="../../public/top_view_009.png" alt="Top view at 90° rotation" 
+  <a href="/assets/top_view_009.png" target="_blank">
+    <img src="/assets/top_view_009.png" alt="Top view at 90° rotation" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/top_view_018.png" target="_blank">
-    <img src="../../public/top_view_018.png" alt="Top view at 180° rotation" 
+  <a href="/assets/top_view_018.png" target="_blank">
+    <img src="/assets/top_view_018.png" alt="Top view at 180° rotation" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/top_view_027.png" target="_blank">
-    <img src="../../public/top_view_027.png" alt="Top view at 270° rotation" 
+  <a href="/assets/top_view_027.png" target="_blank">
+    <img src="/assets/top_view_027.png" alt="Top view at 270° rotation" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/top_view_035.png" target="_blank">
-    <img src="../../public/top_view_035.png" alt="Top view at 350° rotation" 
+  <a href="/assets/top_view_035.png" target="_blank">
+    <img src="/assets/top_view_035.png" alt="Top view at 350° rotation" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
@@ -420,36 +420,36 @@ def generate_single_visualizer_multiviews():
 <summary>Normal Level Views (Eye Level - 36 views)</summary>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-  <a href="../../public/normal_view_000.png" target="_blank">
-    <img src="../../public/normal_view_000.png" alt="Normal view front-right angle" 
+  <a href="/assets/normal_view_000.png" target="_blank">
+    <img src="/assets/normal_view_000.png" alt="Normal view front-right angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/normal_view_009.png" target="_blank">
-    <img src="../../public/normal_view_009.png" alt="Normal view right-back angle" 
+  <a href="/assets/normal_view_009.png" target="_blank">
+    <img src="/assets/normal_view_009.png" alt="Normal view right-back angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/normal_view_018.png" target="_blank">
-    <img src="../../public/normal_view_018.png" alt="Normal view back-left angle" 
+  <a href="/assets/normal_view_018.png" target="_blank">
+    <img src="/assets/normal_view_018.png" alt="Normal view back-left angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/normal_view_027.png" target="_blank">
-    <img src="../../public/normal_view_027.png" alt="Normal view left-front angle" 
+  <a href="/assets/normal_view_027.png" target="_blank">
+    <img src="/assets/normal_view_027.png" alt="Normal view left-front angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/normal_view_035.png" target="_blank">
-    <img src="../../public/normal_view_035.png" alt="Normal view near-front angle" 
+  <a href="/assets/normal_view_035.png" target="_blank">
+    <img src="/assets/normal_view_035.png" alt="Normal view near-front angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
@@ -465,36 +465,36 @@ def generate_single_visualizer_multiviews():
 <summary>Bottom Level Views (Looking Up - 36 views)</summary>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-  <a href="../../public/bottom_view_000.png" target="_blank">
-    <img src="../../public/bottom_view_000.png" alt="Bottom view from front angle" 
+  <a href="/assets/bottom_view_000.png" target="_blank">
+    <img src="/assets/bottom_view_000.png" alt="Bottom view from front angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/bottom_view_009.png" target="_blank">
-    <img src="../../public/bottom_view_009.png" alt="Bottom view from right angle" 
+  <a href="/assets/bottom_view_009.png" target="_blank">
+    <img src="/assets/bottom_view_009.png" alt="Bottom view from right angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/bottom_view_018.png" target="_blank">
-    <img src="../../public/bottom_view_018.png" alt="Bottom view from back angle" 
+  <a href="/assets/bottom_view_018.png" target="_blank">
+    <img src="/assets/bottom_view_018.png" alt="Bottom view from back angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/bottom_view_027.png" target="_blank">
-    <img src="../../public/bottom_view_027.png" alt="Bottom view from left angle" 
+  <a href="/assets/bottom_view_027.png" target="_blank">
+    <img src="/assets/bottom_view_027.png" alt="Bottom view from left angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
   </a>
-  <a href="../../public/bottom_view_035.png" target="_blank">
-    <img src="../../public/bottom_view_035.png" alt="Bottom view from front-right angle" 
+  <a href="/assets/bottom_view_035.png" target="_blank">
+    <img src="/assets/bottom_view_035.png" alt="Bottom view from front-right angle" 
          style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
          transition: transform 0.2s ease, box-shadow 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
@@ -595,71 +595,71 @@ final_positions = [
 <summary>Training Progress Plots (Epoch 1-10)</summary>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
-  <a href="../../public/training_plots_epoch_0001.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0001.png" alt="Training plots at epoch 1" 
+  <a href="/assets/training_plots_epoch_0001.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0001.png" alt="Training plots at epoch 1" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0002.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0002.png" alt="Training plots at epoch 2" 
+  <a href="/assets/training_plots_epoch_0002.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0002.png" alt="Training plots at epoch 2" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0003.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0003.png" alt="Training plots at epoch 3" 
+  <a href="/assets/training_plots_epoch_0003.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0003.png" alt="Training plots at epoch 3" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0004.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0004.png" alt="Training plots at epoch 4" 
+  <a href="/assets/training_plots_epoch_0004.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0004.png" alt="Training plots at epoch 4" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0005.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0005.png" alt="Training plots at epoch 5" 
+  <a href="/assets/training_plots_epoch_0005.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0005.png" alt="Training plots at epoch 5" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0006.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0006.png" alt="Training plots at epoch 6" 
+  <a href="/assets/training_plots_epoch_0006.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0006.png" alt="Training plots at epoch 6" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0007.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0007.png" alt="Training plots at epoch 7" 
+  <a href="/assets/training_plots_epoch_0007.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0007.png" alt="Training plots at epoch 7" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0008.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0008.png" alt="Training plots at epoch 8" 
+  <a href="/assets/training_plots_epoch_0008.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0008.png" alt="Training plots at epoch 8" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0009.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0009.png" alt="Training plots at epoch 9" 
+  <a href="/assets/training_plots_epoch_0009.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0009.png" alt="Training plots at epoch 9" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/training_plots_epoch_0010.png" target="_blank">
-    <img src="../../public/training_plots_epoch_0010.png" alt="Training plots at epoch 10" 
+  <a href="/assets/training_plots_epoch_0010.png" target="_blank">
+    <img src="/assets/training_plots_epoch_0010.png" alt="Training plots at epoch 10" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
@@ -677,71 +677,71 @@ final_positions = [
 <summary>3D Gaussian Snapshots (Epoch 1-10)</summary>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
-  <a href="../../public/gaussian_3d_epoch_0001.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0001.png" alt="3D Gaussian rendering at epoch 1" 
+  <a href="/assets/gaussian_3d_epoch_0001.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0001.png" alt="3D Gaussian rendering at epoch 1" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0002.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0002.png" alt="3D Gaussian rendering at epoch 2" 
+  <a href="/assets/gaussian_3d_epoch_0002.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0002.png" alt="3D Gaussian rendering at epoch 2" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0003.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0003.png" alt="3D Gaussian rendering at epoch 3" 
+  <a href="/assets/gaussian_3d_epoch_0003.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0003.png" alt="3D Gaussian rendering at epoch 3" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0004.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0004.png" alt="3D Gaussian rendering at epoch 4" 
+  <a href="/assets/gaussian_3d_epoch_0004.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0004.png" alt="3D Gaussian rendering at epoch 4" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0005.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0005.png" alt="3D Gaussian rendering at epoch 5" 
+  <a href="/assets/gaussian_3d_epoch_0005.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0005.png" alt="3D Gaussian rendering at epoch 5" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0006.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0006.png" alt="3D Gaussian rendering at epoch 6" 
+  <a href="/assets/gaussian_3d_epoch_0006.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0006.png" alt="3D Gaussian rendering at epoch 6" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0007.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0007.png" alt="3D Gaussian rendering at epoch 7" 
+  <a href="/assets/gaussian_3d_epoch_0007.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0007.png" alt="3D Gaussian rendering at epoch 7" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0008.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0008.png" alt="3D Gaussian rendering at epoch 8" 
+  <a href="/assets/gaussian_3d_epoch_0008.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0008.png" alt="3D Gaussian rendering at epoch 8" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0009.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0009.png" alt="3D Gaussian rendering at epoch 9" 
+  <a href="/assets/gaussian_3d_epoch_0009.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0009.png" alt="3D Gaussian rendering at epoch 9" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
          onmouseout="this.style.transform='scale(1)';">
   </a>
-  <a href="../../public/gaussian_3d_epoch_0010.png" target="_blank">
-    <img src="../../public/gaussian_3d_epoch_0010.png" alt="3D Gaussian rendering at epoch 10" 
+  <a href="/assets/gaussian_3d_epoch_0010.png" target="_blank">
+    <img src="/assets/gaussian_3d_epoch_0010.png" alt="3D Gaussian rendering at epoch 10" 
          style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
          transition: transform 0.2s ease;" 
          onmouseover="this.style.transform='scale(1.03)';" 
@@ -760,7 +760,7 @@ final_positions = [
 
 <div style="text-align: center; margin: 20px 0;">
   <video width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" controls>
-    <source src="../../public/Gaussian Evolution.mp4" type="video/mp4">
+    <source src="/assets/Gaussian Evolution.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -900,7 +900,7 @@ tqdm>=4.62.0          # Progress tracking
 
 **Data Structure Organization:**
 ```
-../../public/
+/assets/
 ├── top_view_000.png           # Top-level orbital views (36 files)
 ├── normal_view_000.png        # Eye-level orbital views (36 files)
 ├── bottom_view_000.png        # Bottom-level orbital views (36 files)
