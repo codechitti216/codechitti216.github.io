@@ -326,19 +326,42 @@ def generate_single_visualizer_multiviews():
 
 ### Critical Camera Position Visualizations
 
-![3D Camera Positions - The Complete Architecture](../../public/assets/camera_positions_3d.png)
+<div style="display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1000px; margin: 20px 0;">
+  <div style="text-align: center;">
+    <a href="../../public/assets/camera_positions_3d.png" target="_blank">
+      <img src="../../public/assets/camera_positions_3d.png" alt="3D Camera Positions - The Complete Architecture" 
+           style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
+           transition: transform 0.3s ease, box-shadow 0.3s ease;" 
+           onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+    </a>
+    <p><strong>The Multi-View Foundation</strong>: 108 camera positions in perfect orbital symmetry - this is the geometric backbone that makes Gaussian Splatting possible.</p>
+  </div>
+  
+  <div style="text-align: center;">
+    <a href="../../public/assets/camera_positions_3d_with_images.png" target="_blank">
+      <img src="../../public/assets/camera_positions_3d_with_images.png" alt="Camera Positions with Sample Images - The Complete System" 
+           style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
+           transition: transform 0.3s ease, box-shadow 0.3s ease;" 
+           onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+    </a>
+    <p><strong>The Vision-Geometry Connection</strong>: See how each 3D camera position produces a specific 2D view - this mapping is what the Gaussians must learn to reproduce.</p>
+  </div>
+  
+  <div style="text-align: center;">
+    <a href="../../public/assets/camera_positions_with_perspective_images.png" target="_blank">
+      <img src="../../public/assets/camera_positions_with_perspective_images.png" alt="Perspective Analysis - The Strategic Coverage" 
+           style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px; 
+           transition: transform 0.3s ease, box-shadow 0.3s ease;" 
+           onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+    </a>
+    <p><strong>The Perspective Strategy</strong>: Top-down view showing how 108 cameras provide complete angular coverage - no blind spots, maximum information density.</p>
+  </div>
+</div>
 
-**The Multi-View Foundation**: 108 camera positions in perfect orbital symmetry - this is the geometric backbone that makes Gaussian Splatting possible.
-
-![Camera Positions with Sample Images - The Complete System](../../public/assets/camera_positions_3d_with_images.png)
-
-**The Vision-Geometry Connection**: See how each 3D camera position produces a specific 2D view - this mapping is what the Gaussians must learn to reproduce.
-
-![Perspective Analysis - The Strategic Coverage](../../public/assets/camera_positions_with_perspective_images.png)
-
-**The Perspective Strategy**: Top-down view showing how 108 cameras provide complete angular coverage - no blind spots, maximum information density.
-
-> **🚨 WHY THESE 3 IMAGES ARE EVERYTHING:**
+> **WHY THESE 3 IMAGES ARE CRITICAL:**
 > 
 > 1. **Image #1** shows the **3D geometric foundation** - how cameras are positioned in space
 > 2. **Image #2** reveals the **vision-geometry mapping** - how 3D positions create 2D views  
@@ -349,39 +372,135 @@ def generate_single_visualizer_multiviews():
 ### Sample Multi-View Images
 
 <details>
-<summary>📷 Top Level Views (Looking Down - 36 views)</summary>
+<summary>Top Level Views (Looking Down - 36 views)</summary>
 
-![Top view at 0° rotation](../../public/assets/top_view_000.png)
-![Top view at 90° rotation](../../public/assets/top_view_009.png)
-![Top view at 180° rotation](../../public/assets/top_view_018.png)
-![Top view at 270° rotation](../../public/assets/top_view_027.png)
-![Top view at 350° rotation](../../public/assets/top_view_035.png)
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+  <a href="../../public/assets/top_view_000.png" target="_blank">
+    <img src="../../public/assets/top_view_000.png" alt="Top view at 0° rotation" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/top_view_009.png" target="_blank">
+    <img src="../../public/assets/top_view_009.png" alt="Top view at 90° rotation" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/top_view_018.png" target="_blank">
+    <img src="../../public/assets/top_view_018.png" alt="Top view at 180° rotation" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/top_view_027.png" target="_blank">
+    <img src="../../public/assets/top_view_027.png" alt="Top view at 270° rotation" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/top_view_035.png" target="_blank">
+    <img src="../../public/assets/top_view_035.png" alt="Top view at 350° rotation" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+</div>
 
 *Representative samples from 36 top-level views showing the cube from above at different rotational angles*
 
 </details>
 
 <details>
-<summary>📷 Normal Level Views (Eye Level - 36 views)</summary>
+<summary>Normal Level Views (Eye Level - 36 views)</summary>
 
-![Normal view front-right angle](../../public/assets/normal_view_000.png)
-![Normal view right-back angle](../../public/assets/normal_view_009.png)
-![Normal view back-left angle](../../public/assets/normal_view_018.png)
-![Normal view left-front angle](../../public/assets/normal_view_027.png)
-![Normal view near-front angle](../../public/assets/normal_view_035.png)
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+  <a href="../../public/assets/normal_view_000.png" target="_blank">
+    <img src="../../public/assets/normal_view_000.png" alt="Normal view front-right angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/normal_view_009.png" target="_blank">
+    <img src="../../public/assets/normal_view_009.png" alt="Normal view right-back angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/normal_view_018.png" target="_blank">
+    <img src="../../public/assets/normal_view_018.png" alt="Normal view back-left angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/normal_view_027.png" target="_blank">
+    <img src="../../public/assets/normal_view_027.png" alt="Normal view left-front angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/normal_view_035.png" target="_blank">
+    <img src="../../public/assets/normal_view_035.png" alt="Normal view near-front angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+</div>
 
 *Representative samples from 36 eye-level views capturing 2-3 cube faces simultaneously*
 
 </details>
 
 <details>
-<summary>📷 Bottom Level Views (Looking Up - 36 views)</summary>
+<summary>Bottom Level Views (Looking Up - 36 views)</summary>
 
-![Bottom view from front angle](../../public/assets/bottom_view_000.png)
-![Bottom view from right angle](../../public/assets/bottom_view_009.png)
-![Bottom view from back angle](../../public/assets/bottom_view_018.png)
-![Bottom view from left angle](../../public/assets/bottom_view_027.png)
-![Bottom view from front-right angle](../../public/assets/bottom_view_035.png)
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+  <a href="../../public/assets/bottom_view_000.png" target="_blank">
+    <img src="../../public/assets/bottom_view_000.png" alt="Bottom view from front angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/bottom_view_009.png" target="_blank">
+    <img src="../../public/assets/bottom_view_009.png" alt="Bottom view from right angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/bottom_view_018.png" target="_blank">
+    <img src="../../public/assets/bottom_view_018.png" alt="Bottom view from back angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/bottom_view_027.png" target="_blank">
+    <img src="../../public/assets/bottom_view_027.png" alt="Bottom view from left angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+  <a href="../../public/assets/bottom_view_035.png" target="_blank">
+    <img src="../../public/assets/bottom_view_035.png" alt="Bottom view from front-right angle" 
+         style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; 
+         transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+  </a>
+</div>
 
 *Representative samples from 36 bottom-level views showing the cube from below at various angles*
 
@@ -473,18 +592,80 @@ final_positions = [
 ### Training Evolution Visualization
 
 <details>
-<summary>📈 Training Progress Plots (Epoch 1-10)</summary>
+<summary>Training Progress Plots (Epoch 1-10)</summary>
 
-![Training plots at epoch 1](../../public/assets/training_plots_epoch_0001.png)
-![Training plots at epoch 2](../../public/assets/training_plots_epoch_0002.png)
-![Training plots at epoch 3](../../public/assets/training_plots_epoch_0003.png)
-![Training plots at epoch 4](../../public/assets/training_plots_epoch_0004.png)
-![Training plots at epoch 5](../../public/assets/training_plots_epoch_0005.png)
-![Training plots at epoch 6](../../public/assets/training_plots_epoch_0006.png)
-![Training plots at epoch 7](../../public/assets/training_plots_epoch_0007.png)
-![Training plots at epoch 8](../../public/assets/training_plots_epoch_0008.png)
-![Training plots at epoch 9](../../public/assets/training_plots_epoch_0009.png)
-![Training plots at epoch 10](../../public/assets/training_plots_epoch_0010.png)
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
+  <a href="../../public/assets/training_plots_epoch_0001.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0001.png" alt="Training plots at epoch 1" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0002.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0002.png" alt="Training plots at epoch 2" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0003.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0003.png" alt="Training plots at epoch 3" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0004.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0004.png" alt="Training plots at epoch 4" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0005.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0005.png" alt="Training plots at epoch 5" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0006.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0006.png" alt="Training plots at epoch 6" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0007.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0007.png" alt="Training plots at epoch 7" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0008.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0008.png" alt="Training plots at epoch 8" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0009.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0009.png" alt="Training plots at epoch 9" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/training_plots_epoch_0010.png" target="_blank">
+    <img src="../../public/assets/training_plots_epoch_0010.png" alt="Training plots at epoch 10" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+</div>
 
 *Progressive training evolution: Early epochs show initial Gaussian placement and basic color learning, mid-training reveals position stabilization and color distinction, while late epochs demonstrate fine-tuning and convergence.*
 
@@ -493,18 +674,80 @@ final_positions = [
 ### 3D Gaussian Evolution: Training Snapshots
 
 <details>
-<summary>🎯 3D Gaussian Snapshots (Epoch 1-10)</summary>
+<summary>3D Gaussian Snapshots (Epoch 1-10)</summary>
 
-![3D Gaussian rendering at epoch 1](../../public/assets/gaussian_3d_epoch_0001.png)
-![3D Gaussian rendering at epoch 2](../../public/assets/gaussian_3d_epoch_0002.png)
-![3D Gaussian rendering at epoch 3](../../public/assets/gaussian_3d_epoch_0003.png)
-![3D Gaussian rendering at epoch 4](../../public/assets/gaussian_3d_epoch_0004.png)
-![3D Gaussian rendering at epoch 5](../../public/assets/gaussian_3d_epoch_0005.png)
-![3D Gaussian rendering at epoch 6](../../public/assets/gaussian_3d_epoch_0006.png)
-![3D Gaussian rendering at epoch 7](../../public/assets/gaussian_3d_epoch_0007.png)
-![3D Gaussian rendering at epoch 8](../../public/assets/gaussian_3d_epoch_0008.png)
-![3D Gaussian rendering at epoch 9](../../public/assets/gaussian_3d_epoch_0009.png)
-![3D Gaussian rendering at epoch 10](../../public/assets/gaussian_3d_epoch_0010.png)
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
+  <a href="../../public/assets/gaussian_3d_epoch_0001.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0001.png" alt="3D Gaussian rendering at epoch 1" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0002.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0002.png" alt="3D Gaussian rendering at epoch 2" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0003.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0003.png" alt="3D Gaussian rendering at epoch 3" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0004.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0004.png" alt="3D Gaussian rendering at epoch 4" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0005.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0005.png" alt="3D Gaussian rendering at epoch 5" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0006.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0006.png" alt="3D Gaussian rendering at epoch 6" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0007.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0007.png" alt="3D Gaussian rendering at epoch 7" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0008.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0008.png" alt="3D Gaussian rendering at epoch 8" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0009.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0009.png" alt="3D Gaussian rendering at epoch 9" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+  <a href="../../public/assets/gaussian_3d_epoch_0010.png" target="_blank">
+    <img src="../../public/assets/gaussian_3d_epoch_0010.png" alt="3D Gaussian rendering at epoch 10" 
+         style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; 
+         transition: transform 0.2s ease;" 
+         onmouseover="this.style.transform='scale(1.03)';" 
+         onmouseout="this.style.transform='scale(1)';">
+  </a>
+</div>
 
 *Evolution from random Gaussian positions (epoch 1) to structured cube-like geometry (epoch 10). Notice how Gaussians migrate and cluster to form face-like arrangements.*
 
@@ -513,12 +756,14 @@ final_positions = [
 ### Training Evolution Video
 
 <details>
-<summary>🎥 Complete Training Evolution Animation</summary>
+<summary>Complete Training Evolution Animation</summary>
 
-<video width="100%" controls>
-  <source src="../../public/assets/Gaussian Evolution.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<div style="text-align: center; margin: 20px 0;">
+  <video width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" controls>
+    <source src="../../public/assets/Gaussian Evolution.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 *10-epoch animation showing how Gaussians move and adapt during training*
 
@@ -656,23 +901,29 @@ tqdm>=4.62.0          # Progress tracking
 **Data Structure Organization:**
 ```
 ../../public/assets/
-├── images/                    # 108 rendered views
-│   ├── top_view_000.png      # Top-level orbital views
-│   ├── normal_view_000.png   # Eye-level orbital views  
-│   └── bottom_view_000.png   # Bottom-level orbital views
+├── top_view_000.png           # Top-level orbital views (36 files)
+├── normal_view_000.png        # Eye-level orbital views (36 files)
+├── bottom_view_000.png        # Bottom-level orbital views (36 files)
+├── camera_positions_3d.png    # 3D camera visualization
+├── camera_positions_3d_with_images.png  # Camera-image mapping
+├── camera_positions_with_perspective_images.png  # Coverage analysis
+├── training_plots_epoch_*.png  # Loss and metric plots (10 files)
+├── gaussian_3d_epoch_*.png    # 3D Gaussian snapshots (10 files)
+├── Gaussian Evolution.mp4     # Training animation
+└── final_gaussian_params.json # Final optimized parameters
+
+Source Data Structure:
+multiviews/
+├── images/                    # Original 108 rendered views
 ├── cameras/                   # Camera parameter JSONs
-│   ├── top_view_000.json     # Intrinsic/extrinsic matrices
-│   └── ...
 └── camera_positions_*.png     # Visualization plots
 
 gaussian_training/
-├── training_plots_epoch_*.png  # Loss and metric plots
-├── gaussian_3d_epoch_*.png    # 3D Gaussian snapshots
-├── Gaussian Evolution.mp4     # Training animation
-├── training_history.json      # Complete training log
-└── final_gaussian_params.json # Final optimized parameters
-
-final_all_colors_mesh.ply      # Ground truth Rubik's cube mesh
+├── training_plots_epoch_*.png  # Training evolution plots
+├── gaussian_3d_epoch_*.png    # 3D visualization snapshots
+├── Gaussian Evolution.mp4     # Complete training video
+├── training_history.json      # Detailed training logs
+└── final_gaussian_params.json # Final learned parameters
 ```
 
 ---
