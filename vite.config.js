@@ -20,5 +20,9 @@ export default defineConfig({
         manualChunks: undefined,
       },
     },
+    // Ensure public directory files are copied correctly
+    copyPublicDir: true,
   },
+  // Explicitly configure public directory
+  publicDir: 'public',
 });
