@@ -76,12 +76,7 @@ If I put the ring in a locked box before sending it, that’s HTTPS (encryption)
 The knots at each end of the thread are the sockets — they’re the connection points that let me attach the message to the TCP line.
 
 <div style="text-align: center; margin: 20px 0;">
-  <video width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" controls preload="metadata">
-    <source src="assets/http-analogy.mp4" type="video/mp4">
-    <p>Your browser does not support the video tag. 
-      <a href="assets/http-analogy.mp4" target="_blank">Download the video</a>
-    </p>
-  </video>
+  <img src="assets/http_analogy.gif" alt="HTTP Analogy Animation" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
 </div>
 
 <p style="text-align: center;">
