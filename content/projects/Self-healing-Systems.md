@@ -204,13 +204,12 @@ The key learning here: on Windows, "kill" does not mean "free." The OS has its o
 
 -   **Visual aids (placeholders)**
 
-<div style="text-align: center; margin: 20px 0;">
+  <div style="text-align: center; margin: 20px 0;">
   <img src="assets/ALLservices_Overview.png" alt="All Services Overview" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
-</div>
-<p style="text-align: center;">
-  <em>All Services Overview</em>
-</p>
-* * * * *
+  </div>
+  <p style="text-align: center;">
+    <em>All Services Overview</em>
+  </p>
 
 ### 18th August
 
