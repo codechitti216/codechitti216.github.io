@@ -119,6 +119,15 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
 ```
 Lets strip the jargon here. This creates a socket object.. the knot at point A, ready to be tied to something... but haven’t tied it anywhere yet.
 
+### Naming the agents (Wreck‑It Ralph)
+
+I’m naming the two agents after the film because the metaphor fits perfectly:
+
+- Ralph (the Villain): the chaos injector who “wrecks” services on purpose so I can study failures.
+- Felix (Fix‑It Felix Jr.): the recovery planner/executor who tries to “fix” things under constraints.
+
+From here on I’ll refer to them as Ralph (injector) and Felix (recoverer).
+
 
 
 ### 15th August
@@ -129,14 +138,9 @@ I installed Docker Desktop, got LM Studio running locally, and managed to pull Q
 
 The demo only worked in fragments, never fully. At that point, I realised the cost of fighting with Docker was higher than the learning value I was getting. I decided to shelve Docker for now.
 
-The key insight for today: I am not actually excited about containers. What excites me is seeing agents make decisions under stress --- Villain versus Felix. The more I try to polish the plumbing, the less energy I have for building the actual arena.
+The key insight for today: I am not actually excited about containers. What excites me is seeing agents make decisions under stress --- Ralph versus Felix. The more I try to polish the plumbing, the less energy I have for building the actual arena.
 
-- **Visual aid (placeholder)**
-  - [Figure: "Docking failure" scratchpad --- Docker whale bumping into a locked LM Studio icon. Caption: "When the dock isn't the destination."] [TODO: add doodle/gif]
-
----
-
-### 17th August
+### 16th August
 
 After dropping Docker, I turned my focus to the arena itself. The goal was to stand up five simple services and create a tool that could reliably start, stop, and kill them. I also wanted to redirect logs to files and add a health check so I could confirm when a service was really alive.
 
@@ -202,7 +206,7 @@ By the end of the day, I had five services that could boot, report health, and l
 
 The key learning here: on Windows, "kill" does not mean "free." The OS has its own habits. Instead of fighting it, I added visibility (PID + cmdline) and a user path to resolve conflicts.
 
--   **Visual aids (placeholders)**
+-   **Visual aids**
 
   <div style="text-align: center; margin: 20px 0;">
   <img src="assets/ALLservices_Overview.png" alt="All Services Overview" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
@@ -211,7 +215,7 @@ The key learning here: on Windows, "kill" does not mean "free." The OS has its o
     <em>All Services Overview</em>
   </p>
 
-### 18th August
+### 17th August
 
 Today I tackled something subtle but important: the "two brains" problem. Initially, both the monitor and the dashboard had their own `SuperTool`. That meant two different places were trying to be the source of truth. The monitor said one thing, the dashboard said another. It felt like watching two scoreboards showing different results for the same game.
 
@@ -262,7 +266,7 @@ The big insight for today: truth must live in one place. Everything else --- das
   <img src="assets/one_brain.png" alt="One Brain Architecture" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
 </div>
 <p style="text-align: center;">
-  <em>One Brain Architecture</em>
+  <em></em>
 </p>
 
 
@@ -274,7 +278,7 @@ The big insight for today: truth must live in one place. Everything else --- das
 </p>
 * * * * *
 
-### 19th August
+### 18th August
 
 By today, the arena was behaving much more consistently, so I shifted my focus to ergonomics --- making the operator's job clearer.
 
@@ -301,8 +305,26 @@ The lesson today: consistency beats cleverness. A clear explanation of *why* a b
 
 ### What's Next
 
-Now that the plumbing is stable, the next step is the exciting part: bringing in the agents. I want to integrate an LLM or an agentic framework (LangChain/AutoGen) so that Villain can inject failures on a policy, and Felix can plan recoveries under constraints.
+Now that the plumbing is stable, the next step is the exciting part: bringing in the agents. I want to integrate an LLM or an agentic framework (LangChain/AutoGen) so that Ralph can inject failures on a policy, and Felix can plan recoveries under constraints
 
 This means I need to define an observation/action schema, choose what rewards matter (mean-time-to-recovery, containment, collateral damage), and wire the control API to accept agent commands.
 
 The insight here is that the plumbing is only the minimum viable arena. The real research is in the loops --- imperfect telemetry, delayed effects, and trade-offs. That's where Felix earns the name.
+
+---
+
+### RL + OATS Plan (Design Notes)
+
+- **Plan**
+  - Use OATS (Orthogonal Array Testing Strategy) to drive Ralph’s failure campaigns: coverage‑efficient selection of {service, failure_type, intensity, timing} without brute‑forcing the entire space.
+  - Train/evaluate Felix with a simple RL loop (start rule‑based → graduate to a learned policy) to minimize MTTR and collateral damage. Reward ≈ negative time‑to‑recovery with penalties for cascading failures and excessive actions.
+
+- **Action**
+  - Yet to be implemented.
+
+
+- **Outcome**
+  - Pending. The above harnesses will be wired in once I finalize the observation schema and action space.
+
+- **Insight**
+  - OATS will keep Ralph’s space lean but rich; RL will give Felix a principled way to trade speed vs safety. The arena is ready; the game theory begins next.
