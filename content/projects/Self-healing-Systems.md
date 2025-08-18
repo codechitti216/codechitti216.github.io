@@ -260,7 +260,7 @@ One funny bug I ran into: I kept clicking "Recover" on a dead service. Nothing h
 
 The big insight for today: truth must live in one place. Everything else --- dashboards, logs, buttons --- are just windows into that truth.
 
--   **Visual aids (placeholders)**
+-   **Visual aids**
 
 <div style="text-align: center; margin: 20px 0;">
   <img src="assets/one_brain.png" alt="One Brain Architecture" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
