@@ -204,6 +204,12 @@ def _find_process_on_port(self, port):
 
 By the end of the day, I had five services that could boot, report health, and log to disk. When a port was stuck, I could see exactly who was holding it.
 
+But five isolated services aren’t enough — they only come alive when connected. Here’s the dependency graph that defines my little arena:
+
+<div style="text-align: center; margin: 20px 0;"> <img src="assets/Service Dependency Graph.png" alt="Service Dependency Graph" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" /> </div> <p style="text-align: center;"><em>Service Dependency Graph</em></p>
+
+This graph matters because when Ralph kills one service, the effects ripple through its dependents. That’s the raw material Felix has to work with.
+
 The key learning here: on Windows, "kill" does not mean "free." The OS has its own habits. Instead of fighting it, I added visibility (PID + cmdline) and a user path to resolve conflicts.
 
 -   **Visual aids**
