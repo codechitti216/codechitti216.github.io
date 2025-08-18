@@ -264,18 +264,10 @@ The big insight for today: truth must live in one place. Everything else --- das
 
 <div style="text-align: center; margin: 20px 0;">
   <img src="assets/one_brain.png" alt="One Brain Architecture" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
-  </div>
-  <p style="text-align: center;">
-    <em></em>
-  </p>
 
 
     <div style="text-align: center; margin: 20px 0;">
     <video src="assets/chaos_dashboard_2025-08-18T17-14-16-440Z.webm" controls width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;"></video>
-  </div>
-  <p style="text-align: center;">
-    <em>Chaos Dashboard Demo</em>
-  </p>
 * * * * *
 
 ### 18th August
