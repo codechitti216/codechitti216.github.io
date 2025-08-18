@@ -260,14 +260,23 @@ One funny bug I ran into: I kept clicking "Recover" on a dead service. Nothing h
 
 The big insight for today: truth must live in one place. Everything else --- dashboards, logs, buttons --- are just windows into that truth.
 
--   **Visual aids**
+- **Visual aids**
 
 <div style="text-align: center; margin: 20px 0;">
-  <img src="assets/one_brain.png" alt="One Brain Architecture" width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" />
+  <img src="assets/one_brain.png" 
+       alt="One Brain Architecture" 
+       style="max-width: 800px; width: 100%; border: 2px solid #ddd; border-radius: 8px;" />
+  <p><em>One Brain Architecture</em></p>
+</div>
 
+<div style="text-align: center; margin: 20px 0;">
+  <video src="assets/chaos_dashboard_2025-08-18T17-14-16-440Z.webm" 
+         controls 
+         style="max-width: 800px; width: 100%; border: 2px solid #ddd; border-radius: 8px;">
+  </video>
+  <p><em>Chaos Dashboard Demo</em></p>
+</div>
 
-    <div style="text-align: center; margin: 20px 0;">
-    <video src="assets/chaos_dashboard_2025-08-18T17-14-16-440Z.webm" controls width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;"></video>
 * * * * *
 
 ### 18th August
