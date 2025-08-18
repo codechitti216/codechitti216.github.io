@@ -320,7 +320,8 @@ The insight here is that the plumbing is only the minimum viable arena. The real
   - Train/evaluate Felix with a simple RL loop (start rule‑based → graduate to a learned policy) to minimize MTTR and collateral damage. Reward ≈ negative time‑to‑recovery with penalties for cascading failures and excessive actions.
 
 - **Action**
-  - Yet to be implemented.
+
+> Yet to be implemented.
 
 
 - **Outcome**
