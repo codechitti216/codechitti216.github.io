@@ -2,6 +2,8 @@
 title: "FUNdamentals"
 date: "2025-01-XX"
 tags: ["research", "converted"]
+published: true
+visibility: "public"
 ---
 
 ## What is this? 
