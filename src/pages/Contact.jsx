@@ -7,8 +7,8 @@ const Contact = () => {
       <div className="text-center space-y-4">
         <h1 className="font-serif text-4xl font-semibold text-gray-900">Contact</h1>
         <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-          I'm always interested in discussing research opportunities, collaborations, 
-          or simply connecting with fellow researchers and builders.
+          Perception Engineer · MBRDI. Open to discussing autonomous systems, 
+          perception research, and collaboration opportunities.
         </p>
       </div>
 
@@ -123,10 +123,10 @@ const Contact = () => {
             <div>
               <h3 className="font-serif text-lg font-medium text-gray-900 mb-3">Application Domains</h3>
               <ul className="space-y-2">
+                <li>Autonomous Driving & E2E Navigation</li>
+                <li>Closed-Loop Autonomy Systems</li>
                 <li>Underwater Robotics and Navigation</li>
                 <li>Autonomous Systems and UAVs</li>
-                <li>Civil Engineering and Structural Analysis</li>
-                <li>Information Retrieval and QA Systems</li>
                 <li>Real-world ML Deployment</li>
               </ul>
             </div>

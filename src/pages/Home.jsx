@@ -20,10 +20,10 @@ export default function Home() {
           Surya G S Chitti
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-          Machine Perception Engineer with a mathematics core. Currently building robust autonomy stacks across modalities.
+          E2E Autonomous Navigation · MBRDI · Perception & Closed-Loop Autonomy
         </p>
         <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-          Researcher | Engineer 
+          Building full-stack perception systems and driving the transition from open-loop to closed-loop autonomy.
         </p>
         <div className="flex justify-center space-x-4 pt-4">
           <Button asChild>
@@ -40,9 +40,9 @@ export default function Home() {
       {/* Quick Links */}
       <section className="grid md:grid-cols-3 gap-6">
         <div className="content-card">
-          <h3 className="font-serif text-xl font-semibold mb-3">Current Focus</h3>
+          <h3 className="font-serif text-xl font-semibold mb-3">Current Focus · MBRDI</h3>
           <p className="text-gray-700 mb-4">
-            Wrapped up my work at IISc Bangalore in the field of underwater perception and navigation.
+            Perception systems for E2E autonomous navigation. Working on the transition from open-loop to closed-loop autonomy.
           </p>
           <Link to="/projects" className="academic-link">
             Explore current work →
@@ -84,7 +84,7 @@ export default function Home() {
       <section className="prose max-w-none">
         <h2>About Me</h2>
         <p>
-          I am a Machine Perception Engineer with a strong mathematical foundation. I am completing my education at BITS Pilani with a Major in Mathematics and a Minor in Computing and Intelligence.
+          Perception Engineer at Mercedes-Benz Research & Development India (MBRDI), working on E2E autonomous navigation systems. I have a strong mathematical foundation from BITS Pilani with a Major in Mathematics and a Minor in Computing and Intelligence.
         </p>
         <p>
           I am still exploring Robotics, Perception and AI. From classical computer vision projects to designing deep learning architectures. I have experience in building robust autonomy stacks across various sensor modalities including vision, LiDAR, and DVL (Doppler Velocity Logger).

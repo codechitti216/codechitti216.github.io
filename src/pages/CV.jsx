@@ -17,7 +17,7 @@ const CV = () => {
       <div className="text-center space-y-4">
         <h1 className="font-serif text-4xl font-semibold text-gray-900">Curriculum Vitae</h1>
         <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-          Machine Perception Engineer with a mathematics core—building robust autonomy stacks across sensor modalities.
+          Perception Engineer · MBRDI — E2E Autonomous Navigation & Closed-Loop Systems
         </p>
         <Button onClick={handleDownload} size="lg">
           <Download className="mr-2 h-4 w-4" />
@@ -62,10 +62,10 @@ const CV = () => {
       <div className="content-card">
         <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-4">TL;DR</h2>
         <p className="text-gray-700 leading-relaxed">
-          Machine Perception Engineer with a mathematics core—building robust autonomy stacks across sensor 
-          modalities (vision, LiDAR, DVL), debugging perception-planning failures in ViNT/GNM agents, and 
-          deploying dual-stage estimation under DRDO constraints. Focused on bridging synthetic-to-real gaps 
-          and pushing beyond benchmarks toward real-world field robustness.
+          Perception Engineer at Mercedes-Benz Research & Development India (MBRDI) working on End-to-End Autonomous Navigation—perception modules and 
+          closed-loop autonomy. Previously shipped navigation systems to DRDO from IISc Bangalore. 
+          Experience across vision, LiDAR, and DVL modalities. Focused on bridging synthetic-to-real gaps 
+          and deploying field-robust autonomy stacks.
         </p>
       </div>
 
@@ -75,8 +75,18 @@ const CV = () => {
         
         <div className="space-y-6">
           <div>
+            <h3 className="font-serif text-xl font-medium text-gray-900">Perception Engineer</h3>
+            <p className="text-gray-600 mb-2">Mercedes-Benz Research & Development India (MBRDI) • Jul 2025 – Present</p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <li><strong>E2E Autonomous Navigation:</strong> Building perception modules for the end-to-end autonomous driving stack.</li>
+              <li><strong>Closed-Loop Autonomy:</strong> Driving the transition from open-loop to closed-loop systems.</li>
+              <li><strong>Full-Stack Perception:</strong> Working across the perception pipeline from sensor input to decision-making interfaces.</li>
+            </ul>
+          </div>
+
+          <div>
             <h3 className="font-serif text-xl font-medium text-gray-900">Research Assistant Intern</h3>
-            <p className="text-gray-600 mb-2">AI & Robotics Lab, IISc Bangalore • Jan 2025 – Present</p>
+            <p className="text-gray-600 mb-2">AI & Robotics Lab, IISc Bangalore • Jan 2025 – Jun 2025</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li><strong>Precision Navigation:</strong> Built dual-stage ML pipelines using multiple neural network variants for DVL beam and velocity estimation. Achieved RMSE of 0.05 m/s on deployment sets; production-ready and field-tested.</li>
               <li><strong>Deployment:</strong> Sole author of the full codebase delivered to DRDO; designed with modular instrumentation and internal log tracing for maintainability.</li>
