@@ -50,7 +50,7 @@ export default function Garden() {
   return (
     <main className="container">
       <h1 className="text-2xl font-bold mb-4">Garden</h1>
-      <p className="mb-6">Thoughts and ideas in progress.</p>
+      <p className="mb-6">A growing record of my ideas, experiments, fundamentals I revisit, and new directions I explore as AI continues to evolve.</p>
 
       {/* Tag Filter */}
       <div className="mb-6 flex flex-wrap gap-2">
