@@ -1,0 +1,386 @@
+{
+  "generated_at": "2026-03-02",
+  "stale_cutoff": "2025-07-05",
+  "items": [
+    {
+      "file": "content/projects/Self-healing-Systems.md",
+      "section": "projects",
+      "title": "Agentic Multi-Node Operations Simulation on a Laptop",
+      "frontmatter_date": "2025-08-09",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": true,
+      "math_depth_signals": [
+        "loss"
+      ],
+      "custom_arch_signals": [
+        "architecture",
+        "from scratch"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "- [ ] Write Python HTTP servers and clients from scratch",
+        "- [ ] Handle JSON request/response cycles flawlessly",
+        "- [ ] Debug network communication issues",
+        "- [ ] Understand the foundation for all microservice communication",
+        "- HTTP/HTTPS is the format and security of the object you\u2019re sending.",
+        "- TCP is the reliable physical link carrying it.",
+        "- IP is the addressing system that tells you where the ends of the thread are.",
+        "- Sockets are the attachment points at each end where the message enters or leaves the TCP connection.",
+        "- Ralph (the Villain): the chaos injector who \u201cwrecks\u201d services on purpose so I can study failures.",
+        "- Felix (Fix\u2011It Felix Jr.): the recovery planner/executor who tries to \u201cfix\u201d things under constraints.",
+        "After dropping Docker, I turned my focus to the arena itself. The goal was to stand up five simple services and create a tool that could reliably start, stop, and kill them. I also wanted to redirect logs to files and add a health check so I could confirm when a service was really alive.",
+        "-   **Visual aids**",
+        "- **Visual aids**",
+        "* * * * *",
+        "By today, the arena was behaving much more consistently, so I shifted my focus to ergonomics --- making the operator's job clearer.",
+        "* * * * *",
+        "- **Plan**",
+        "- Use OATS (Orthogonal Array Testing Strategy) to drive Ralph\u2019s failure campaigns: coverage\u2011efficient selection of {service, failure_type, intensity, timing} without brute\u2011forcing the entire space.",
+        "- Train/evaluate Felix with a simple RL loop (start rule\u2011based \u2192 graduate to a learned policy) to minimize MTTR and collateral damage. Reward \u2248 negative time\u2011to\u2011recovery with penalties for cascading failures and excessive actions.",
+        "- **Action**"
+      ]
+    },
+    {
+      "file": "content/projects/Velocity-Estimation_DVL_denied_scenarios.md",
+      "section": "projects",
+      "title": "Robust AUV Navigation through Hybrid Deep Learning and State Estimation",
+      "frontmatter_date": "2025-05-28",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": true,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "loss",
+        "kalman",
+        "state estimation",
+        "rmse",
+        "mse"
+      ],
+      "custom_arch_signals": [
+        "architecture",
+        "custom",
+        "module",
+        "evaluation",
+        "dataset"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "1.  **Dataset Curation:** Utilized the A-Kit dataset, featuring real-world AUV operational data, including synchronized DVL, IMU, and ground-truth position information. The data includes a variety of maneuvers (straight lines, turns, depth changes) and environmental conditions.",
+        "2.  **Stage 1 - Velocity Estimation Models:**",
+        "*   **Architectures:** Four models were selected to cover a range of complexity and approaches:",
+        "*   **MLP:** A simple feedforward network as a baseline.",
+        "*   **LSTM:** A standard recurrent neural network for capturing temporal sequences.",
+        "*   **FAN (Fourier Analysis Network):** A hybrid model to test the importance of frequency-domain features.",
+        "*   **MNN (Memory Neural Network):** A custom architecture with an explicit memory module designed to handle long-term dependencies and abrupt changes (like sensor dropouts).",
+        "*   **Task:** Each model was trained to predict the velocity of each of the four DVL beams based on a history of IMU data and the (potentially incomplete) DVL data.",
+        "3.  **Stage 2 - Position Estimation Framework:**",
+        "*   **Filters:** The two most common filters for non-linear systems were used:",
+        "*   **EKF (Extended Kalman Filter):** Uses linearization to handle non-linear dynamics.",
+        "*   **UKF (Unscented Kalman Filter):** Uses a deterministic sampling approach (the unscented transform) which is generally more accurate for highly non-linear systems.",
+        "*   **Coupling Strategies:**",
+        "*   **Loosely Coupled:** The deep learning model first calculates a final velocity vector, which is then used as a single measurement update for the filter.",
+        "*   **Tightly Coupled:** The filter directly uses the *individual beam predictions* from the deep learning model as separate measurements, allowing it to better manage failures of single beams.",
+        "*   The **MNN**'s explicit memory would allow it to better \"remember\" the vehicle's state before a sensor dropout, leading to more stable predictions during the outage.",
+        "*   The **UKF**'s superior handling of non-linearities would be crucial for accurately modeling the AUV's complex 6-DOF dynamics.",
+        "*   The **Tightly Coupled** approach would provide the filter with more granular information, enabling it to gracefully handle the loss of one or two beams without discarding the entire DVL measurement, thus improving overall robustness.",
+        "The experimental outcomes, detailed in Chapters 4 and 5 of the thesis, confirmed the expectations with high fidelity. The MNN model demonstrated the most robust performance in the velocity prediction stage, and the tightly coupled UKF integration strategy consistently yielded the lowest position error. The final trajectory plots visually and quantitatively showed a significant reduction in drift compared to all other configurations, especially during and after periods of simulated sensor failure.",
+        "1.  **Real-Time Implementation:** The current system operates in batch mode. The next step is to optimize the MNN model (e.g., through pruning, quantization) and the filter implementation for real-time, onboard execution on an AUV's flight computer."
+      ]
+    },
+    {
+      "file": "content/projects/visual-navigation-debugging.md",
+      "section": "projects",
+      "title": "Visual Navigation Agent Debugging",
+      "frontmatter_date": "2024-12-01",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": true,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "transformer",
+        "attention"
+      ],
+      "custom_arch_signals": [
+        "architecture"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "- **Failure Mode Analysis**: Identified specific failure patterns in ViNT/GNM agents",
+        "- **Root Cause**: Traced planning errors to goal occlusion and unstable attention heads",
+        "- **Transformer Issues**: Documented attention mechanism instabilities",
+        "- **Planning Errors**: Characterized relationship between visual occlusion and navigation failures",
+        "- Analyzed transformer-based visual navigation models",
+        "- Focused on ViNT (Visual Navigation Transformer) and GNM architectures",
+        "- Systematic debugging of planning failures",
+        "- Goal occlusion significantly impacts navigation performance",
+        "- Attention heads show instability under certain visual conditions",
+        "- Planning errors correlate with specific visual patterns",
+        "- Systematic failure case analysis",
+        "- Attention visualization and analysis",
+        "- Performance correlation studies",
+        "- Visual Navigation Transformers (ViNT)",
+        "- Goal-conditioned Navigation Models (GNM)",
+        "- Attention mechanism analysis",
+        "- Deep learning debugging tools"
+      ]
+    },
+    {
+      "file": "content/garden/Adaptive_Loss_Weighting.md",
+      "section": "garden",
+      "title": "Handling Task Complexity and Model Capacity in Multi-Task Learning via Adaptive and Context-Aware Loss Weighting",
+      "frontmatter_date": "2025-07-31",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "loss",
+        "optimization",
+        "gradient"
+      ],
+      "custom_arch_signals": [
+        "module"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "- Object detection",
+        "- Depth estimation",
+        "- Obstacle avoidance",
+        "- Trajectory planning",
+        "- $\\mathcal{L}_t$: loss for task $t$",
+        "- $\\lambda_t$: weight for task $t$",
+        "- **Equal** (naive averaging)",
+        "- **Static but unequal** (manual tuning)",
+        "- **Occasionally dynamic**, as in:",
+        "- **GradNorm (Chen et al., 2018)** \u2013 balances gradient magnitudes to prevent easy tasks from dominating.",
+        "- **DWA (Liu et al., 2019)** \u2013 uses the relative *rate of loss decay* to prioritize slower tasks.",
+        "- I realized **GradNorm and DWA already partially do this** (loss-based or gradient-based reweighting).",
+        "- To **go beyond existing methods**, the model must *understand*:",
+        "1. **What each loss function represents** (its \u201cgeometry\u201d of comparison in data space).",
+        "2. **Which loss is most meaningful** for the current feature state or training context.",
+        "3. **How to adaptively select and weight losses**, rather than blindly combining all.",
+        "- A model can maintain a **library of candidate loss functions** relevant to its tasks.",
+        "- Each loss can be represented in a **learned embedding space** capturing:",
+        "- Gradient patterns",
+        "- Sensitivity to feature distributions"
+      ]
+    },
+    {
+      "file": "content/garden/BackTrack.md",
+      "section": "garden",
+      "title": "Backtrack: Visual Recovery from Localization Failure in Embodied Navigation",
+      "frontmatter_date": "2025-07-30",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "loss",
+        "diffusion",
+        "slam",
+        "ablation"
+      ],
+      "custom_arch_signals": [
+        "pipeline",
+        "ablation",
+        "benchmark"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "- Na\u00efve dead-reckoning with control history",
+        "- Relocalization + replanning baselines",
+        "- Feedforward goal-conditioned policies (ViNT, NoMaD)",
+        "- **ViNT** assumes a known goal image and requires stable conditioning throughout. It cannot self-correct once drifted.",
+        "- **NoMaD** uses trajectory-level diffusion priors, but only in the *forward* direction. It is trained to denoise actions toward static goals, not reverse or recover from unseen deviations."
+      ]
+    },
+    {
+      "file": "content/garden/Cosine_Similarity_Sparsity.md",
+      "section": "garden",
+      "title": "Investigating Cosine Similarity Robustness with Sparse Embeddings",
+      "frontmatter_date": "2025-01-XX",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [],
+      "custom_arch_signals": [
+        "evaluation"
+      ],
+      "lacks_deep_math_or_custom_arch": true,
+      "claims": [
+        "1. Create pairs of synthetic vectors with controlled sparsity patterns",
+        "2. Define ground-truth semantic alignment scores",
+        "3. Vary sparsity levels systematically (0%, 25%, 50%, 75%, 90%)",
+        "1. **Standard cosine similarity**",
+        "2. **Masked cosine** (ignore zero dimensions)",
+        "3. **Learned scaling** (learn optimal weights per dimension)",
+        "- Spearman correlation between similarity score and ground-truth alignment",
+        "- Analysis under different sparsity regimes"
+      ]
+    },
+    {
+      "file": "content/garden/FUNdamentals.md",
+      "section": "garden",
+      "title": "FUNdamentals",
+      "frontmatter_date": "2025-09-11",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [],
+      "custom_arch_signals": [],
+      "lacks_deep_math_or_custom_arch": true,
+      "claims": []
+    },
+    {
+      "file": "content/garden/Gaussian_Splatting.md",
+      "section": "garden",
+      "title": "NeRFs and Gaussian Splatting",
+      "frontmatter_date": "2025-08-05",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": true,
+      "math_depth_signals": [
+        "loss",
+        "optimization",
+        "gradient",
+        "iou",
+        "mse"
+      ],
+      "custom_arch_signals": [
+        "architecture",
+        "novel",
+        "pipeline",
+        "dataset"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "* \u201cWhat is rendering?\u201d",
+        "* \u201cIsn\u2019t it like meshing \u2014 turning raw data into something visual?\u201d",
+        "* \u201cWhat\u2019s this \u2018view direction\u2019? And how does radiance relate to pixels?\u201d",
+        "* \u274c Thought radiance and density were grayscale-like.",
+        "* \u274c Thought each pixel had its own function or model.",
+        "* \u2705 Understood rays: camera \u2192 pixel \u2192 cast ray \u2192 sample 3D points.",
+        "* \u274c Thought of batches as one-ray-per-batch.",
+        "* Starts with a **sparse point cloud** (e.g. from COLMAP)",
+        "* Initializes **one Gaussian per point**",
+        "* Each Gaussian has:",
+        "* Position (\u03bc)",
+        "* Covariance (\u03a3)",
+        "* Color",
+        "* Opacity",
+        "* View-dependent features (e.g. Spherical Harmonics)",
+        "* All of these are **trainable parameters**",
+        "* Rendering = **project and alpha-blend** Gaussians",
+        "* Backpropagate image loss to update Gaussian parameters \u2014 including positions!",
+        "* \u274c Thought the point cloud stayed fixed.",
+        "* \u274c Thought inference required re-initializing Gaussians."
+      ]
+    },
+    {
+      "file": "content/garden/Not_paying_attention.md",
+      "section": "garden",
+      "title": "Not Paying Attention",
+      "frontmatter_date": "2025-07-28",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "loss",
+        "attention"
+      ],
+      "custom_arch_signals": [
+        "architecture"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": []
+    },
+    {
+      "file": "content/garden/synthetic-to-real-gap.md",
+      "section": "garden",
+      "title": "Synthetic-to-Real Gap",
+      "frontmatter_date": "2025-07-29",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "transformer",
+        "attention"
+      ],
+      "custom_arch_signals": [
+        "architecture"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "- **Lighting Models**: Synthetic underwater lighting often lacks the complexity of real underwater environments",
+        "- **Turbidity Simulation**: Particle effects and water clarity variations are difficult to model accurately",
+        "- **Sensor Characteristics**: Real sonar and camera sensors have noise patterns that are hard to replicate",
+        "- **Attention Mechanism Brittleness**: Transformers trained on clean synthetic data struggle with real-world visual noise",
+        "- **Goal Occlusion**: Real environments have dynamic occlusions not well represented in training data",
+        "- **Temporal Consistency**: Real-world navigation requires handling of temporal inconsistencies",
+        "- **Progressive Domain Transfer**: Gradually introducing real-world characteristics",
+        "- **Adversarial Training**: Using GANs to bridge domain gaps",
+        "- **Multi-domain Training**: Training on both synthetic and real data simultaneously",
+        "### Improved Simulation",
+        "- **Physics-based Rendering**: More accurate light transport models",
+        "- **Sensor Modeling**: Incorporating realistic sensor noise and characteristics",
+        "- **Environmental Complexity**: Adding real-world environmental variations",
+        "- **Uncertainty Quantification**: Models that can express confidence in predictions",
+        "- **Multi-modal Fusion**: Combining multiple sensor modalities for robustness",
+        "- **Attention Regularization**: Preventing over-reliance on specific visual features",
+        "1. **Hybrid Training Paradigms**: Leveraging synthetic data for initial training and real data for fine-tuning",
+        "2. **Meta-learning Approaches**: Learning to adapt quickly to new domains",
+        "3. **Causal Modeling**: Understanding the underlying causal relationships that transfer across domains",
+        "## Personal Research Focus"
+      ]
+    },
+    {
+      "file": "content/garden/Vector_Embeddings.md",
+      "section": "garden",
+      "title": "Understanding Embeddings",
+      "frontmatter_date": "2025-08-01",
+      "last_modified": "2026-02-28 14:34",
+      "stale_8m_by_frontmatter": false,
+      "stale_8m_by_modified": false,
+      "api_wrapper_risk": false,
+      "math_depth_signals": [
+        "loss",
+        "iou"
+      ],
+      "custom_arch_signals": [
+        "architecture",
+        "from scratch",
+        "pipeline"
+      ],
+      "lacks_deep_math_or_custom_arch": false,
+      "claims": [
+        "* **Grades** are like embeddings\u2014they compress a student\u2019s entire semester into a few numbers that reflect proficiency.",
+        "* For products, an embedding could be the combination of its history, user interactions, and metadata.",
+        "* **Vectors**: Each entity becomes a point in a high-dimensional space.",
+        "* **Distances and angles** matter. I understood that:",
+        "* Dot product measures alignment.",
+        "* Cosine similarity normalizes magnitude and focuses on **direction**.",
+        "* **Supervised learning**: Like classifying images\u2014backprop guides the embedding to separate classes.",
+        "* **Unsupervised**: Like clustering sentences by topic without labels.",
+        "* **Self-supervised**: This was a revelation.",
+        "I built up the mental image:",
+        "* We start with a **learnable matrix**\u2014one row per word.",
+        "* Each word is mapped to a vector.",
+        "* For \"The cat sat on...\", we average or pool the vectors and predict the next word (e.g., \"mat\").",
+        "I know about word embeddings and image similarity, but haven\u2019t built many end-to-end systems yet. Still need to apply this knowledge hands-on.",
+        "* I wasn\u2019t fully clear on how loss propagates through embedding tables at first.",
+        "* I initially underestimated the sophistication of self-supervised tasks.",
+        "* I haven\u2019t yet explored multi-modal embeddings (like combining vision and text).",
+        "* \ud83d\udd2c Implement **contrastive loss** and **triplet loss** training from scratch.",
+        "* \ud83d\udd0d Explore **BERT-style masked language models** to see embeddings evolve in deep stacks.",
+        "* \ud83d\udcda Read up on **representation collapse**, **embedding regularization**, and **center loss**."
+      ]
+    }
+  ]
+}

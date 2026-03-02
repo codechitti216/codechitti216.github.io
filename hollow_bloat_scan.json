@@ -1,0 +1,802 @@
+{
+  "results": [
+    {
+      "file": "content/garden/Adaptive_Loss_Weighting.md",
+      "trust_me": [],
+      "black_box": [],
+      "pm_cliche": [],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          128,
+          "- Clear next steps for research formalization:"
+        ]
+      ],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/BackTrack.md",
+      "trust_me": [
+        [
+          4,
+          "tags: [\"Embodied AI\", \"Navigation\", \"Visual Policies\", \"Diffusion\", \"Robustness\"]"
+        ],
+        [
+          6,
+          "hypothesis: \"Diffusion-based policy models can learn to reverse trajectories using only first-person visual input and a keyframe from the last reliable pose, enabling visual recovery from localization failures.\""
+        ],
+        [
+          40,
+          "We propose a new task: **Recovery-from-Drift**. An agent is executing a planned trajectory using localization, then loses its pose estimation after N steps. The goal is to return to the last reliable pose using visual memory only."
+        ],
+        [
+          42,
+          "We evaluate Backtrack in AI2-THOR and Habitat environments, showing it outperforms:"
+        ],
+        [
+          66,
+          "This isn\u2019t a detour\u2014it\u2019s the resilience layer today's navigation stacks lack."
+        ]
+      ],
+      "black_box": [
+        [
+          4,
+          "tags: [\"Embodied AI\", \"Navigation\", \"Visual Policies\", \"Diffusion\", \"Robustness\"]"
+        ],
+        [
+          6,
+          "hypothesis: \"Diffusion-based policy models can learn to reverse trajectories using only first-person visual input and a keyframe from the last reliable pose, enabling visual recovery from localization failures.\""
+        ],
+        [
+          17,
+          "next_action: \"Conduct literature survey on visual navigation and diffusion models, then design the Recovery-from-Drift benchmark.\""
+        ],
+        [
+          28,
+          "We introduce **Backtrack**, a diffusion-based policy model trained to reverse trajectories using only first-person visual input and a keyframe from the last reliable pose."
+        ],
+        [
+          45,
+          "- Feedforward goal-conditioned policies (ViNT, NoMaD)"
+        ],
+        [
+          49,
+          "# Why ViNT and NoMaD Break"
+        ],
+        [
+          51,
+          "ViNT and NoMaD represent the state of the art in visual navigation\u2014but only under idealized forward-conditioned assumptions."
+        ],
+        [
+          53,
+          "- **ViNT** assumes a known goal image and requires stable conditioning throughout. It cannot self-correct once drifted."
+        ],
+        [
+          54,
+          "- **NoMaD** uses trajectory-level diffusion priors, but only in the *forward* direction. It is trained to denoise actions toward static goals, not reverse or recover from unseen deviations."
+        ]
+      ],
+      "pm_cliche": [],
+      "missing_execution": false,
+      "missing_execution_lines": [],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/Cosine_Similarity_Sparsity.md",
+      "trust_me": [
+        [
+          2,
+          "title: \"Investigating Cosine Similarity Robustness with Sparse Embeddings\""
+        ],
+        [
+          42,
+          "This observation suggests that standard cosine similarity might not be robust when dealing with sparse embeddings, which are common in practice."
+        ]
+      ],
+      "black_box": [
+        [
+          11,
+          "hypothesis: \"Embedding similarity measured via cosine degrades when sparse (zero-heavy) dimensions are present, and a reweighting or alternative metric (e.g., adjusted cosine with masking) restores alignment fidelity.\""
+        ],
+        [
+          14,
+          "description: \"Construct pairs of synthetic vectors with controlled sparsity and known semantic alignment. Compare standard cosine, masked cosine, and learned scaling on their ability to reflect true similarity.\""
+        ],
+        [
+          16,
+          "metric: \"Spearman correlation between similarity score and ground-truth alignment under varying sparsity levels\""
+        ],
+        [
+          24,
+          "next_action: \"Implement synthetic vector generation with controlled sparsity patterns and define ground-truth alignment metrics.\""
+        ],
+        [
+          40,
+          "> \"Cosine similarity may fail when embeddings have zeros across some dimensions, even if they share strong alignment in others.\""
+        ],
+        [
+          46,
+          "**Hypothesis**: Embedding similarity measured via cosine degrades when sparse (zero-heavy) dimensions are present, and a reweighting or alternative metric (e.g., adjusted cosine with masking) restores alignment fidelity."
+        ],
+        [
+          52,
+          "2. Define ground-truth semantic alignment scores"
+        ],
+        [
+          61,
+          "- Spearman correlation between similarity score and ground-truth alignment"
+        ],
+        [
+          66,
+          "Masked cosine similarity should maintain higher correlation with ground-truth alignment compared to standard cosine when sparsity is present."
+        ]
+      ],
+      "pm_cliche": [
+        [
+          42,
+          "This observation suggests that standard cosine similarity might not be robust when dealing with sparse embeddings, which are common in practice."
+        ],
+        [
+          53,
+          "3. Vary sparsity levels systematically (0%, 25%, 50%, 75%, 90%)"
+        ]
+      ],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          72,
+          "## Next Steps"
+        ]
+      ],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/FUNdamentals.md",
+      "trust_me": [],
+      "black_box": [],
+      "pm_cliche": [
+        [
+          13,
+          "The \"About this book\" section looks very promising. They claim to teach us the concepts, the context and the code! Thats just perfect!"
+        ]
+      ],
+      "missing_execution": false,
+      "missing_execution_lines": [],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/Gaussian_Splatting.md",
+      "trust_me": [
+        [
+          244,
+          "- **Sparse feature matching** across 3-room images \u2192 unreliable geometric constraints"
+        ],
+        [
+          565,
+          "0.2632112205028534,    # Epoch 2: Rapid initial improvement"
+        ],
+        [
+          845,
+          "With 108 viewing angles, the model had to maintain consistency across vastly different perspectives. The successful convergence demonstrates the robustness of the splatting representation for complex geometric reconstruction."
+        ],
+        [
+          942,
+          "- **3 feature-rich images** can outperform many sparse ones"
+        ]
+      ],
+      "black_box": [
+        [
+          2,
+          "title: \"NeRFs and Gaussian Splatting\""
+        ],
+        [
+          4,
+          "tags: [\"NeRF\", \"Gaussian Splatting\", \"View Synthesis\", \"Rendering\", \"MLP\", \"3D Perception\"]"
+        ],
+        [
+          11,
+          "note: \"Initial curiosity about rendering and Gaussian Splatting.\""
+        ],
+        [
+          13,
+          "note: \"Learned what NeRF is and how it uses volume rendering and MLPs.\""
+        ],
+        [
+          15,
+          "note: \"Understood Gaussian Splatting as explicit, differentiable geometry proxy.\""
+        ],
+        [
+          19,
+          "note: \"Confirmed Gaussian Splatting as a train-once, render-fast paradigm.\""
+        ],
+        [
+          22,
+          "# \ud83e\udde0 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting"
+        ],
+        [
+          28,
+          "**Prompted by curiosity**, I asked: \u201cWhat is Gaussian Splatting?\u201d All I knew was that it was some rendering method involving point clouds."
+        ],
+        [
+          32,
+          "I realized that to understand Gaussian Splatting, I first needed to understand NeRF \u2014 which I barely knew existed."
+        ],
+        [
+          40,
+          "## \ud83d\udd0d Encountering NeRF"
+        ],
+        [
+          42,
+          "What I first learned: NeRF is **not a geometry model**, but a **neural function** that maps 3D coordinates and viewing directions to color and density."
+        ],
+        [
+          49,
+          "\u2705 Realized it\u2019s one MLP shared across the scene."
+        ],
+        [
+          54,
+          "> Sample 3D points on a ray \u2192 pass (x, d) into MLP \u2192 integrate color + transmittance \u2192 predict pixel RGB \u2192 compare to ground truth \u2192 backprop through the whole ray."
+        ],
+        [
+          58,
+          "> \u201cNeRF is a learned, differentiable form of volumetric projection.\u201d"
+        ],
+        [
+          65,
+          "## \ud83e\udd2f Turning to Gaussian Splatting"
+        ],
+        [
+          69,
+          "> \u201cIf NeRF learns a function, what does Gaussian Splatting do?\u201d"
+        ],
+        [
+          102,
+          "|                | NeRF                          | Gaussian Splatting                      |"
+        ],
+        [
+          104,
+          "| Representation | Implicit (MLP function)       | Explicit (trainable 3D Gaussians)       |"
+        ],
+        [
+          111,
+          "> \u201cNeRF learns how to simulate light transport.\u201d"
+        ],
+        [
+          112,
+          "> \u201cGaussian Splatting learns to be seen.\u201d"
+        ],
+        [
+          120,
+          "> \u201cGaussian Splatting is not about learning a rendering function \u2014 it *is* the rendering structure.\u201d \u2705 Yes."
+        ],
+        [
+          127,
+          "* How occlusion is handled explicitly in splatting vs via density in NeRF"
+        ],
+        [
+          134,
+          "* \u2705 Volume rendering via NeRF\u2019s sampling \u2192 function \u2192 integration pipeline"
+        ],
+        [
+          136,
+          "* \u2705 Trade-offs: NeRF is expressive but slow; GS is fast and modular"
+        ],
+        [
+          142,
+          "How two different paradigms \u2014 **NeRFs** and **Gaussian Splatting** \u2014 enable view synthesis from sparse inputs. One learns a light-emitting function, the other builds a proxy geometry of 3D blobs."
+        ],
+        [
+          146,
+          "## \ud83c\udfaf My Model of NeRF (Neural Radiance Fields)"
+        ],
+        [
+          167,
+          "* Query the MLP at each point"
+        ],
+        [
+          172,
+          "> \"NeRF doesn\u2019t build geometry \u2014 it learns how light behaves in 3D space.\""
+        ],
+        [
+          178,
+          "* Thought MLPs were per-pixel \u2014 false. One global MLP."
+        ],
+        [
+          212,
+          "> \"Rendering = projection, not sampling. No MLP. No integration.\""
+        ],
+        [
+          218,
+          "| Aspect              | NeRF                       | Gaussian Splatting           |"
+        ],
+        [
+          220,
+          "| Representation      | Implicit function via MLP  | Explicit proxy via Gaussians |"
+        ],
+        [
+          233,
+          "Moving from theoretical understanding to hands-on implementation, I embarked on creating a complete Gaussian Splatting pipeline. The journey involved multiple pivots and technical challenges that revealed deeper insights about 3D reconstruction."
+        ],
+        [
+          271,
+          "> *\"If Gaussian Splatting can reconstruct a complex multi-colored geometric object like a Rubik's cube, it can handle most real-world scenarios.\"*"
+        ],
+        [
+          338,
+          "<p><strong>The Multi-View Foundation</strong>: 108 camera positions in perfect orbital symmetry - this is the geometric backbone that makes Gaussian Splatting possible.</p>"
+        ],
+        [
+          370,
+          "> **These visualizations explain WHY Gaussian Splatting works - perfect multi-view coverage creates the supervision needed for 3D learning!**"
+        ],
+        [
+          513,
+          "## \ud83e\udde0 Gaussian Splatting Training: Architecture & Implementation"
+        ],
+        [
+          837,
+          "The Gaussians don't just learn appearance - they actively migrate to optimal 3D positions. This spatial optimization revealed that Gaussian Splatting is fundamentally about learning the geometric structure of the scene from pure 2D supervision."
+        ],
+        [
+          849,
+          "During implementation, I discovered that **RGB color learning is absolutely fundamental** to Gaussian Splatting success:"
+        ],
+        [
+          959,
+          "> **Core Insight**: Gaussian Splatting bridges the gap between NeRF's expressiveness and traditional rendering's speed. It's not just a rendering technique - it's a learnable 3D representation that discovers geometry from appearance."
+        ]
+      ],
+      "pm_cliche": [
+        [
+          233,
+          "Moving from theoretical understanding to hands-on implementation, I embarked on creating a complete Gaussian Splatting pipeline. The journey involved multiple pivots and technical challenges that revealed deeper insights about 3D reconstruction."
+        ],
+        [
+          509,
+          "> **Key Insight**: Each viewpoint captures 2-3 faces simultaneously, providing rich overlapping information essential for 3D reconstruction. The systematic orbital sampling ensures no face is under-represented in the dataset."
+        ],
+        [
+          772,
+          "> **Breakthrough Insight**: By epoch 7, the Gaussians had self-organized into a recognizable cube structure! The algorithm discovered the underlying geometry purely from 2D image supervision."
+        ],
+        [
+          875,
+          "> **Key Insight**: The problem isn't the algorithm - it's physics! You're asking 3 images (representing <1% of possible viewpoints) to reconstruct 100% of a 3D object's geometry."
+        ],
+        [
+          959,
+          "> **Core Insight**: Gaussian Splatting bridges the gap between NeRF's expressiveness and traditional rendering's speed. It's not just a rendering technique - it's a learnable 3D representation that discovers geometry from appearance."
+        ],
+        [
+          976,
+          "This comprehensive validation demonstrates that while Gaussian Splatting has limitations for sparse geometric reconstruction, it excels at the core task of novel view synthesis with proper multi-view supervision and RGB-focused learning."
+        ]
+      ],
+      "missing_execution": false,
+      "missing_execution_lines": [
+        [
+          968,
+          "### Future Integration: RGB-First, Real Data Focus"
+        ]
+      ],
+      "has_code_blocks": true
+    },
+    {
+      "file": "content/garden/Not_paying_attention.md",
+      "trust_me": [],
+      "black_box": [],
+      "pm_cliche": [
+        [
+          26,
+          "This insight reflects how peak performance often comes from focusing intensely on minimizing errors rather than solely maximizing success."
+        ]
+      ],
+      "missing_execution": false,
+      "missing_execution_lines": [],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/synthetic-to-real-gap.md",
+      "trust_me": [
+        [
+          32,
+          "- **Turbidity Simulation**: Particle effects and water clarity variations are difficult to model accurately"
+        ],
+        [
+          50,
+          "- **Physics-based Rendering**: More accurate light transport models"
+        ],
+        [
+          56,
+          "- **Multi-modal Fusion**: Combining multiple sensor modalities for robustness"
+        ],
+        [
+          69,
+          "My current work focuses on developing robust perception systems that can handle the transition from synthetic training environments to real-world deployment. This includes:"
+        ],
+        [
+          71,
+          "- Developing turbidity-robust depth estimation models"
+        ],
+        [
+          75,
+          "The synthetic-to-real gap remains one of the most important challenges in deploying ML systems in the real world, and addressing it requires a combination of better simulation, robust algorithms, and careful validation methodologies."
+        ]
+      ],
+      "black_box": [
+        [
+          36,
+          "Through debugging ViNT/GNM agents, I've identified specific failure modes that highlight the synthetic-to-real gap:"
+        ],
+        [
+          38,
+          "- **Attention Mechanism Brittleness**: Transformers trained on clean synthetic data struggle with real-world visual noise"
+        ]
+      ],
+      "pm_cliche": [
+        [
+          69,
+          "My current work focuses on developing robust perception systems that can handle the transition from synthetic training environments to real-world deployment. This includes:"
+        ],
+        [
+          75,
+          "The synthetic-to-real gap remains one of the most important challenges in deploying ML systems in the real world, and addressing it requires a combination of better simulation, robust algorithms, and careful validation methodologies."
+        ]
+      ],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          59,
+          "## Future Research Directions"
+        ]
+      ],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/garden/Vector_Embeddings.md",
+      "trust_me": [
+        [
+          15,
+          "note: \"Validated effectiveness through systematic experimentation and comparison.\""
+        ],
+        [
+          17,
+          "note: \"Led to formal hypothesis about cosine similarity and sparsity - see research post: Investigating Cosine Similarity Robustness with Sparse Embeddings\""
+        ]
+      ],
+      "black_box": [
+        [
+          44,
+          "* Dot product measures alignment."
+        ],
+        [
+          51,
+          "A flaw I identified: Cosine similarity may fail when embeddings have zeros across some dimensions, even if they share strong alignment in others."
+        ]
+      ],
+      "pm_cliche": [],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          20,
+          "# My Interactive Learning Journey into Embeddings"
+        ]
+      ],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/projects/Self-healing-Systems.md",
+      "trust_me": [
+        [
+          68,
+          "First, I tie a thread between A and B \u2014 this is TCP, creating a reliable path."
+        ],
+        [
+          83,
+          "<em>Visual Aid to help you understand the theory better</em>"
+        ],
+        [
+          91,
+          "- TCP is the reliable physical link carrying it."
+        ]
+      ],
+      "black_box": [],
+      "pm_cliche": [
+        [
+          141,
+          "The key insight for today: I am not actually excited about containers. What excites me is seeing agents make decisions under stress --- Ralph versus Felix. The more I try to polish the plumbing, the less energy I have for building the actual arena."
+        ],
+        [
+          267,
+          "The big insight for today: truth must live in one place. Everything else --- dashboards, logs, buttons --- are just windows into that truth."
+        ],
+        [
+          315,
+          "Now that the plumbing is stable, the next step is the exciting part: bringing in the agents. I want to integrate an LLM or an agentic framework (LangChain/AutoGen) so that Ralph can inject failures on a policy, and Felix can plan recoveries under constraints"
+        ],
+        [
+          319,
+          "The insight here is that the plumbing is only the minimum viable arena. The real research is in the loops --- imperfect telemetry, delayed effects, and trade-offs. That's where Felix earns the name."
+        ]
+      ],
+      "missing_execution": false,
+      "missing_execution_lines": [
+        [
+          10,
+          "- \"Learning Journey\""
+        ],
+        [
+          313,
+          "### What's Next"
+        ],
+        [
+          315,
+          "Now that the plumbing is stable, the next step is the exciting part: bringing in the agents. I want to integrate an LLM or an agentic framework (LangChain/AutoGen) so that Ralph can inject failures on a policy, and Felix can plan recoveries under constraints"
+        ],
+        [
+          331,
+          "> Yet to be implemented."
+        ]
+      ],
+      "has_code_blocks": true
+    },
+    {
+      "file": "content/projects/Velocity-Estimation_DVL_denied_scenarios.md",
+      "trust_me": [
+        [
+          2,
+          "title: \"Robust AUV Navigation through Hybrid Deep Learning and State Estimation\""
+        ],
+        [
+          19,
+          "expected_outcome: \"It was expected that the hybrid models would outperform the baselines significantly. Specifically, the MNN architecture, due to its explicit memory mechanism, was predicted to be the most effective at handling long-term temporal dependencies and sensor dropouts. Furthermore, the tightly coupled UKF was expected to yield the most accurate final position estimates, as it can better handle the system's non-linearities and directly process the raw sensor data corrected by the deep learning models.\""
+        ],
+        [
+          24,
+          "summary: \"The research successfully proves that a hybrid framework combining deep learning for sensor data reconstruction and advanced Kalman filters for state estimation is a highly effective strategy for AUV navigation. This approach overcomes the critical limitations of traditional methods by learning to correct for sensor noise and failures in real-time, leading to a navigation system that is demonstrably more accurate, reliable, and robust in challenging, GPS-denied underwater environments.\""
+        ],
+        [
+          36,
+          "This research was inspired by the fundamental challenge of achieving reliable autonomy in environments where standard positioning systems are unavailable. The primary motivation stems from the observation that while classical engineering models (like Kalman filters) provide a rigorous mathematical framework for state estimation, they often struggle when their underlying assumptions about sensor behavior are violated. Conversely, modern deep learning techniques excel at learning complex patterns from noisy data but can lack the interpretability and stability of model-based approaches."
+        ],
+        [
+          40,
+          "The core insight was that these two paradigms are not mutually exclusive but complementary. The errors and failure modes of underwater sensors (DVL, IMU) are not entirely random; they are often systematic and correlated with the vehicle's dynamics and its environment. This suggests that these error patterns can be *learned*. By using a deep learning model specifically to \"clean\" the sensor data *before* it is processed by the Kalman filter, we can allow each component to do what it does best. The deep learning model handles the complex, non-linear sensor error modeling, while the Kalman filter handles the physics-based state estimation in a more stable and reliable manner."
+        ],
+        [
+          44,
+          "Can a hybrid framework, which uses a deep sequential learning model to predict and correct raw sensor measurements before feeding them into a tightly coupled Kalman filter, produce more accurate and robust velocity and position estimates for an AUV than either a standalone filter or a more loosely integrated system, especially under conditions of sensor data degradation and failure?"
+        ],
+        [
+          61,
+          "*   **UKF (Unscented Kalman Filter):** Uses a deterministic sampling approach (the unscented transform) which is generally more accurate for highly non-linear systems."
+        ],
+        [
+          74,
+          "It was also expected that all hybrid models would show a marked improvement over the baseline EKF/UKF-only approaches, confirming the value of the deep learning pre-processing stage."
+        ],
+        [
+          78,
+          "The experimental outcomes, detailed in Chapters 4 and 5 of the thesis, confirmed the expectations with high fidelity. The MNN model demonstrated the most robust performance in the velocity prediction stage, and the tightly coupled UKF integration strategy consistently yielded the lowest position error. The final trajectory plots visually and quantitatively showed a significant reduction in drift compared to all other configurations, especially during and after periods of simulated sensor failure."
+        ]
+      ],
+      "black_box": [
+        [
+          4,
+          "tags: [\"AUV Navigation\", \"Deep Learning\", \"Sensor Fusion\", \"Kalman Filter\", \"State Estimation\", \"Robotics\"]"
+        ],
+        [
+          13,
+          "hypothesis: \"Integrating deep learning models, specifically those with memory-augmented architectures, into traditional state estimation frameworks like Kalman filters can significantly improve the accuracy and robustness of AUV navigation, particularly in scenarios with sensor degradation, noise, and data dropouts common in underwater environments.\""
+        ],
+        [
+          16,
+          "description: \"A comprehensive, multi-stage experiment was designed to validate the hypothesis. First, several deep learning architectures (MLP, LSTM, FAN, and a custom Memory Neural Network - MNN) were trained to predict individual Doppler Velocity Log (DVL) beam measurements using historical IMU and partial DVL data from the A-Kit and Snapir datasets. This constituted 'Stage 1: Beam Prediction'. Second, the outputs of these models were integrated into two types of Kalman filters (EKF and UKF) using two different coupling strategies ('loosely coupled' and 'tightly coupled'). This was 'Stage 2: Position Estimation'. The performance of all four model architectures across all four integration strategies was systematically evaluated against ground truth data.\""
+        ],
+        [
+          17,
+          "baseline: \"The baseline for comparison includes: 1) Traditional navigation solutions using only the raw, unfiltered sensor data. 2) Standard Extended Kalman Filter (EKF) and Unscented Kalman Filter (UKF) implementations without the deep learning-based sensor correction. 3) A simple Multi-Layer Perceptron (MLP) model to establish a performance floor for the more complex deep learning architectures.\""
+        ],
+        [
+          19,
+          "expected_outcome: \"It was expected that the hybrid models would outperform the baselines significantly. Specifically, the MNN architecture, due to its explicit memory mechanism, was predicted to be the most effective at handling long-term temporal dependencies and sensor dropouts. Furthermore, the tightly coupled UKF was expected to yield the most accurate final position estimates, as it can better handle the system's non-linearities and directly process the raw sensor data corrected by the deep learning models.\""
+        ],
+        [
+          23,
+          "outcome: \"The experimental results strongly validated the hypothesis. The Memory Neural Network (MNN) consistently achieved the lowest RMSE for individual beam prediction (average RMSE of 0.0438 m/s) and overall velocity estimation (aggregate RMSE of 0.0649 m/s). When integrated into the position estimation framework, the combination of the MNN with a tightly coupled Unscented Kalman Filter (UKF) produced the most accurate trajectory, achieving an average position error of just 0.15m. This was a significant improvement over the loosely coupled UKF (0.22m), tightly coupled EKF (0.25m), and loosely coupled EKF (0.32m). The system demonstrated remarkable resilience, maintaining high accuracy even when multiple DVL beams were synthetically dropped.\""
+        ],
+        [
+          24,
+          "summary: \"The research successfully proves that a hybrid framework combining deep learning for sensor data reconstruction and advanced Kalman filters for state estimation is a highly effective strategy for AUV navigation. This approach overcomes the critical limitations of traditional methods by learning to correct for sensor noise and failures in real-time, leading to a navigation system that is demonstrably more accurate, reliable, and robust in challenging, GPS-denied underwater environments.\""
+        ],
+        [
+          36,
+          "This research was inspired by the fundamental challenge of achieving reliable autonomy in environments where standard positioning systems are unavailable. The primary motivation stems from the observation that while classical engineering models (like Kalman filters) provide a rigorous mathematical framework for state estimation, they often struggle when their underlying assumptions about sensor behavior are violated. Conversely, modern deep learning techniques excel at learning complex patterns from noisy data but can lack the interpretability and stability of model-based approaches."
+        ],
+        [
+          40,
+          "The core insight was that these two paradigms are not mutually exclusive but complementary. The errors and failure modes of underwater sensors (DVL, IMU) are not entirely random; they are often systematic and correlated with the vehicle's dynamics and its environment. This suggests that these error patterns can be *learned*. By using a deep learning model specifically to \"clean\" the sensor data *before* it is processed by the Kalman filter, we can allow each component to do what it does best. The deep learning model handles the complex, non-linear sensor error modeling, while the Kalman filter handles the physics-based state estimation in a more stable and reliable manner."
+        ],
+        [
+          44,
+          "Can a hybrid framework, which uses a deep sequential learning model to predict and correct raw sensor measurements before feeding them into a tightly coupled Kalman filter, produce more accurate and robust velocity and position estimates for an AUV than either a standalone filter or a more loosely integrated system, especially under conditions of sensor data degradation and failure?"
+        ],
+        [
+          53,
+          "*   **MLP:** A simple feedforward network as a baseline."
+        ],
+        [
+          54,
+          "*   **LSTM:** A standard recurrent neural network for capturing temporal sequences."
+        ],
+        [
+          55,
+          "*   **FAN (Fourier Analysis Network):** A hybrid model to test the importance of frequency-domain features."
+        ],
+        [
+          56,
+          "*   **MNN (Memory Neural Network):** A custom architecture with an explicit memory module designed to handle long-term dependencies and abrupt changes (like sensor dropouts)."
+        ],
+        [
+          60,
+          "*   **EKF (Extended Kalman Filter):** Uses linearization to handle non-linear dynamics."
+        ],
+        [
+          61,
+          "*   **UKF (Unscented Kalman Filter):** Uses a deterministic sampling approach (the unscented transform) which is generally more accurate for highly non-linear systems."
+        ],
+        [
+          69,
+          "The primary expectation was a clear performance hierarchy. It was anticipated that the **MNN + Tightly Coupled UKF** would emerge as the superior combination. The reasoning was as follows:"
+        ],
+        [
+          70,
+          "*   The **MNN**'s explicit memory would allow it to better \"remember\" the vehicle's state before a sensor dropout, leading to more stable predictions during the outage."
+        ],
+        [
+          71,
+          "*   The **UKF**'s superior handling of non-linearities would be crucial for accurately modeling the AUV's complex 6-DOF dynamics."
+        ],
+        [
+          74,
+          "It was also expected that all hybrid models would show a marked improvement over the baseline EKF/UKF-only approaches, confirming the value of the deep learning pre-processing stage."
+        ],
+        [
+          78,
+          "The experimental outcomes, detailed in Chapters 4 and 5 of the thesis, confirmed the expectations with high fidelity. The MNN model demonstrated the most robust performance in the velocity prediction stage, and the tightly coupled UKF integration strategy consistently yielded the lowest position error. The final trajectory plots visually and quantitatively showed a significant reduction in drift compared to all other configurations, especially during and after periods of simulated sensor failure."
+        ],
+        [
+          83,
+          "1.  **Real-Time Implementation:** The current system operates in batch mode. The next step is to optimize the MNN model (e.g., through pruning, quantization) and the filter implementation for real-time, onboard execution on an AUV's flight computer."
+        ],
+        [
+          85,
+          "3.  **Adaptive Parameter Tuning:** Investigate the use of reinforcement learning or meta-learning to allow the system to auto-tune the Kalman filter's noise parameters (Q and R) and the deep learning model's hyperparameters in response to changing conditions, creating a fully adaptive navigation system."
+        ]
+      ],
+      "pm_cliche": [
+        [
+          2,
+          "title: \"Robust AUV Navigation through Hybrid Deep Learning and State Estimation\""
+        ],
+        [
+          16,
+          "description: \"A comprehensive, multi-stage experiment was designed to validate the hypothesis. First, several deep learning architectures (MLP, LSTM, FAN, and a custom Memory Neural Network - MNN) were trained to predict individual Doppler Velocity Log (DVL) beam measurements using historical IMU and partial DVL data from the A-Kit and Snapir datasets. This constituted 'Stage 1: Beam Prediction'. Second, the outputs of these models were integrated into two types of Kalman filters (EKF and UKF) using two different coupling strategies ('loosely coupled' and 'tightly coupled'). This was 'Stage 2: Position Estimation'. The performance of all four model architectures across all four integration strategies was systematically evaluated against ground truth data.\""
+        ],
+        [
+          24,
+          "summary: \"The research successfully proves that a hybrid framework combining deep learning for sensor data reconstruction and advanced Kalman filters for state estimation is a highly effective strategy for AUV navigation. This approach overcomes the critical limitations of traditional methods by learning to correct for sensor noise and failures in real-time, leading to a navigation system that is demonstrably more accurate, reliable, and robust in challenging, GPS-denied underwater environments.\""
+        ],
+        [
+          26,
+          "next_action: \"The next phase of research will focus on several key areas: 1) **Online Learning:** Develop mechanisms for the models to continuously adapt to changing environmental conditions and sensor characteristics during deployment. 2) **Multi-Modal Sensor Fusion:** Extend the framework to incorporate additional sensor data, such as sonar and visual information from cameras, to build a more comprehensive environmental model. 3) **Uncertainty Quantification:** Enhance the deep learning models to output not just predictions, but also confidence scores, which are critical for safety in mission-critical applications. 4) **Hardware Acceleration:** Optimize the models for energy-efficient deployment on resource-constrained embedded systems common in AUVs.\""
+        ],
+        [
+          40,
+          "The core insight was that these two paradigms are not mutually exclusive but complementary. The errors and failure modes of underwater sensors (DVL, IMU) are not entirely random; they are often systematic and correlated with the vehicle's dynamics and its environment. This suggests that these error patterns can be *learned*. By using a deep learning model specifically to \"clean\" the sensor data *before* it is processed by the Kalman filter, we can allow each component to do what it does best. The deep learning model handles the complex, non-linear sensor error modeling, while the Kalman filter handles the physics-based state estimation in a more stable and reliable manner."
+        ],
+        [
+          44,
+          "Can a hybrid framework, which uses a deep sequential learning model to predict and correct raw sensor measurements before feeding them into a tightly coupled Kalman filter, produce more accurate and robust velocity and position estimates for an AUV than either a standalone filter or a more loosely integrated system, especially under conditions of sensor data degradation and failure?"
+        ],
+        [
+          65,
+          "4.  **Evaluation:** All 16 combinations (4 models x 2 filters x 2 coupling strategies) were systematically tested on a held-out test set. The final position and velocity RMSE were calculated and compared against the ground truth. Scenarios with simulated beam dropouts were explicitly tested to evaluate robustness."
+        ],
+        [
+          78,
+          "The experimental outcomes, detailed in Chapters 4 and 5 of the thesis, confirmed the expectations with high fidelity. The MNN model demonstrated the most robust performance in the velocity prediction stage, and the tightly coupled UKF integration strategy consistently yielded the lowest position error. The final trajectory plots visually and quantitatively showed a significant reduction in drift compared to all other configurations, especially during and after periods of simulated sensor failure."
+        ],
+        [
+          83,
+          "1.  **Real-Time Implementation:** The current system operates in batch mode. The next step is to optimize the MNN model (e.g., through pruning, quantization) and the filter implementation for real-time, onboard execution on an AUV's flight computer."
+        ]
+      ],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          80,
+          "## Next Steps"
+        ],
+        [
+          82,
+          "Based on the success of this framework, the immediate next steps are to move towards real-world deployment and address the limitations of the current study."
+        ],
+        [
+          83,
+          "1.  **Real-Time Implementation:** The current system operates in batch mode. The next step is to optimize the MNN model (e.g., through pruning, quantization) and the filter implementation for real-time, onboard execution on an AUV's flight computer."
+        ]
+      ],
+      "has_code_blocks": false
+    },
+    {
+      "file": "content/projects/visual-navigation-debugging.md",
+      "trust_me": [
+        [
+          31,
+          "- Goal occlusion significantly impacts navigation performance"
+        ],
+        [
+          49,
+          "This debugging work provides valuable insights into the limitations of current visual navigation systems, particularly highlighting the vulnerability of transformer-based approaches to visual occlusion and attention instabilities. These findings inform future improvements in robust navigation system design."
+        ]
+      ],
+      "black_box": [
+        [
+          5,
+          "tags: [\"Visual Navigation\", \"Transformer\", \"Deep Learning\", \"Debugging\"]"
+        ],
+        [
+          14,
+          "Diagnosed transformer-based failures in ViNT/GNM navigation agents, tracing planning errors to goal occlusion and unstable attention heads. This work contributed to understanding failure modes in state-of-the-art visual navigation systems."
+        ],
+        [
+          18,
+          "- **Failure Mode Analysis**: Identified specific failure patterns in ViNT/GNM agents"
+        ],
+        [
+          20,
+          "- **Transformer Issues**: Documented attention mechanism instabilities"
+        ],
+        [
+          26,
+          "- Analyzed transformer-based visual navigation models"
+        ],
+        [
+          27,
+          "- Focused on ViNT (Visual Navigation Transformer) and GNM architectures"
+        ],
+        [
+          42,
+          "- Visual Navigation Transformers (ViNT)"
+        ],
+        [
+          43,
+          "- Goal-conditioned Navigation Models (GNM)"
+        ],
+        [
+          49,
+          "This debugging work provides valuable insights into the limitations of current visual navigation systems, particularly highlighting the vulnerability of transformer-based approaches to visual occlusion and attention instabilities. These findings inform future improvements in robust navigation system design."
+        ]
+      ],
+      "pm_cliche": [
+        [
+          14,
+          "Diagnosed transformer-based failures in ViNT/GNM navigation agents, tracing planning errors to goal occlusion and unstable attention heads. This work contributed to understanding failure modes in state-of-the-art visual navigation systems."
+        ],
+        [
+          49,
+          "This debugging work provides valuable insights into the limitations of current visual navigation systems, particularly highlighting the vulnerability of transformer-based approaches to visual occlusion and attention instabilities. These findings inform future improvements in robust navigation system design."
+        ]
+      ],
+      "missing_execution": true,
+      "missing_execution_lines": [
+        [
+          49,
+          "This debugging work provides valuable insights into the limitations of current visual navigation systems, particularly highlighting the vulnerability of transformer-based approaches to visual occlusion and attention instabilities. These findings inform future improvements in robust navigation system design."
+        ]
+      ],
+      "has_code_blocks": false
+    }
+  ]
+}

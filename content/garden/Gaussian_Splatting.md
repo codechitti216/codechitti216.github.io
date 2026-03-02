@@ -19,10 +19,6 @@ evolution:
     note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
 ---
 
-# 🧠 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting
-
-### 2025 - 08 - 05
-
 ## 🌱 Starting Point
 
 **Prompted by curiosity**, I asked: “What is Gaussian Splatting?” All I knew was that it was some rendering method involving point clouds.
@@ -119,8 +115,6 @@ Then came the shift:
 
 > “Gaussian Splatting is not about learning a rendering function — it *is* the rendering structure.” ✅ Yes.
 
-## 🧭 What’s Next
-
 ### Still Curious About:
 
 * How view-dependent shading is encoded via Spherical Harmonics
@@ -142,8 +136,6 @@ Then came the shift:
 How two different paradigms — **NeRFs** and **Gaussian Splatting** — enable view synthesis from sparse inputs. One learns a light-emitting function, the other builds a proxy geometry of 3D blobs.
 
 ---
-
-## 🎯 My Model of NeRF (Neural Radiance Fields)
 
 ### Summary
 
@@ -180,8 +172,6 @@ It’s an **implicit model** — the scene is encoded in the weights.
 * Didn’t get why multiple samples are needed — now I see it’s to handle occlusion and variation.
 
 ---
-
-## ✅ My Model of Gaussian Splatting
 
 ### Summary
 
@@ -228,10 +218,6 @@ Each Gaussian $\mathcal{G}_i$ has:
 ### 2025 - 08 - 06
 ---
 
-## 🎯 From Theory to Practice: Building a Rubik's Cube Multi-View Dataset
-
-Moving from theoretical understanding to hands-on implementation, I embarked on creating a complete Gaussian Splatting pipeline. The journey involved multiple pivots and technical challenges that revealed deeper insights about 3D reconstruction.
-
 ### 🚧 Initial Challenges & Strategic Pivots
 
 **The Original Plan:**
@@ -241,7 +227,6 @@ Moving from theoretical understanding to hands-on implementation, I embarked on 
 **Immediate Blockers Encountered:**
 - **No camera intrinsics/extrinsics** for smartphone photos
 - **COLMAP availability concerns** in my development environment  
-- **Sparse feature matching** across 3-room images → unreliable geometric constraints
 - **Uncontrolled lighting** and minimal texture in some regions
 
 > *This forced a strategic pivot to controlled synthetic data for end-to-end pipeline validation before tackling real-world scenarios.*
@@ -271,8 +256,6 @@ The Rubik's cube became the perfect testbed for several strategic reasons:
 > *"If Gaussian Splatting can reconstruct a complex multi-colored geometric object like a Rubik's cube, it can handle most real-world scenarios."*
 
 ---
-
-## 📷 Multi-View Dataset Implementation: 108 Precisely Controlled Views
 
 ### Technical Implementation Strategy
 
@@ -506,11 +489,8 @@ def generate_single_visualizer_multiviews():
 
 </details>
 
-> **Key Insight**: Each viewpoint captures 2-3 faces simultaneously, providing rich overlapping information essential for 3D reconstruction. The systematic orbital sampling ensures no face is under-represented in the dataset.
 
 ---
-
-## 🧠 Gaussian Splatting Training: Architecture & Implementation
 
 ### Training Configuration & Design Decisions
 
@@ -562,7 +542,6 @@ training_config = {
 # Loss progression from training_history.json
 epoch_losses = [
     0.2632208466529846,    # Epoch 1: Initial high loss
-    0.2632112205028534,    # Epoch 2: Rapid initial improvement  
     0.2632041573524475,    # Epoch 3: Steady convergence
     0.26319974660873413,   # Epoch 4: Continued optimization
     0.2631973326206207,    # Epoch 5: Stabilization
@@ -769,7 +748,6 @@ final_positions = [
 
 </details>
 
-> **Breakthrough Insight**: By epoch 7, the Gaussians had self-organized into a recognizable cube structure! The algorithm discovered the underlying geometry purely from 2D image supervision.
 
 ### Core Implementation: Gaussian Parameter Optimization
 
@@ -829,8 +807,6 @@ def train_gaussian_splatting(self, target_images, camera_params, epochs=10):
 
 ---
 
-## 🔬 Key Technical Discoveries & Insights
-
 ### Gaussian Self-Organization Phenomenon
 
 **The Most Surprising Discovery:**
@@ -842,7 +818,6 @@ The Gaussians don't just learn appearance - they actively migrate to optimal 3D 
 - **Epoch 7-10**: Clear cube-like structure emerges with face-aligned positioning
 
 **Multi-View Consistency Validation:**
-With 108 viewing angles, the model had to maintain consistency across vastly different perspectives. The successful convergence demonstrates the robustness of the splatting representation for complex geometric reconstruction.
 
 ### RGB Learning vs Grayscale: A Critical Lesson
 
@@ -872,11 +847,8 @@ When testing with ground truth data (Stanford Bunny with 35,947 points):
 - **Feature dependency**: Reconstruction quality tied to distinctive visual patterns
 - **Fundamental physics**: Under-constrained problem (3 viewpoints → 100% geometry)
 
-> **Key Insight**: The problem isn't the algorithm - it's physics! You're asking 3 images (representing <1% of possible viewpoints) to reconstruct 100% of a 3D object's geometry.
 
 ---
-
-## 🛠️ Implementation Files & Technical Architecture
 
 ### Core Implementation Files
 
@@ -928,8 +900,6 @@ gaussian_training/
 
 ---
 
-## 📚 Methodological Insights & Lessons Learned
-
 ### Controlled Synthetic → Real Data Strategy
 
 **Why This Progression Worked:**
@@ -939,7 +909,6 @@ gaussian_training/
 4. **Build confidence** in methodology before expensive real data collection
 
 **Feature Density vs Image Count Discovery:**
-- **3 feature-rich images** can outperform many sparse ones
 - **Texture density** matters more than raw pixel count
 - **Proper multi-view coverage** beats high image count with poor viewpoint distribution
 
@@ -956,7 +925,6 @@ Initial mistake of creating different synthetic scenes for each "view" taught th
 - **Interactive visualization**: Real-time 3D Gaussian rendering
 - **Memory efficiency**: Compact representation vs volumetric approaches
 
-> **Core Insight**: Gaussian Splatting bridges the gap between NeRF's expressiveness and traditional rendering's speed. It's not just a rendering technique - it's a learnable 3D representation that discovers geometry from appearance.
 
 **Technical Validation Results:**
 - ✅ **Gaussian Splatting works excellently** for novel view synthesis from dense viewpoints
@@ -973,6 +941,5 @@ Initial mistake of creating different synthetic scenes for each "view" taught th
 3. **Proper PLY point cloud export** alongside Gaussian parameters for inspection
 4. **Verification protocols** ensuring diverse, stable Gaussian colors across training
 
-This comprehensive validation demonstrates that while Gaussian Splatting has limitations for sparse geometric reconstruction, it excels at the core task of novel view synthesis with proper multi-view supervision and RGB-focused learning.
 
 ---

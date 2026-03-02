@@ -1,0 +1,187 @@
+{
+  "generated": "2026-03-02",
+  "stale_cutoff": "2025-07-02",
+  "live_routes": {
+    "projects": "all markdown files in content/projects are rendered (no published filter)",
+    "garden": "only posts with published: true are rendered"
+  },
+  "about_claims": [
+    "import { Button } from '@/components/ui/button';\nimport { Link } from 'react-router-dom';\nimport { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';\n\nexport default function Home() {\n  return (\n    <div className=\"space-y-12\">\n      {/* Profile Photo */}\n      <div className=\"flex justify-center pt-8\">\n        <img\n          src=\"/assets/profile.jpg\"\n          alt=\"Surya G S Chitti\"\n          className=\"rounded-full w-32 h-32 object-cover shadow-lg border-4 border-white\"\n        />\n      </div>\n      \n      {/* Hero Section */}\n      <section className=\"text-center space-y-6\">\n        <h1 className=\"font-serif text-4xl md:text-5xl font-semibold text-gray-900\">\n          Surya G S Chitti\n        </h1>\n        <p className=\"text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto\">\n          E2E Autonomous Navigation \u00b7 Deep Learning Researcher \u00b7 Perception & Closed-Loop Autonomy\n        </p>\n\n        {/* Logo Bar */}\n        <div className=\"flex justify-center items-center gap-6 md:gap-10 pt-4 pb-3 flex-wrap\">\n          <div className=\"flex flex-col items-center\">\n            <img src=\"/assets/logos/mbrdi.png\" alt=\"Mercedes-Benz Research & Development India\" className=\"h-12 md:h-16 grayscale hover:grayscale-0 transition-all\" />\n            <span className=\"text-xs text-gray-500 mt-1\">Mercedes-Benz <br /> Research & Development India (MBRDI)</span>\n          </div>\n          <div className=\"flex flex-col items-center\">\n            <img src=\"/assets/logos/iisc.png\" alt=\"IISc Bangalore\" className=\"h-12 md:h-16 grayscale hover:grayscale-0 transition-all\" />\n            <span className=\"text-xs text-gray-500 mt-1\">IISc Bangalore</span>\n          </div>\n          <div className=\"flex flex-col items-center\">\n            <img src=\"/assets/logos/drdo.png\" alt=\"DRDO\" className=\"h-12 md:h-16 grayscale hover:grayscale-0 transition-all\" />\n            <span className=\"text-xs text-gray-500 mt-1\"></span>\n          </div>\n          <div className=\"flex flex-col items-center\">\n            <img src=\"/assets/logos/bits.png\" alt=\"BITS Pilani\" className=\"h-12 md:h-16 grayscale hover:grayscale-0 transition-all\" />\n            <span className=\"text-xs text-gray-500 mt-1\">BITS Pilani</span>\n          </div>\n        </div>\n\n        <div className=\"flex justify-center space-x-4 pt-4\">\n          <Button asChild>\n            <Link to=\"/projects\">\n              View Projects <ArrowRight className=\"ml-2 h-4 w-4\" />\n            </Link>\n          </Button>\n          <Button variant=\"outline\" asChild>\n            <Link to=\"/cv\">Download CV</Link>\n          </Button>\n        </div>\n      </section>\n\n      {/* Quick Links */}\n      <section className=\"grid md:grid-cols-3 gap-6\">\n        <div className=\"content-card\">\n          <h3 className=\"font-serif text-xl font-semibold mb-3\">Current Focus \u00b7 MBRDI</h3>\n          <p className=\"text-gray-700 mb-4\">\n            Perception systems for E2E autonomous navigation.",
+    "Working on the transition from open-loop autonomy to closed-loop autonomy.",
+    "</p>\n          <Link to=\"/projects\" className=\"academic-link\">\n            Explore current work \u2192\n          </Link>\n        </div>\n        <div className=\"content-card\">\n          <h3 className=\"font-serif text-xl font-semibold mb-3\">Research Areas</h3>\n          <div className=\"space-y-2 mb-4\">\n            <span className=\"tag\">Computer Vision</span>\n            <span className=\"tag\">3D Perception</span>\n            <span className=\"tag\">Visual Navigation</span>\n            <span className=\"tag\">Multi-Modal Fusion</span>\n            <span className=\"tag\">Deep Learning</span>\n          </div>\n          <Link to=\"/garden\" className=\"academic-link\">\n            Browse knowledge garden \u2192\n          </Link>\n        </div>\n        <div className=\"content-card\">\n          <h3 className=\"font-serif text-xl font-semibold mb-3\">Connect</h3>\n          <div className=\"space-y-3\">\n            <a href=\"mailto:suryachitti216@gmail.com\" className=\"flex items-center text-gray-700 hover:text-gray-900 text-sm\">\n              <Mail className=\"h-4 w-4 mr-2 flex-shrink-0\" />\n              <span className=\"truncate\">suryachitti216@gmail.com</span>\n            </a>\n            <a href=\"https://github.com/codechitti216\" className=\"flex items-center text-gray-700 hover:text-gray-900 text-sm\">\n              <Github className=\"h-4 w-4 mr-2 flex-shrink-0\" />\n              <span>GitHub</span>\n            </a>\n            <a href=\"https://linkedin.com/in/surya-g-s-chitti\" className=\"flex items-center text-gray-700 hover:text-gray-900 text-sm\">\n              <Linkedin className=\"h-4 w-4 mr-2 flex-shrink-0\" />\n              <span>LinkedIn</span>\n            </a>\n          </div>\n        </div>\n      </section>\n\n      {/* About Section */}\n      <section className=\"prose max-w-none\">\n  <h2>About Me</h2>\n\n  <p>\n    Perception Engineer at<a href=\"https://www.mbrdi.co.in/\" target=\"_blank\" style={{ color: 'blue' }}> Mercedes-Benz Research & Development India (MBRDI)</a>, \n    working on end-to-end autonomous navigation systems with a focus on moving \n    from open-loop to closed-loop autonomy.",
+    "I\u2019ve built autonomy \n    stacks across sensor modalities including vision, LiDAR, and Doppler Velocity \n    Loggers (DVL), with an emphasis on reliability in uncontrolled environments.",
+    "</p>\n\n  <p>\n    I previously worked at the <a href=\"https://www.linkedin.com/company/artificial-intelligence-and-robotics-laboratory/posts/?feedView=all\" target=\"_blank\" style={{ color: 'blue' }}>Artificial Intelligence & Robotics Lab</a> at IISc Bangalore under <a href=\"https://aero.iisc.ac.in/people/sureshsundaram/\" target=\"_blank\" style={{ color: 'blue' }}>Professor Suresh Sundaram</a> where I focused on precision navigation and perception of underwater drones and visual navigation of marine surface vehicles.",
+    "</p>\n\n  <p>\n    My research interests center on the synthetic-to-real gap in deep learning and understanding why \n    models that perform well in curated datasets fail in the field and developing \n    perception systems that remain robust under noise, drift, and the complexities \n    of real environments."
+  ],
+  "content_audit": [
+    {
+      "file": "content/projects/Self-healing-Systems.md",
+      "section": "project",
+      "live": true,
+      "title": "Agentic Multi-Node Operations Simulation on a Laptop",
+      "date": "2025-08-09",
+      "git_last_commit": "2025-08-19",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": true,
+      "math_depth_signals": [
+        "loss"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/projects/Velocity-Estimation_DVL_denied_scenarios.md",
+      "section": "project",
+      "live": true,
+      "title": "Robust AUV Navigation through Hybrid Deep Learning and State Estimation",
+      "date": "2025-05-28",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": true,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "rmse",
+        "ukf",
+        "ekf",
+        "kalman",
+        "loss",
+        "state estimation"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/projects/visual-navigation-debugging.md",
+      "section": "project",
+      "live": true,
+      "title": "Visual Navigation Agent Debugging",
+      "date": "2024-12-01",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": true,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "attention",
+        "transformer"
+      ],
+      "tech_stack_claimed": [
+        "Visual Navigation Transformers (ViNT)",
+        "Goal-conditioned Navigation Models (GNM)",
+        "Attention mechanism analysis",
+        "Deep learning debugging tools"
+      ]
+    },
+    {
+      "file": "content/garden/Adaptive_Loss_Weighting.md",
+      "section": "garden",
+      "live": false,
+      "title": "Handling Task Complexity and Model Capacity in Multi-Task Learning via Adaptive and Context-Aware Loss Weighting",
+      "date": "2025-07-31",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "loss",
+        "gradient",
+        "optimization"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/BackTrack.md",
+      "section": "garden",
+      "live": false,
+      "title": "Backtrack: Visual Recovery from Localization Failure in Embodied Navigation",
+      "date": "2025-07-30",
+      "git_last_commit": "2025-08-12",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "loss",
+        "diffusion",
+        "ablation"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/Cosine_Similarity_Sparsity.md",
+      "section": "garden",
+      "live": false,
+      "title": "Investigating Cosine Similarity Robustness with Sparse Embeddings",
+      "date": "2025-01-XX",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/FUNdamentals.md",
+      "section": "garden",
+      "live": true,
+      "title": "FUNdamentals",
+      "date": "2025-09-11",
+      "git_last_commit": "2025-09-12",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/Gaussian_Splatting.md",
+      "section": "garden",
+      "live": true,
+      "title": "NeRFs and Gaussian Splatting",
+      "date": "2025-08-05",
+      "git_last_commit": "2025-08-12",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": true,
+      "math_depth_signals": [
+        "loss",
+        "gradient",
+        "optimization"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/Not_paying_attention.md",
+      "section": "garden",
+      "live": false,
+      "title": "Not Paying Attention",
+      "date": "2025-07-28",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "loss",
+        "attention"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/synthetic-to-real-gap.md",
+      "section": "garden",
+      "live": false,
+      "title": "Synthetic-to-Real Gap",
+      "date": "2025-07-29",
+      "git_last_commit": "2025-08-01",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "attention",
+        "transformer"
+      ],
+      "tech_stack_claimed": []
+    },
+    {
+      "file": "content/garden/Vector_Embeddings.md",
+      "section": "garden",
+      "live": true,
+      "title": "Understanding Embeddings",
+      "date": "2025-08-01",
+      "git_last_commit": "2025-08-05",
+      "stale_older_than_8_months_by_date": false,
+      "api_wrapper_or_basic_api_heavy_flag": false,
+      "math_depth_signals": [
+        "loss"
+      ],
+      "tech_stack_claimed": []
+    }
+  ]
+}
