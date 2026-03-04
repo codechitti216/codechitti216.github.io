@@ -1,182 +1,229 @@
 ---
-title: "Gaussian Splatting: Rubik's Cube Multi-View Reconstruction"
+title: "NeRFs and Gaussian Splatting"
 date: "2025-08-05"
-tags: ["Gaussian Splatting", "3D Reconstruction", "View Synthesis", "PyTorch"]
+tags: ["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
 status: "ongoing"
 kind: "learning"
 published: true
 visibility: "public"
+evolution:
+  - date: "2025-08-05"
+    note: "Initial curiosity about rendering and Gaussian Splatting."
+  - date: "2025-08-05"
+    note: "Learned what NeRF is and how it uses volume rendering and MLPs."
+  - date: "2025-08-05"
+    note: "Understood Gaussian Splatting as explicit, differentiable geometry proxy."
+  - date: "2025-08-05"
+    note: "Refined understanding of inference, initialization, and learned geometry."
+  - date: "2025-08-05"
+    note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
 ---
 
-## Problem Definition
+# 🧠 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting
 
-This work builds a controlled Gaussian Splatting pipeline for novel view synthesis on a synthetic Rubik's cube scene.
+### 2025 - 08 - 05
 
-Target outcomes:
-1. Generate a geometrically consistent multi-view dataset.
-2. Train a compact Gaussian representation from image supervision.
-3. Validate convergence behavior and reconstruction fidelity qualitatively on held-out views.
+## 🌱 Starting Point
 
-## Dataset and Camera Setup
+**Prompted by curiosity**, I asked: “What is Gaussian Splatting?” All I knew was that it was some rendering method involving point clouds.
 
-- Total views: **108**
-- View groups: **top (36), normal (36), bottom (36)**
-- Azimuth step: **10?**
-- Resolution: **1024 ? 768**
-- Camera distance: **6.3**
-- Orbital radius: **8.07**
+That kicked off the cascade.
 
-### Camera geometry artifacts
+I realized that to understand Gaussian Splatting, I first needed to understand NeRF — which I barely knew existed.
 
-<div style="display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1000px; margin: 20px 0;">
-  <div style="text-align: center;">
-    <a href="assets/camera_positions_3d.png" target="_blank">
-      <img src="assets/camera_positions_3d.png" alt="3D camera positions" style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px;" />
-    </a>
-    <p><strong>3D orbital camera layout</strong></p>
-  </div>
+I started from ground zero:
 
-  <div style="text-align: center;">
-    <a href="assets/camera_positions_3d_with_images.png" target="_blank">
-      <img src="assets/camera_positions_3d_with_images.png" alt="Camera positions with sample rendered views" style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px;" />
-    </a>
-    <p><strong>Camera-to-image correspondence</strong></p>
-  </div>
+* “What is rendering?”
+* “Isn’t it like meshing — turning raw data into something visual?”
+* “What’s this ‘view direction’? And how does radiance relate to pixels?”
 
-  <div style="text-align: center;">
-    <a href="assets/camera_positions_with_perspective_images.png" target="_blank">
-      <img src="assets/camera_positions_with_perspective_images.png" alt="Perspective coverage map" style="width: 100%; max-width: 800px; height: auto; border: 2px solid #ddd; border-radius: 8px;" />
-    </a>
-    <p><strong>Perspective coverage</strong></p>
-  </div>
-</div>
+## 🔍 Encountering NeRF
 
-## Representation and Trainable Parameters
+What I first learned: NeRF is **not a geometry model**, but a **neural function** that maps 3D coordinates and viewing directions to color and density.
 
-A set of 54 Gaussians is optimized.
+### Early Realizations:
 
-For Gaussian \(i\):
-- Mean: \(\mu_i \in \mathbb{R}^3\)
-- Covariance/scale parameters: \(\Sigma_i\)
-- Rotation: quaternion \(q_i\)
-- Color: \(c_i \in \mathbb{R}^3\)
+* ❌ Thought radiance and density were grayscale-like.
+  ✅ Learned radiance is *emitted color in a view-dependent way*, and density governs transmittance.
+* ❌ Thought each pixel had its own function or model.
+  ✅ Realized it’s one MLP shared across the scene.
+* ✅ Understood rays: camera → pixel → cast ray → sample 3D points.
 
-```python
-self.positions = nn.Parameter(torch.randn(54, 3) * 0.1)
-self.scales = nn.Parameter(torch.ones(54, 3) * 0.1)
-self.rotations = nn.Parameter(torch.randn(54, 4))
-self.colors = nn.Parameter(torch.rand(54, 3))
-```
+### Pipeline Clicked:
 
-## Rendering Step: Implementation Disclosure
+> Sample 3D points on a ray → pass (x, d) into MLP → integrate color + transmittance → predict pixel RGB → compare to ground truth → backprop through the whole ray.
 
-In this project page, the rasterization/projection internals are currently abstracted behind:
+My mental reframe:
 
-```python
-rendered_img = self.render_gaussians(camera)
-```
+> “NeRF is a learned, differentiable form of volumetric projection.”
 
-That means this document does **not** currently expose the explicit projected covariance derivation in code (e.g., \(\Sigma' = J W \Sigma W^T J^T\)) inside the page.
+### Training Efficiency:
 
-To avoid ambiguity: this page documents the training pipeline and artifacts; the full low-level splat projection kernel is not expanded here yet.
+* ❌ Thought of batches as one-ray-per-batch.
+  ✅ Understood minibatches of many rays, sampled randomly, for efficiency.
 
-## Training Objective
+## 🤯 Turning to Gaussian Splatting
 
-Current implementation uses:
+Then came the shift:
 
-\[
-\mathcal{L}_{total} = \mathcal{L}_{photo} + 0.1\,\mathcal{L}_{color}
-\]
+> “If NeRF learns a function, what does Gaussian Splatting do?”
 
-where:
-- \(\mathcal{L}_{photo}\): image-space MSE between rendered and target view
-- \(\mathcal{L}_{color}\): color consistency regularization
+### First Analogies:
 
-```python
-rendered_img = self.render_gaussians(camera)
-photometric_loss = F.mse_loss(rendered_img, target_img)
-color_consistency_loss = self.compute_color_loss()
-total_loss = photometric_loss + 0.1 * color_consistency_loss
-```
+> “It’s like stacking transparent sheets (Gaussians) and projecting them.”
+> “It’s like splattering colored paintballs on a canvas and looking from behind.”
 
-## Training Configuration
+### Core Understanding:
 
-```python
-training_config = {
-    "epochs": 10,
-    "learning_rate": 0.01,
-    "batch_size": 2,
-    "image_downsampling": 4,
-    "device": "cuda",
-    "optimization": "Adam"
-}
-```
+* Starts with a **sparse point cloud** (e.g. from COLMAP)
+* Initializes **one Gaussian per point**
+* Each Gaussian has:
 
-## Convergence Record (from training_history.json)
+  * Position (μ)
+  * Covariance (Σ)
+  * Color
+  * Opacity
+  * View-dependent features (e.g. Spherical Harmonics)
+* All of these are **trainable parameters**
+* Rendering = **project and alpha-blend** Gaussians
+* Backpropagate image loss to update Gaussian parameters — including positions!
 
-- Epoch 1: 0.2632208467
-- Epoch 2: 0.2632112205
-- Epoch 3: 0.2632041574
-- Epoch 4: 0.2631997466
-- Epoch 5: 0.2631973326
-- Epoch 6: 0.2631948590
-- Epoch 7: 0.2631928623
-- Epoch 8: 0.2631911933
-- Epoch 9: 0.2631901205
-- Epoch 10: 0.2631887496
+### Corrected Assumptions:
 
-## Training Visuals
+* ❌ Thought the point cloud stayed fixed.
+  ✅ Even Gaussian *centers* (positions) are optimized.
+* ❌ Thought inference required re-initializing Gaussians.
+  ✅ Training is one-time; inference is just projection.
 
-<details>
-<summary>Per-epoch plots</summary>
+> “After training, you discard the original point cloud — the optimized Gaussians *are* your scene.”
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
-  <a href="assets/training_plots_epoch_0001.png" target="_blank"><img src="assets/training_plots_epoch_0001.png" alt="epoch 1" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0002.png" target="_blank"><img src="assets/training_plots_epoch_0002.png" alt="epoch 2" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0003.png" target="_blank"><img src="assets/training_plots_epoch_0003.png" alt="epoch 3" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0004.png" target="_blank"><img src="assets/training_plots_epoch_0004.png" alt="epoch 4" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0005.png" target="_blank"><img src="assets/training_plots_epoch_0005.png" alt="epoch 5" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0006.png" target="_blank"><img src="assets/training_plots_epoch_0006.png" alt="epoch 6" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0007.png" target="_blank"><img src="assets/training_plots_epoch_0007.png" alt="epoch 7" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0008.png" target="_blank"><img src="assets/training_plots_epoch_0008.png" alt="epoch 8" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0009.png" target="_blank"><img src="assets/training_plots_epoch_0009.png" alt="epoch 9" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/training_plots_epoch_0010.png" target="_blank"><img src="assets/training_plots_epoch_0010.png" alt="epoch 10" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-</div>
+## 🧠 From Function to Proxy
 
-</details>
+|                | NeRF                          | Gaussian Splatting                      |
+| -------------- | ----------------------------- | --------------------------------------- |
+| Representation | Implicit (MLP function)       | Explicit (trainable 3D Gaussians)       |
+| Geometry       | Not directly accessible       | Encoded in positions, shapes of blobs   |
+| Rendering      | Sample & integrate along rays | Project & blend Gaussians               |
+| Training Data  | Only multi-view images        | Multi-view images + initial point cloud |
+| Inference Time | Slow (unless optimized)       | Real-time                               |
+| Editable       | Hard (function entangled)     | Easy (Gaussians are modular)            |
 
-<details>
-<summary>3D Gaussian snapshots</summary>
+> “NeRF learns how to simulate light transport.”
+> “Gaussian Splatting learns to be seen.”
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0;">
-  <a href="assets/gaussian_3d_epoch_0001.png" target="_blank"><img src="assets/gaussian_3d_epoch_0001.png" alt="3d epoch 1" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/gaussian_3d_epoch_0005.png" target="_blank"><img src="assets/gaussian_3d_epoch_0005.png" alt="3d epoch 5" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-  <a href="assets/gaussian_3d_epoch_0010.png" target="_blank"><img src="assets/gaussian_3d_epoch_0010.png" alt="3d epoch 10" style="width:100%; border:1px solid #ddd; border-radius:4px;" /></a>
-</div>
+## 🔎 Diagnostic-Level Intuition
 
-</details>
+> “After training, we have a ‘mini Gaussian world’ that, when projected from the 50 known views, reconstructs the original images near-perfectly.” ✅ Yes.
 
-<div style="text-align: center; margin: 20px 0;">
-  <video width="100%" style="max-width: 800px; border: 2px solid #ddd; border-radius: 8px;" controls preload="metadata">
-    <source src="assets/Gaussian%20Evolution.mp4" type="video/mp4">
-  </video>
-</div>
+> “At inference, we use the trained Gaussians — not the raw point cloud.” ✅ Yes.
 
-## Reproducibility Pointers
+> “Gaussian Splatting is not about learning a rendering function — it *is* the rendering structure.” ✅ Yes.
 
-Files used in this workflow:
-- `gaussian_splatting_rubiks.py`
-- `single_visualizer_multiview.py`
-- `camera_positions_visualization.py`
+## 🧭 What’s Next
 
-Outputs:
-- `public/assets/training_history.json`
-- `public/assets/training_plots_epoch_*.png`
-- `public/assets/gaussian_3d_epoch_*.png`
-- `public/assets/Gaussian Evolution.mp4`
+### Still Curious About:
 
-## Known Gaps
+* How view-dependent shading is encoded via Spherical Harmonics
+* How occlusion is handled explicitly in splatting vs via density in NeRF
+* What happens when GS is trained on extremely sparse data
+* How to compress or prune Gaussians for edge devices
+* How dynamic scenes can be represented in GS (temporal Gaussians?)
 
-- This page does not yet include an explicit derivation/code block for projected covariance \(\Sigma'\) computation.
-- No standardized external benchmark metrics (PSNR/SSIM/LPIPS) are reported here.
-- No ablation matrix is reported in this document.
+### What’s Solidified:
+
+* ✅ Volume rendering via NeRF’s sampling → function → integration pipeline
+* ✅ Differentiable splatting as a projection-first, geometry-aware approach
+* ✅ Trade-offs: NeRF is expressive but slow; GS is fast and modular
+
+---
+
+## ✅ What I'm Studying
+
+How two different paradigms — **NeRFs** and **Gaussian Splatting** — enable view synthesis from sparse inputs. One learns a light-emitting function, the other builds a proxy geometry of 3D blobs.
+
+---
+
+## 🎯 My Model of NeRF (Neural Radiance Fields)
+
+### Summary
+
+NeRF is a **function approximator (MLP)** that learns:
+
+$$
+F_\theta(x \in \mathbb{R}^3, \, d \in \mathbb{R}^3) \rightarrow (r, g, b, \sigma)
+$$
+
+where $x$ is a 3D position, $d$ is a viewing direction, and the output is view-dependent color + density.
+
+One MLP for the entire scene.
+
+### Training:
+
+* Input = posed RGB images (camera intrinsics + extrinsics)
+* For each pixel:
+
+  * Cast a ray
+  * Sample N points along the ray
+  * Query the MLP at each point
+  * Volume render the RGB
+  * Compare to ground truth pixel
+  * Backpropagate across all rays
+
+> "NeRF doesn’t build geometry — it learns how light behaves in 3D space."
+
+It’s an **implicit model** — the scene is encoded in the weights.
+
+### What I Got Wrong (Initially):
+
+* Thought MLPs were per-pixel — false. One global MLP.
+* Misunderstood volume rendering — now clear it's the integration of light along a ray.
+* Didn’t get why multiple samples are needed — now I see it’s to handle occlusion and variation.
+
+---
+
+## ✅ My Model of Gaussian Splatting
+
+### Summary
+
+GS is a **proxy-based renderer** using **3D Gaussian ellipsoids**.
+
+Each Gaussian $\mathcal{G}_i$ has:
+
+* Position $\mu_i$
+* Covariance $\Sigma_i$
+* Color (RGB or Spherical Harmonics)
+* Opacity + visibility weights
+
+### Training:
+
+* Input = point cloud + posed RGB images
+* Initialize one Gaussian per point
+* Render all Gaussians per view
+* Backpropagate loss w\.r.t. all Gaussian attributes
+
+### Inference:
+
+* Freeze Gaussians
+* For any novel view:
+
+  * Project Gaussians
+  * Blend using alpha composition
+
+> "Rendering = projection, not sampling. No MLP. No integration."
+
+---
+
+## 🔁 Core Contrast
+
+| Aspect              | NeRF                       | Gaussian Splatting           |
+| ------------------- | -------------------------- | ---------------------------- |
+| Representation      | Implicit function via MLP  | Explicit proxy via Gaussians |
+| Geometry            | Encoded in weights         | Encoded in positions/shapes  |
+| Rendering           | Ray sampling + integration | Projection + alpha blending  |
+| Training Inputs     | Posed images               | Images + point cloud         |
+| Inference Time      | Slow (unless optimized)    | Real-time                    |
+| Editable Components | Hard                       | Modular + intuitive          |
+
+---
+### 2025 - 08 - 06
+---
