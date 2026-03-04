@@ -227,3 +227,49 @@ Each Gaussian $\mathcal{G}_i$ has:
 ---
 ### 2025 - 08 - 06
 ---
+
+## 🧪 Experiment Artifacts (Restored)
+
+Here are the original artifacts tied to this Gaussian Splatting run.
+
+### 📹 Training Evolution
+
+<div style="text-align:center; margin: 16px 0;">
+  <video width="100%" style="max-width: 860px; border: 2px solid #ddd; border-radius: 8px;" controls preload="metadata">
+    <source src="/assets/Gaussian%20Evolution.mp4" type="video/mp4">
+  </video>
+</div>
+
+### 🛰️ Camera Geometry
+
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin: 16px 0;">
+  <a href="/assets/camera_positions_3d.png" target="_blank"><img src="/assets/camera_positions_3d.png" alt="camera positions 3d" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/camera_positions_3d_with_images.png" target="_blank"><img src="/assets/camera_positions_3d_with_images.png" alt="camera positions with images" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/camera_positions_with_perspective_images.png" target="_blank"><img src="/assets/camera_positions_with_perspective_images.png" alt="camera perspective map" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+</div>
+
+### 📉 Training Curves (Sample)
+
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; margin: 16px 0;">
+  <a href="/assets/training_plots_epoch_0001.png" target="_blank"><img src="/assets/training_plots_epoch_0001.png" alt="training plot epoch 1" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/training_plots_epoch_0005.png" target="_blank"><img src="/assets/training_plots_epoch_0005.png" alt="training plot epoch 5" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/training_plots_epoch_0010.png" target="_blank"><img src="/assets/training_plots_epoch_0010.png" alt="training plot epoch 10" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+</div>
+
+### 🧩 3D Gaussian States (Sample)
+
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; margin: 16px 0;">
+  <a href="/assets/gaussian_3d_epoch_0001.png" target="_blank"><img src="/assets/gaussian_3d_epoch_0001.png" alt="gaussian epoch 1" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/gaussian_3d_epoch_0005.png" target="_blank"><img src="/assets/gaussian_3d_epoch_0005.png" alt="gaussian epoch 5" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+  <a href="/assets/gaussian_3d_epoch_0010.png" target="_blank"><img src="/assets/gaussian_3d_epoch_0010.png" alt="gaussian epoch 10" style="width:100%; border:1px solid #ddd; border-radius:6px;" /></a>
+</div>
+
+### 📦 Full Artifact Set
+
+- `/assets/top_view_000.png` → `/assets/top_view_035.png`
+- `/assets/normal_view_000.png` → `/assets/normal_view_035.png`
+- `/assets/bottom_view_000.png` → `/assets/bottom_view_035.png`
+- `/assets/training_plots_epoch_0001.png` → `/assets/training_plots_epoch_0010.png`
+- `/assets/gaussian_3d_epoch_0001.png` → `/assets/gaussian_3d_epoch_0010.png`
+- `/assets/training_history.json`
+
