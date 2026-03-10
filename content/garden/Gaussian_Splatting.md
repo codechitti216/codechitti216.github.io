@@ -1,5 +1,5 @@
 ---
-title: "Gaussian Splatting: From Theory to 54-Gaussian Optimization"
+title: "Exploring Gaussian Splatting"
 date: "2025-08-05"
 tags: ["Gaussian Splatting", "View Synthesis", "3D Reconstruction", "Differentiable Rendering"]
 status: "completed"
@@ -129,11 +129,5 @@ The baseline works—geometry self-organizes despite flat loss curves. But I don
 - **Critical perspectives:** Which camera angles matter most? Are corner views redundant?
 
 Once these ablations finish, I'll have a much clearer picture of the sample efficiency and resource trade-offs. That'll feed into whether this approach is practical for real-world scenarios where you can't guarantee dense, calibrated multi-view data.
-
-Next steps after ablations:
-- Test with real-world RGB datasets and uncalibrated cameras
-- Integrate COLMAP for automatic camera calibration
-- Implement adaptive Gaussian pruning to reduce memory overhead
-- Validate against published Gaussian Splatting benchmarks (3D-GS paper, official implementations)
 
 ---
