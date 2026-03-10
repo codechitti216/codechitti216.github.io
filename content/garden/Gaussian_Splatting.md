@@ -1,407 +1,61 @@
 ---
-title: "NeRFs and Gaussian Splatting"
+title: "Gaussian Splatting: From Theory to 54-Gaussian Optimization"
 date: "2025-08-05"
-tags: ["NeRF", "Gaussian Splatting", "View Synthesis", "Rendering", "MLP", "3D Perception"]
-status: "ongoing"
-kind: "learning"
+tags: ["Gaussian Splatting", "View Synthesis", "3D Reconstruction", "Differentiable Rendering"]
+status: "completed"
+kind: "research"
 published: true
 visibility: "public"
-evolution:
-  - date: "2025-08-05"
-    note: "Initial curiosity about rendering and Gaussian Splatting."
-  - date: "2025-08-05"
-    note: "Learned what NeRF is and how it uses volume rendering and MLPs."
-  - date: "2025-08-05"
-    note: "Understood Gaussian Splatting as explicit, differentiable geometry proxy."
-  - date: "2025-08-05"
-    note: "Refined understanding of inference, initialization, and learned geometry."
-  - date: "2025-08-05"
-    note: "Confirmed Gaussian Splatting as a train-once, render-fast paradigm."
 ---
 
-# 🧠 A Journal of Evolving Intuition: NeRFs and Gaussian Splatting
+# Gaussian Splatting: From Theory to 54-Gaussian Optimization
 
-### 2025 - 08 - 05
+Gaussian Splatting achieves real-time 3D reconstruction by representing scenes as explicit, learnable 3D Gaussian ellipsoids. To understand its bottlenecks, strengths, and practical constraints, I built a constrained, end-to-end optimization pipeline from scratch: training exactly 54 Gaussians to reconstruct a Rubik's cube from 108 multi-view RGB images.
 
-## 🌱 Starting Point
-
-**Prompted by curiosity**, I asked: “What is Gaussian Splatting?” All I knew was that it was some rendering method involving point clouds.
-
-That kicked off the cascade.
-
-I realized that to understand Gaussian Splatting, I first needed to understand NeRF — which I barely knew existed.
-
-I started from ground zero:
-
-* “What is rendering?”
-* “Isn’t it like meshing — turning raw data into something visual?”
-* “What’s this ‘view direction’? And how does radiance relate to pixels?”
-
-## 🔍 Encountering NeRF
-
-What I first learned: NeRF is **not a geometry model**, but a **neural function** that maps 3D coordinates and viewing directions to color and density.
-
-### Early Realizations:
-
-* ❌ Thought radiance and density were grayscale-like.
-  ✅ Learned radiance is *emitted color in a view-dependent way*, and density governs transmittance.
-* ❌ Thought each pixel had its own function or model.
-  ✅ Realized it’s one MLP shared across the scene.
-* ✅ Understood rays: camera → pixel → cast ray → sample 3D points.
-
-### Pipeline Clicked:
-
-> Sample 3D points on a ray → pass (x, d) into MLP → integrate color + transmittance → predict pixel RGB → compare to ground truth → backprop through the whole ray.
-
-My mental reframe:
-
-> “NeRF is a learned, differentiable form of volumetric projection.”
-
-### Training Efficiency:
-
-* ❌ Thought of batches as one-ray-per-batch.
-  ✅ Understood minibatches of many rays, sampled randomly, for efficiency.
-
-## 🤯 Turning to Gaussian Splatting
-
-Then came the shift:
-
-> “If NeRF learns a function, what does Gaussian Splatting do?”
-
-### First Analogies:
-
-> “It’s like stacking transparent sheets (Gaussians) and projecting them.”
-> “It’s like splattering colored paintballs on a canvas and looking from behind.”
-
-### Core Understanding:
-
-* Starts with a **sparse point cloud** (e.g. from COLMAP)
-* Initializes **one Gaussian per point**
-* Each Gaussian has:
-
-  * Position (μ)
-  * Covariance (Σ)
-  * Color
-  * Opacity
-  * View-dependent features (e.g. Spherical Harmonics)
-* All of these are **trainable parameters**
-* Rendering = **project and alpha-blend** Gaussians
-* Backpropagate image loss to update Gaussian parameters — including positions!
-
-### Corrected Assumptions:
-
-* ❌ Thought the point cloud stayed fixed.
-  ✅ Even Gaussian *centers* (positions) are optimized.
-* ❌ Thought inference required re-initializing Gaussians.
-  ✅ Training is one-time; inference is just projection.
-
-> “After training, you discard the original point cloud — the optimized Gaussians *are* your scene.”
-
-## 🧠 From Function to Proxy
-
-|                | NeRF                          | Gaussian Splatting                      |
-| -------------- | ----------------------------- | --------------------------------------- |
-| Representation | Implicit (MLP function)       | Explicit (trainable 3D Gaussians)       |
-| Geometry       | Not directly accessible       | Encoded in positions, shapes of blobs   |
-| Rendering      | Sample & integrate along rays | Project & blend Gaussians               |
-| Training Data  | Only multi-view images        | Multi-view images + initial point cloud |
-| Inference Time | Slow (unless optimized)       | Real-time                               |
-| Editable       | Hard (function entangled)     | Easy (Gaussians are modular)            |
-
-> “NeRF learns how to simulate light transport.”
-> “Gaussian Splatting learns to be seen.”
-
-## 🔎 Diagnostic-Level Intuition
-
-> “After training, we have a ‘mini Gaussian world’ that, when projected from the 50 known views, reconstructs the original images near-perfectly.” ✅ Yes.
-
-> “At inference, we use the trained Gaussians — not the raw point cloud.” ✅ Yes.
-
-> “Gaussian Splatting is not about learning a rendering function — it *is* the rendering structure.” ✅ Yes.
-
-## 🧭 What’s Next
-
-### Still Curious About:
-
-* How view-dependent shading is encoded via Spherical Harmonics
-* How occlusion is handled explicitly in splatting vs via density in NeRF
-* What happens when GS is trained on extremely sparse data
-* How to compress or prune Gaussians for edge devices
-* How dynamic scenes can be represented in GS (temporal Gaussians?)
-
-### What’s Solidified:
-
-* ✅ Volume rendering via NeRF’s sampling → function → integration pipeline
-* ✅ Differentiable splatting as a projection-first, geometry-aware approach
-* ✅ Trade-offs: NeRF is expressive but slow; GS is fast and modular
+This isn't just a toy problem. It's a controlled environment where every variable is known—ground truth geometry, perfect camera calibration, synthetic yet photorealistic rendering, and systematic multi-view coverage. These constraints unlocked insights into how Gaussian Splatting discovers 3D structure from 2D supervision alone.
 
 ---
 
-## ✅ What I'm Studying
+## The Approach: Explicit 3D Proxies
 
-How two different paradigms — **NeRFs** and **Gaussian Splatting** — enable view synthesis from sparse inputs. One learns a light-emitting function, the other builds a proxy geometry of 3D blobs.
+Gaussian Splatting represents a scene as a set of learnable 3D Gaussian ellipsoids. Each Gaussian has:
+- **Position** (learnable 3D center)
+- **Covariance** (learnable shape and orientation)
+- **Color** (learnable RGB)
+- **Opacity** (learnable blending weight)
 
----
-
-## 🎯 My Model of NeRF (Neural Radiance Fields)
-
-### Summary
-
-NeRF is a **function approximator (MLP)** that learns:
-
-$$
-F_\theta(x \in \mathbb{R}^3, \, d \in \mathbb{R}^3) \rightarrow (r, g, b, \sigma)
-$$
-
-where $x$ is a 3D position, $d$ is a viewing direction, and the output is view-dependent color + density.
-
-One MLP for the entire scene.
-
-### Training:
-
-* Input = posed RGB images (camera intrinsics + extrinsics)
-* For each pixel:
-
-  * Cast a ray
-  * Sample N points along the ray
-  * Query the MLP at each point
-  * Volume render the RGB
-  * Compare to ground truth pixel
-  * Backpropagate across all rays
-
-> "NeRF doesn’t build geometry — it learns how light behaves in 3D space."
-
-It’s an **implicit model** — the scene is encoded in the weights.
-
-### What I Got Wrong (Initially):
-
-* Thought MLPs were per-pixel — false. One global MLP.
-* Misunderstood volume rendering — now clear it's the integration of light along a ray.
-* Didn’t get why multiple samples are needed — now I see it’s to handle occlusion and variation.
+To render, you project all Gaussians into image space and blend them using alpha composition. This is fast (projection is cheap), interpretable (you can see the 3D geometry), and fully differentiable (positions and colors optimize end-to-end).
 
 ---
 
-## ✅ My Model of Gaussian Splatting
+## Building the Pipeline: 108-View Rubik's Cube Dataset
 
-### Summary
+### Why a Rubik's Cube?
 
-GS is a **proxy-based renderer** using **3D Gaussian ellipsoids**.
+The Rubik's cube is the ideal testbed: 54 distinct colored faces with sharp geometric boundaries, known ground truth geometry, complex viewing angles where most views show 2–3 faces simultaneously, and challenging feature density with bold colors and thin black separators. If Gaussian Splatting can reconstruct this, it can handle most multi-view scenarios.
 
-Each Gaussian $\mathcal{G}_i$ has:
+### The 108-View Camera Architecture
 
-* Position $\mu_i$
-* Covariance $\Sigma_i$
-* Color (RGB or Spherical Harmonics)
-* Opacity + visibility weights
+I generated 108 precisely calibrated views using a systematic 3-level orbital camera rig with complete 360° coverage. Each camera position was computed to show 2–3 cube faces per view with consistent ambient lighting and sharp shadows.
 
-### Training:
-
-* Input = point cloud + posed RGB images
-* Initialize one Gaussian per point
-* Render all Gaussians per view
-* Backpropagate loss w\.r.t. all Gaussian attributes
-
-### Inference:
-
-* Freeze Gaussians
-* For any novel view:
-
-  * Project Gaussians
-  * Blend using alpha composition
-
-> "Rendering = projection, not sampling. No MLP. No integration."
-
----
-
-## 🔁 Core Contrast
-
-| Aspect              | NeRF                       | Gaussian Splatting           |
-| ------------------- | -------------------------- | ---------------------------- |
-| Representation      | Implicit function via MLP  | Explicit proxy via Gaussians |
-| Geometry            | Encoded in weights         | Encoded in positions/shapes  |
-| Rendering           | Ray sampling + integration | Projection + alpha blending  |
-| Training Inputs     | Posed images               | Images + point cloud         |
-| Inference Time      | Slow (unless optimized)    | Real-time                    |
-| Editable Components | Hard                       | Modular + intuitive          |
-
----
-### 2025 - 08 - 06
----
-
-## 🎯 From Theory to Practice: Building a Rubik's Cube Multi-View Dataset
-
-Moving from theoretical understanding to hands-on implementation, I embarked on creating a complete Gaussian Splatting pipeline. The journey involved multiple pivots and technical challenges that revealed deeper insights about 3D reconstruction.
-
-### 🚧 Initial Challenges & Strategic Pivots
-
-**The Original Plan:**
-- Train Gaussians from 3 smartphone photos of indoor room scenes
-- Use real-world data with natural lighting and textures
-
-**Immediate Blockers Encountered:**
-- **No camera intrinsics/extrinsics** for smartphone photos
-- **COLMAP availability concerns** in my development environment  
-- **Sparse feature matching** across 3-room images → unreliable geometric constraints
-- **Uncontrolled lighting** and minimal texture in some regions
-
-> *This forced a strategic pivot to controlled synthetic data for end-to-end pipeline validation before tackling real-world scenarios.*
-
-**The Point Cloud vs Mesh Decision:**
-
-I initially attempted to generate an extremely dense point cloud of a Rubik's cube, but encountered critical issues:
-- **Disappearing faces and z-fighting** during rendering
-- **Colors washing out** or turning black/white due to material/lighting defaults
-- **Thin black separators** between stickers inconsistently visible
-
-**Solution:** Pivot to a compact, watertight mesh built from box primitives with:
-- **Explicit per-face colors** and thick black separators
-- **Disabled mesh cleaning** steps that removed important edges
-- **Manual submesh concatenation** to preserve visibility and shading
-
-### 🎲 Why a Rubik's Cube?
-
-The Rubik's cube became the perfect testbed for several strategic reasons:
-
-- **54 distinct colored faces** with clear geometric boundaries
-- **Known ground truth geometry** for precise validation
-- **Six distinct colors** (red, orange, yellow, green, blue, white)
-- **Sharp edges and corners** ideal for feature detection algorithms
-- **Complex viewing angles** with multiple faces visible from any viewpoint
-
-> *"If Gaussian Splatting can reconstruct a complex multi-colored geometric object like a Rubik's cube, it can handle most real-world scenarios."*
-
----
-
-## 📷 Multi-View Dataset Implementation: 108 Precisely Controlled Views
-
-### Technical Implementation Strategy
-
-I developed a sophisticated multi-view generation system using `single_visualizer_multiview.py` to solve critical rendering challenges:
-
-```python
-# Core implementation solving Open3D headless rendering issues
-def generate_single_visualizer_multiviews():
-    # Create ONE visualizer instance to avoid context switching
-    vis = o3d.visualization.Visualizer()
-    vis.create_window(width=1024, height=768, visible=False)
-    vis.add_geometry(mesh)
-    
-    # Rotate camera instead of creating new visualizers
-    for level in ['top', 'normal', 'bottom']:
-        for angle in range(36):  # 10-degree increments
-            # Calculate spherical coordinates
-            camera_pos = spherical_to_cartesian(radius, azimuth, elevation)
-            
-            # Set camera and render
-            set_camera_parameters(vis, camera_pos, target, up_vector)
-            vis.capture_screen_image(output_path)
-```
-
-### 3-Level Camera Architecture
-
-**Camera Configuration:**
-```json
-{
-  "total_views": 108,
-  "levels": {
-    "top": 36,      // Elevation +40° (looking down)
-    "normal": 36,   // Elevation 0° (eye level)
-    "bottom": 36    // Elevation -40° (looking up)
-  },
-  "camera_settings": {
-    "image_width": 1024,
-    "image_height": 768,
-    "camera_distance": 6.3,
-    "orbital_radius": 8.07,
-    "angular_increment": 10  // degrees per view
-  }
-}
-```
-
-**Technical Solutions Implemented:**
-- **Single persistent visualizer** to avoid rendering context issues
-- **Explicit up vector control** across levels: top (up=[0,0,1]), normal (up=[0,0,1]), bottom (up=[0,0,-1])
-- **Proper conversion** to `open3d.geometry.Image` before writing
-- **Disabled mesh cleanups** that removed thin black separators
-
-### Critical Camera Position Visualizations
+**Multi-View Coverage Visualization:**
 
 ![3D Camera Positions - The Complete Architecture](../../public/assets/camera_positions_3d.png)
-
-**The Multi-View Foundation**: 108 camera positions in perfect orbital symmetry - this is the geometric backbone that makes Gaussian Splatting possible.
+*Figure 1: 108 camera positions in orbital symmetry—the geometric foundation enabling view-consistent reconstruction.*
 
 ![Camera Positions with Sample Images - The Complete System](../../public/assets/camera_positions_3d_with_images.png)
-
-**The Vision-Geometry Connection**: See how each 3D camera position produces a specific 2D view - this mapping is what the Gaussians must learn to reproduce.
+*Figure 2: Each 3D camera position maps to a unique 2D view. Gaussians must learn to render consistently across this entire view space.*
 
 ![Perspective Analysis - The Strategic Coverage](../../public/assets/camera_positions_with_perspective_images.png)
-
-**The Perspective Strategy**: Top-down view showing how 108 cameras provide complete angular coverage - no blind spots, maximum information density.
-
-> **🚨 WHY THESE 3 IMAGES ARE EVERYTHING:**
-> 
-> 1. **Image #1** shows the **3D geometric foundation** - how cameras are positioned in space
-> 2. **Image #2** reveals the **vision-geometry mapping** - how 3D positions create 2D views  
-> 3. **Image #3** demonstrates the **coverage strategy** - why this specific arrangement captures all necessary information
->
-> **These visualizations explain WHY Gaussian Splatting works - perfect multi-view coverage creates the supervision needed for 3D learning!**
-
-### Sample Multi-View Images
-
-<details>
-<summary>📷 Top Level Views (Looking Down - 36 views)</summary>
-
-![Top view at 0° rotation](../../public/assets/top_view_000.png)
-![Top view at 90° rotation](../../public/assets/top_view_009.png)
-![Top view at 180° rotation](../../public/assets/top_view_018.png)
-![Top view at 270° rotation](../../public/assets/top_view_027.png)
-![Top view at 350° rotation](../../public/assets/top_view_035.png)
-
-*Representative samples from 36 top-level views showing the cube from above at different rotational angles*
-
-</details>
-
-<details>
-<summary>📷 Normal Level Views (Eye Level - 36 views)</summary>
-
-![Normal view front-right angle](../../public/assets/normal_view_000.png)
-![Normal view right-back angle](../../public/assets/normal_view_009.png)
-![Normal view back-left angle](../../public/assets/normal_view_018.png)
-![Normal view left-front angle](../../public/assets/normal_view_027.png)
-![Normal view near-front angle](../../public/assets/normal_view_035.png)
-
-*Representative samples from 36 eye-level views capturing 2-3 cube faces simultaneously*
-
-</details>
-
-<details>
-<summary>📷 Bottom Level Views (Looking Up - 36 views)</summary>
-
-![Bottom view from front angle](../../public/assets/bottom_view_000.png)
-![Bottom view from right angle](../../public/assets/bottom_view_009.png)
-![Bottom view from back angle](../../public/assets/bottom_view_018.png)
-![Bottom view from left angle](../../public/assets/bottom_view_027.png)
-![Bottom view from front-right angle](../../public/assets/bottom_view_035.png)
-
-*Representative samples from 36 bottom-level views showing the cube from below at various angles*
-
-</details>
-
-> **Key Insight**: Each viewpoint captures 2-3 faces simultaneously, providing rich overlapping information essential for 3D reconstruction. The systematic orbital sampling ensures no face is under-represented in the dataset.
+*Figure 3: Top-down view showing complete angular coverage with no blind spots—maximum information density for 3D learning.*
 
 ---
 
-## 🧠 Gaussian Splatting Training: Architecture & Implementation
+## Training: From Random Gaussians to Learned Geometry
 
-### Training Configuration & Design Decisions
-
-**Core Design Philosophy:**
-- **54 Gaussians total** - exactly one Gaussian per Rubik's cube face
-- **End-to-end differentiable** position, scale, rotation, and color optimization
-- **Memory-efficient processing** with batch management and CUDA cache clearing
+### Architecture: 54 Trainable Gaussians
 
 ```python
-# Gaussian Splatting Architecture
 class GaussianSplattingRubiks:
     def __init__(self, num_gaussians=54, device='cuda'):
         # Trainable Gaussian parameters
@@ -410,7 +64,7 @@ class GaussianSplattingRubiks:
         self.rotations = nn.Parameter(torch.randn(54, 4))          # Quaternions
         self.colors = nn.Parameter(torch.rand(54, 3))              # RGB colors
         
-        # Rubik's cube target colors (6 face types)
+        # Rubik's cube reference colors
         self.target_colors = torch.tensor([
             [1.0, 1.0, 1.0],    # White
             [1.0, 1.0, 0.0],    # Yellow  
@@ -421,307 +75,65 @@ class GaussianSplattingRubiks:
         ])
 ```
 
-**Training Parameters:**
-```python
-training_config = {
-    "epochs": 10,
-    "learning_rate": 0.01,
-    "batch_size": 2,              # Memory-efficient processing
-    "image_downsampling": 4,      # 4x downsampling for memory
-    "device": "cuda",
-    "loss_function": "MSE + color_consistency",
-    "optimization": "Adam",
-    "gradient_clipping": True
-}
-```
+### Training
 
-### Training Evolution & Results
+I set up a standard training loop using an Adam optimizer, calculating the photometric MSE loss between the rendered views and ground-truth images, plus a light color consistency penalty.
 
-**Quantitative Training Analysis:**
+### Training Evolution: Gaussian Self-Organization
 
-```python
-# Loss progression from training_history.json
-epoch_losses = [
-    0.2632208466529846,    # Epoch 1: Initial high loss
-    0.2632112205028534,    # Epoch 2: Rapid initial improvement  
-    0.2632041573524475,    # Epoch 3: Steady convergence
-    0.26319974660873413,   # Epoch 4: Continued optimization
-    0.2631973326206207,    # Epoch 5: Stabilization
-    0.26319485902786255,   # Epoch 6: Fine-tuning begins
-    0.2631928622722626,    # Epoch 7: Geometric structure emerges
-    0.26319119334220886,   # Epoch 8: Color refinement
-    0.2631901204586029,    # Epoch 9: Near convergence
-    0.26318874955177307    # Epoch 10: Final converged state
-]
+Despite the flat loss, the most striking observation was that **Gaussians spontaneously organized into cube-like geometry.** Starting from random positions, the optimization discovered that clustering into face-aligned arrangements minimized photometric error. By epoch 7, a recognizable cube structure emerged—purely from 2D image supervision.
 
-# Final Gaussian positions (sample)
-final_positions = [
-    [0.1296634078025818, 0.020705832168459892, 0.02691231295466423],   # Face 1
-    [0.18620604276657104, 0.021878689527511597, 0.09860190004110336],  # Face 2
-    [-0.0959610790014267, 0.0003268264699727297, -0.08016854524612427], # Face 3
-    # ... 51 more Gaussian positions
-]
-```
+![Training Epoch 1 - Random Initialization](../../public/assets/gaussian_3d_epoch_0001.png)
+![Training Epoch 5 - Geometric Clustering](../../public/assets/gaussian_3d_epoch_0005.png)
+![Training Epoch 10 - Converged Geometry](../../public/assets/gaussian_3d_epoch_0010.png)
 
-**Key Training Metrics:**
-- **Total loss reduction**: 15.8% over 10 epochs  
-- **Position stability**: Final Gaussians converged within 0.001 units
-- **Color accuracy**: Mean RGB error < 0.05 per channel
-- **Training time**: ~45 seconds per epoch on RTX GPU
-- **Memory usage**: Optimized with periodic CUDA cache clearing
-
-### Training Evolution Visualization
-
-<details>
-<summary>📈 Training Progress Plots (Epoch 1-10)</summary>
-
-![Training plots at epoch 1](../../public/assets/training_plots_epoch_0001.png)
-![Training plots at epoch 2](../../public/assets/training_plots_epoch_0002.png)
-![Training plots at epoch 3](../../public/assets/training_plots_epoch_0003.png)
-![Training plots at epoch 4](../../public/assets/training_plots_epoch_0004.png)
-![Training plots at epoch 5](../../public/assets/training_plots_epoch_0005.png)
-![Training plots at epoch 6](../../public/assets/training_plots_epoch_0006.png)
-![Training plots at epoch 7](../../public/assets/training_plots_epoch_0007.png)
-![Training plots at epoch 8](../../public/assets/training_plots_epoch_0008.png)
-![Training plots at epoch 9](../../public/assets/training_plots_epoch_0009.png)
-![Training plots at epoch 10](../../public/assets/training_plots_epoch_0010.png)
-
-*Progressive training evolution: Early epochs show initial Gaussian placement and basic color learning, mid-training reveals position stabilization and color distinction, while late epochs demonstrate fine-tuning and convergence.*
-
-</details>
-
-### 3D Gaussian Evolution: Training Snapshots
-
-<details>
-<summary>🎯 3D Gaussian Snapshots (Epoch 1-10)</summary>
-
-![3D Gaussian rendering at epoch 1](../../public/assets/gaussian_3d_epoch_0001.png)
-![3D Gaussian rendering at epoch 2](../../public/assets/gaussian_3d_epoch_0002.png)
-![3D Gaussian rendering at epoch 3](../../public/assets/gaussian_3d_epoch_0003.png)
-![3D Gaussian rendering at epoch 4](../../public/assets/gaussian_3d_epoch_0004.png)
-![3D Gaussian rendering at epoch 5](../../public/assets/gaussian_3d_epoch_0005.png)
-![3D Gaussian rendering at epoch 6](../../public/assets/gaussian_3d_epoch_0006.png)
-![3D Gaussian rendering at epoch 7](../../public/assets/gaussian_3d_epoch_0007.png)
-![3D Gaussian rendering at epoch 8](../../public/assets/gaussian_3d_epoch_0008.png)
-![3D Gaussian rendering at epoch 9](../../public/assets/gaussian_3d_epoch_0009.png)
-![3D Gaussian rendering at epoch 10](../../public/assets/gaussian_3d_epoch_0010.png)
-
-*Evolution from random Gaussian positions (epoch 1) to structured cube-like geometry (epoch 10). Notice how Gaussians migrate and cluster to form face-like arrangements.*
-
-</details>
-
-### Training Evolution Video
-
-<details>
-<summary>🎥 Complete Training Evolution Animation</summary>
-
-<video width="100%" controls>
+<video width="100%" controls style="margin: 20px 0;">
   <source src="../../public/assets/Gaussian Evolution.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-*10-epoch animation showing how Gaussians move and adapt during training*
-
-</details>
-
-> **Breakthrough Insight**: By epoch 7, the Gaussians had self-organized into a recognizable cube structure! The algorithm discovered the underlying geometry purely from 2D image supervision.
-
-### Core Implementation: Gaussian Parameter Optimization
-
-```python
-def train_gaussian_splatting(self, target_images, camera_params, epochs=10):
-    """Main training loop with multi-view supervision"""
-    optimizer = torch.optim.Adam([
-        self.positions, self.scales, self.rotations, self.colors
-    ], lr=0.01)
-    
-    training_history = []
-    
-    for epoch in range(epochs):
-        epoch_loss = 0.0
-        
-        # Process images in memory-efficient batches
-        for batch_start in range(0, len(target_images), self.batch_size):
-            batch_images = target_images[batch_start:batch_start + self.batch_size]
-            batch_cameras = camera_params[batch_start:batch_start + self.batch_size]
-            
-            for img_idx, (target_img, camera) in enumerate(zip(batch_images, batch_cameras)):
-                # Render current Gaussians from this camera viewpoint
-                rendered_img = self.render_gaussians(camera)
-                
-                # Compute multi-component loss
-                photometric_loss = F.mse_loss(rendered_img, target_img)
-                color_consistency_loss = self.compute_color_loss()
-                total_loss = photometric_loss + 0.1 * color_consistency_loss
-                
-                # Backpropagate and optimize
-                optimizer.zero_grad()
-                total_loss.backward()
-                torch.nn.utils.clip_grad_norm_([self.positions, self.colors], max_norm=1.0)
-                optimizer.step()
-                
-                epoch_loss += total_loss.item()
-        
-        # Save training progress
-        training_history.append({
-            'epoch': epoch + 1,
-            'loss': epoch_loss,
-            'positions': self.positions.detach().cpu().numpy().tolist(),
-            'colors': self.colors.detach().cpu().numpy().tolist()
-        })
-        
-        # Generate visualizations every epoch
-        if epoch % 1 == 0:
-            self.save_training_plots(epoch + 1)
-            self.save_3d_visualization(epoch + 1)
-        
-        # Clear CUDA cache periodically
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-    
-    return training_history
-```
+*Complete 10-epoch training animation showing Gaussian position evolution and color refinement.*
 
 ---
 
-## 🔬 Key Technical Discoveries & Insights
+## Ablation Studies
 
-### Gaussian Self-Organization Phenomenon
+The baseline is stable and running. The next phase is systematic ablation to understand what drives convergence.
 
-**The Most Surprising Discovery:**
-The Gaussians don't just learn appearance - they actively migrate to optimal 3D positions. This spatial optimization revealed that Gaussian Splatting is fundamentally about learning the geometric structure of the scene from pure 2D supervision.
+### Ablation 1: View Reduction at Each Level
 
-**Technical Evidence:**
-- **Epoch 1-3**: Random Gaussian positions with minimal structure
-- **Epoch 4-6**: Clustering begins around major geometric features  
-- **Epoch 7-10**: Clear cube-like structure emerges with face-aligned positioning
+**Approach:** Keep the same number of epochs (10), but systematically reduce the number of views per orbital level (top, normal, bottom). Start with full 36 views per level, then drop to 24, 12, 6, 3.
 
-**Multi-View Consistency Validation:**
-With 108 viewing angles, the model had to maintain consistency across vastly different perspectives. The successful convergence demonstrates the robustness of the splatting representation for complex geometric reconstruction.
+**Questions to answer:**
+- What is the optimal number of views per level for stable convergence?
+- Which view positions contribute most to optimization? Are angular views more critical than side views?
+- Below what view count does the system become under-constrained and fail to organize geometry?
 
-### RGB Learning vs Grayscale: A Critical Lesson
+### Ablation 2: Gaussian Count Scaling
 
-During implementation, I discovered that **RGB color learning is absolutely fundamental** to Gaussian Splatting success:
+**Approach:** Fix the full 108-view setup, keep 10 epochs, but vary the number of Gaussians: 27, 54, 108, 216.
 
-**Problems with Grayscale Approaches:**
-- **Uniform Gaussian colors** indicating poor individual RGB learning
-- **Loss of view-dependent appearance** information
-- **Reduced reconstruction quality** due to missing color constraints
-
-**RGB-First Implementation Requirements:**
-- **Proper colored point clouds** in PLY format with RGB values
-- **True multi-view RGB images** (not synthetic identical views)
-- **Color diversity loss functions** to encourage varied Gaussian colors
-- **RGB-aware rendering pipeline** preserving color information throughout
-
-### Validation Results: The Limitations Discovery
-
-**Stanford Bunny Comparison Analysis:**
-When testing with ground truth data (Stanford Bunny with 35,947 points):
-- **3-view reconstruction**: ~200 points (0.56% coverage)
-- **Geometric error**: Mean distance error of 0.014 units
-- **Information loss**: 99.44% of geometric detail lost
-
-**Root Cause Analysis:**
-- **Limited viewpoints**: 3 views can't capture full 360° geometry
-- **Feature dependency**: Reconstruction quality tied to distinctive visual patterns
-- **Fundamental physics**: Under-constrained problem (3 viewpoints → 100% geometry)
-
-> **Key Insight**: The problem isn't the algorithm - it's physics! You're asking 3 images (representing <1% of possible viewpoints) to reconstruct 100% of a 3D object's geometry.
+**Questions to answer:**
+- Is there an optimal number of Gaussians for this scene?
+- Does increasing Gaussian count improve convergence speed or just add redundancy?
+- At what point does increasing Gaussians stop helping?
 
 ---
 
-## 🛠️ Implementation Files & Technical Architecture
+## What's Broken & What's Next
 
-### Core Implementation Files
+The baseline works—geometry self-organizes despite flat loss curves. But I don't know what the real constraints are. The ablation studies above will reveal:
 
-**Primary Scripts:**
-```
-gaussian_splatting_rubiks.py     - Main Gaussian Splatting training implementation
-single_visualizer_multiview.py   - Multi-view dataset generation system  
-camera_positions_visualization.py - Camera setup visualization tools
-```
+- **View efficiency:** Can you get away with far fewer views and still learn geometry?
+- **Gaussian efficiency:** What is the sweet spot of number of gaussians?
+- **Critical perspectives:** Which camera angles matter most? Are corner views redundant?
 
-**Key Dependencies:**
-```python
-# requirements.txt core dependencies
-torch>=1.9.0          # PyTorch for Gaussian parameter optimization
-open3d>=0.13.0        # 3D visualization and mesh handling
-numpy>=1.21.0         # Numerical computations
-matplotlib>=3.5.0     # Training plots and visualizations
-Pillow>=8.3.0         # Image processing
-tqdm>=4.62.0          # Progress tracking
-```
+Once these ablations finish, I'll have a much clearer picture of the sample efficiency and resource trade-offs. That'll feed into whether this approach is practical for real-world scenarios where you can't guarantee dense, calibrated multi-view data.
 
-**Data Structure Organization:**
-```
-../../public/assets/
-├── images/                    # 108 rendered views
-│   ├── top_view_000.png      # Top-level orbital views
-│   ├── normal_view_000.png   # Eye-level orbital views  
-│   └── bottom_view_000.png   # Bottom-level orbital views
-├── cameras/                   # Camera parameter JSONs
-│   ├── top_view_000.json     # Intrinsic/extrinsic matrices
-│   └── ...
-└── camera_positions_*.png     # Visualization plots
-
-gaussian_training/
-├── training_plots_epoch_*.png  # Loss and metric plots
-├── gaussian_3d_epoch_*.png    # 3D Gaussian snapshots
-├── Gaussian Evolution.mp4     # Training animation
-├── training_history.json      # Complete training log
-└── final_gaussian_params.json # Final optimized parameters
-
-final_all_colors_mesh.ply      # Ground truth Rubik's cube mesh
-```
-
----
-
-## 📚 Methodological Insights & Lessons Learned
-
-### Controlled Synthetic → Real Data Strategy
-
-**Why This Progression Worked:**
-1. **Validate pipeline end-to-end** with known ground truth
-2. **Debug technical issues** in controlled environment
-3. **Understand algorithm behavior** before tackling real-world complexity
-4. **Build confidence** in methodology before expensive real data collection
-
-**Feature Density vs Image Count Discovery:**
-- **3 feature-rich images** can outperform many sparse ones
-- **Texture density** matters more than raw pixel count
-- **Proper multi-view coverage** beats high image count with poor viewpoint distribution
-
-**The "Same Scene, Different Viewpoints" Lesson:**
-Initial mistake of creating different synthetic scenes for each "view" taught the fundamental requirement:
-- **Consistent objects and lighting** across all views
-- **Fixed world coordinate system** for proper triangulation
-- **Geometric constraints** only work with actual multi-view capture
-
-### Real-Time Inference Validation
-
-**Post-Training Performance:**
-- **Novel view synthesis**: Milliseconds per frame
-- **Interactive visualization**: Real-time 3D Gaussian rendering
-- **Memory efficiency**: Compact representation vs volumetric approaches
-
-> **Core Insight**: Gaussian Splatting bridges the gap between NeRF's expressiveness and traditional rendering's speed. It's not just a rendering technique - it's a learnable 3D representation that discovers geometry from appearance.
-
-**Technical Validation Results:**
-- ✅ **Gaussian Splatting works excellently** for novel view synthesis from dense viewpoints
-- ✅ **Multi-view consistency** emerges naturally during optimization  
-- ✅ **The representation is interpretable** and editable at the Gaussian level
-- ✅ **Training converges stably** to geometrically meaningful solutions
-- ⚠️ **Sparse view reconstruction** has fundamental geometric limitations
-
-### Future Integration: RGB-First, Real Data Focus
-
-**Next Implementation Priorities:**
-1. **Replace synthetic multiviews** with real RGB datasets (NuScenes integration planned)
-2. **RGB color learning** as primary objective rather than geometric reconstruction
-3. **Proper PLY point cloud export** alongside Gaussian parameters for inspection
-4. **Verification protocols** ensuring diverse, stable Gaussian colors across training
-
-This comprehensive validation demonstrates that while Gaussian Splatting has limitations for sparse geometric reconstruction, it excels at the core task of novel view synthesis with proper multi-view supervision and RGB-focused learning.
+Next steps after ablations:
+- Test with real-world RGB datasets and uncalibrated cameras
+- Integrate COLMAP for automatic camera calibration
+- Implement adaptive Gaussian pruning to reduce memory overhead
+- Validate against published Gaussian Splatting benchmarks (3D-GS paper, official implementations)
 
 ---
