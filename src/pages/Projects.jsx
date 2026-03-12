@@ -54,25 +54,8 @@ export default function Projects() {
                 {project.title}
               </Link>
             </h2>
-            <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+            <div className="text-sm text-gray-600">
               <span>{project.duration}</span>
-              <span className="text-gray-400">•</span>
-              <span>{project.institution}</span>
-            </div>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              {project.excerpt}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {Array.isArray(project.tags) && project.tags.map(tag => (
-                <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="flex items-center justify-between">
-              <Link to={`/projects/${project.id}`} className="text-blue-600 hover:underline text-sm">
-                Read More
-              </Link>
             </div>
           </article>
         ))}

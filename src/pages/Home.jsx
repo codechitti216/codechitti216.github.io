@@ -1,8 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import kanban from '../data/kanban.json';
+
+const RESEARCH_LAB_URL = 'https://codechitti216.github.io/research-lab/';
+
+function formatStatus(status) {
+  return String(status || '')
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
 export default function Home() {
+  const latestActivity = [...kanban]
+    .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
+
   return (
     <div className="space-y-12">
       {/* Profile Photo */}
@@ -132,6 +144,34 @@ export default function Home() {
     portfolio and a personal research garden.
   </p>
 </section>
+
+      <section className="content-card">
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h2 className="font-serif text-2xl font-semibold">The Research Lab</h2>
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-900">
+              <span className="font-medium">Latest Activity:</span>{' '}
+              {latestActivity ? (
+                <>
+                  <span>{latestActivity.title}</span> moved to{' '}
+                  <span className="font-medium">{formatStatus(latestActivity.status)}</span>
+                </>
+              ) : (
+                <span>Awaiting the next logged transition.</span>
+              )}
+            </div>
+          </div>
+          <p className="text-gray-700">
+            A live, transparent ledger of my technical exploration-from initial hypothesis to
+            resolved implementation.
+          </p>
+          <Button variant="outline" asChild>
+            <a href={RESEARCH_LAB_URL} target="_blank" rel="noreferrer">
+              View latest research activity and internal research guide
+            </a>
+          </Button>
+        </div>
+      </section>
 
     </div>
   );
