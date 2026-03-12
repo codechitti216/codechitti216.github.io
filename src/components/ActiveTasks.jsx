@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 const STATUS_BADGE = {
   hypothesis: 'bg-blue-100 text-blue-800',
   sandboxing: 'bg-yellow-100 text-yellow-800',
-  resolved:   'bg-emerald-100 text-emerald-800',
+  results:    'bg-emerald-100 text-emerald-800',
+  artifacts:  'bg-purple-100 text-purple-800',
+  marketing:  'bg-pink-100 text-pink-800',
 };
 
 const TRACK_BADGE = {

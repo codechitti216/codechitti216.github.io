@@ -1,7 +1,7 @@
 import React from 'react';
 
 const entries = [];
-const verificationTimestamp = '2026-03-12T20:49:40.623Z';
+const verificationTimestamp = '2026-03-12T21:06:02.973Z';
 const storyDate = '2026-03-12';
 
 export default function StoryFor2026_03_12() {
@@ -10,7 +10,7 @@ export default function StoryFor2026_03_12() {
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold">Story of the Day – {storyDate}</h1>
         <p className="text-sm text-gray-600">
-          A narrative of how hypotheses and sandboxes moved across the board today.
+          A narrative of how ideas moved across the research pipeline today.
         </p>
       </header>
 

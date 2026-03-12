@@ -11,9 +11,24 @@ function formatStatus(status) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function getLatestByStatus(status) {
+  return [...kanban]
+    .filter((entry) => String(entry.status || '').toLowerCase() === status)
+    .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
+}
+
+function formatActivityLine(entry) {
+  if (!entry) return 'Awaiting entry';
+  const date = new Date(entry.updatedAt || Date.now()).toLocaleDateString();
+  return `${date} - ${entry.title}`;
+}
+
 export default function Home() {
   const latestActivity = [...kanban]
     .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
+  const latestHypothesis = getLatestByStatus('hypothesis');
+  const latestTodo = getLatestByStatus('sandboxing');
+  const latestOutput = getLatestByStatus('results');
 
   return (
     <div className="space-y-12">
@@ -153,7 +168,7 @@ export default function Home() {
               <span className="font-medium">Latest Activity:</span>{' '}
               {latestActivity ? (
                 <>
-                  <span>{latestActivity.title}</span> moved to{' '}
+                  <span>{latestActivity.title}</span> in{' '}
                   <span className="font-medium">{formatStatus(latestActivity.status)}</span>
                 </>
               ) : (
@@ -162,9 +177,22 @@ export default function Home() {
             </div>
           </div>
           <p className="text-gray-700">
-            A live, transparent ledger of my technical exploration-from initial hypothesis to
-            resolved implementation.
+            A live, transparent ledger of my technical exploration from initial hypothesis through
+            sandboxing, results, artifacts, and marketing.
           </p>
+          <div className="space-y-2 text-sm text-gray-700">
+            <p>
+              <span className="font-medium">Latest Hypothesis:</span>{' '}
+              {formatActivityLine(latestHypothesis)}
+            </p>
+            <p>
+              <span className="font-medium">Latest To do:</span> {formatActivityLine(latestTodo)}
+            </p>
+            <p>
+              <span className="font-medium">Latest Output:</span>{' '}
+              {formatActivityLine(latestOutput)}
+            </p>
+          </div>
           <Button variant="outline" asChild>
             <a href={RESEARCH_LAB_URL} target="_blank" rel="noreferrer">
               View latest research activity and internal research guide

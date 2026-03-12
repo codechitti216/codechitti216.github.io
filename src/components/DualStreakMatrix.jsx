@@ -1,7 +1,7 @@
 import kanban from '../data/kanban.json';
 import storyLinks from '../data/storyLinks.json';
 
-const RESOLVED_STATUS = 'resolved';
+const RESULTS_STATUS = 'results';
 const TRACKS = ['Math', 'Code'];
 const WEEK_COUNT = 12;
 
@@ -32,7 +32,7 @@ function buildWeeks() {
 }
 
 export default function DualStreakMatrix({ trackFilter = 'All' }) {
-  const resolved = kanban.filter((task) => normalize(task.status) === RESOLVED_STATUS);
+  const resolved = kanban.filter((task) => normalize(task.status) === RESULTS_STATUS);
   const normalizedTrackFilter = normalize(trackFilter);
   const visibleTracks =
     normalizedTrackFilter === 'all'
@@ -53,7 +53,7 @@ export default function DualStreakMatrix({ trackFilter = 'All' }) {
   }
 
   if (!resolved.length) {
-    return <p className="text-sm text-gray-500">No Resolved tasks yet.</p>;
+    return <p className="text-sm text-gray-500">No Results recorded yet.</p>;
   }
 
   return (
@@ -87,7 +87,7 @@ export default function DualStreakMatrix({ trackFilter = 'All' }) {
                 <span
                   key={`${track}-${key}`}
                   className={className}
-                  aria-label={`${track} ${key} ${active ? 'resolved' : 'empty'}`}
+                  aria-label={`${track} ${key} ${active ? 'results' : 'empty'}`}
                 />
               );
             })}
