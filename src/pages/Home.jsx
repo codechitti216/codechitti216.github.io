@@ -100,7 +100,7 @@ export default function Home() {
           </div>
           <p className="text-gray-700">
             A live, transparent ledger of my technical exploration from initial hypothesis through
-            sandboxing, results, artifacts, and .
+            sandboxing, results, artifacts, and broadcast.
           </p>
           <div className="space-y-2 text-sm text-gray-700">
             <p>
