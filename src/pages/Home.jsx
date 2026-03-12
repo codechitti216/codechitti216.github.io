@@ -82,6 +82,47 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="content-card">
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h2 className="font-serif text-2xl font-semibold">The Research Lab</h2>
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-900">
+              <span className="font-medium">Latest Activity:</span>{' '}
+              {latestActivity ? (
+                <>
+                  <span>{latestActivity.title}</span> in{' '}
+                  <span className="font-medium">{formatStatus(latestActivity.status)}</span>
+                </>
+              ) : (
+                <span>Awaiting the next logged transition.</span>
+              )}
+            </div>
+          </div>
+          <p className="text-gray-700">
+            A live, transparent ledger of my technical exploration from initial hypothesis through
+            sandboxing, results, artifacts, and .
+          </p>
+          <div className="space-y-2 text-sm text-gray-700">
+            <p>
+              <span className="font-medium">Latest Hypothesis:</span>{' '}
+              {formatActivityLine(latestHypothesis)}
+            </p>
+            <p>
+              <span className="font-medium">Latest To do:</span> {formatActivityLine(latestTodo)}
+            </p>
+            <p>
+              <span className="font-medium">Latest Output:</span>{' '}
+              {formatActivityLine(latestOutput)}
+            </p>
+          </div>
+          <Button variant="outline" asChild>
+            <a href={RESEARCH_LAB_URL} target="_blank" rel="noreferrer">
+              View latest research activity and internal research guide
+            </a>
+          </Button>
+        </div>
+      </section>
+
       {/* Quick Links */}
       <section className="grid md:grid-cols-3 gap-6">
         <div className="content-card">
@@ -159,47 +200,6 @@ export default function Home() {
     portfolio and a personal research garden.
   </p>
 </section>
-
-      <section className="content-card">
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <h2 className="font-serif text-2xl font-semibold">The Research Lab</h2>
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-900">
-              <span className="font-medium">Latest Activity:</span>{' '}
-              {latestActivity ? (
-                <>
-                  <span>{latestActivity.title}</span> in{' '}
-                  <span className="font-medium">{formatStatus(latestActivity.status)}</span>
-                </>
-              ) : (
-                <span>Awaiting the next logged transition.</span>
-              )}
-            </div>
-          </div>
-          <p className="text-gray-700">
-            A live, transparent ledger of my technical exploration from initial hypothesis through
-            sandboxing, results, artifacts, and marketing.
-          </p>
-          <div className="space-y-2 text-sm text-gray-700">
-            <p>
-              <span className="font-medium">Latest Hypothesis:</span>{' '}
-              {formatActivityLine(latestHypothesis)}
-            </p>
-            <p>
-              <span className="font-medium">Latest To do:</span> {formatActivityLine(latestTodo)}
-            </p>
-            <p>
-              <span className="font-medium">Latest Output:</span>{' '}
-              {formatActivityLine(latestOutput)}
-            </p>
-          </div>
-          <Button variant="outline" asChild>
-            <a href={RESEARCH_LAB_URL} target="_blank" rel="noreferrer">
-              View latest research activity and internal research guide
-            </a>
-          </Button>
-        </div>
-      </section>
 
     </div>
   );
