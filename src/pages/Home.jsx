@@ -11,9 +11,11 @@ function formatStatus(status) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-function getLatestByStatus(status) {
+function getLatestByStatus(statusOrStatuses) {
+  const statuses = Array.isArray(statusOrStatuses) ? statusOrStatuses : [statusOrStatuses];
+  const normalized = statuses.map((status) => String(status || '').toLowerCase());
   return [...kanban]
-    .filter((entry) => String(entry.status || '').toLowerCase() === status)
+    .filter((entry) => normalized.includes(String(entry.status || '').toLowerCase()))
     .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
 }
 
@@ -26,7 +28,9 @@ function formatActivityLine(entry) {
 export default function Home() {
   const latestActivity = [...kanban]
     .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
-  const latestHypothesis = getLatestByStatus('hypothesis');
+  // Research lab currently emits `concepts-ideas` for the earliest stage.
+  // Keep `hypothesis` as an alias in case we add a dedicated lane later.
+  const latestHypothesis = getLatestByStatus(['concepts-ideas', 'hypothesis']);
   const latestTodo = getLatestByStatus('sandboxing');
   const latestOutput = getLatestByStatus('results');
 
