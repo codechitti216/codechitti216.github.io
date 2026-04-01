@@ -1,76 +1,92 @@
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
-import kanban from '../data/kanban.json';
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import labSnapshot from "../data/labSnapshot.json";
 
-const RESEARCH_LAB_URL = 'https://codechitti216.github.io/research-lab/';
+const DEFAULT_RESEARCH_LEDGER_URL = "https://codechitti216.github.io/research-lab/";
 
-function formatStatus(status) {
-  return String(status || '')
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+function formatLatestActivity(snapshot) {
+  const latest = snapshot?.latestActivity;
+  if (!latest?.completedAt) return null;
+
+  const topicTitle = String(latest.topicTitle || "").trim();
+  const taskTitle = String(latest.taskTitle || "").trim();
+
+  if (topicTitle && taskTitle) {
+    return `${topicTitle}: [${taskTitle}]`;
+  }
+
+  return topicTitle || taskTitle || null;
 }
 
-function getLatestByStatus(statusOrStatuses) {
-  const statuses = Array.isArray(statusOrStatuses) ? statusOrStatuses : [statusOrStatuses];
-  const normalized = statuses.map((status) => String(status || '').toLowerCase());
-  return [...kanban]
-    .filter((entry) => normalized.includes(String(entry.status || '').toLowerCase()))
-    .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
-}
-
-function formatActivityLine(entry) {
-  if (!entry) return 'Awaiting entry';
-  const date = new Date(entry.updatedAt || Date.now()).toLocaleDateString();
-  return `${date} - ${entry.title}`;
+function formatSyncDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export default function Home() {
-  const latestActivity = [...kanban]
-    .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0];
-  // Research lab currently emits `concepts-ideas` for the earliest stage.
-  // Keep `hypothesis` as an alias in case we add a dedicated lane later.
-  const latestHypothesis = getLatestByStatus(['concepts-ideas', 'hypothesis']);
-  const latestTodo = getLatestByStatus('sandboxing');
-  const latestOutput = getLatestByStatus('results');
+  const latestActivityLine = formatLatestActivity(labSnapshot);
+  const latestActivityDate = formatSyncDate(labSnapshot?.latestActivity?.completedAt);
+  const syncedAtLabel = formatSyncDate(labSnapshot?.syncedAt);
+  const researchLedgerUrl = labSnapshot?.openResearchLedgerUrl || DEFAULT_RESEARCH_LEDGER_URL;
 
   return (
     <div className="space-y-12">
-      {/* Profile Photo */}
       <div className="flex justify-center pt-8">
         <img
           src="/assets/profile.jpg"
           alt="Surya G S Chitti"
-          className="rounded-full w-32 h-32 object-cover shadow-lg border-4 border-white"
+          className="h-32 w-32 rounded-full border-4 border-white object-cover shadow-lg"
         />
       </div>
-      
-      {/* Hero Section */}
-      <section className="text-center space-y-6">
-        <h1 className="font-serif text-4xl md:text-5xl font-semibold text-gray-900">
+
+      <section className="space-y-6 text-center">
+        <h1 className="font-serif text-4xl font-semibold text-gray-900 md:text-5xl">
           Surya G S Chitti
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-          E2E Autonomous Navigation · Deep Learning Researcher · Perception & Closed-Loop Autonomy
+        <p className="mx-auto max-w-3xl text-xl text-gray-600 md:text-2xl">
+          E2E Autonomous Navigation - Deep Learning Researcher - Perception and Closed-Loop
+          Autonomy
         </p>
 
-        {/* Logo Bar */}
-        <div className="flex justify-center items-center gap-6 md:gap-10 pt-4 pb-3 flex-wrap">
+        <div className="flex flex-wrap items-center justify-center gap-6 pt-4 pb-3 md:gap-10">
           <div className="flex flex-col items-center">
-            <img src="/assets/logos/mbrdi.png" alt="Mercedes-Benz Research & Development India" className="h-12 md:h-16 grayscale hover:grayscale-0 transition-all" />
-            <span className="text-xs text-gray-500 mt-1">Mercedes-Benz <br /> Research & Development India (MBRDI)</span>
+            <img
+              src="/assets/logos/mbrdi.png"
+              alt="Mercedes-Benz Research & Development India"
+              className="h-12 grayscale transition-all hover:grayscale-0 md:h-16"
+            />
+            <span className="mt-1 text-xs text-gray-500">
+              Mercedes-Benz <br /> Research & Development India (MBRDI)
+            </span>
           </div>
           <div className="flex flex-col items-center">
-            <img src="/assets/logos/iisc.png" alt="IISc Bangalore" className="h-12 md:h-16 grayscale hover:grayscale-0 transition-all" />
-            <span className="text-xs text-gray-500 mt-1">IISc Bangalore</span>
+            <img
+              src="/assets/logos/iisc.png"
+              alt="IISc Bangalore"
+              className="h-12 grayscale transition-all hover:grayscale-0 md:h-16"
+            />
+            <span className="mt-1 text-xs text-gray-500">IISc Bangalore</span>
           </div>
           <div className="flex flex-col items-center">
-            <img src="/assets/logos/drdo.png" alt="DRDO" className="h-12 md:h-16 grayscale hover:grayscale-0 transition-all" />
-            <span className="text-xs text-gray-500 mt-1"></span>
+            <img
+              src="/assets/logos/drdo.png"
+              alt="DRDO"
+              className="h-12 grayscale transition-all hover:grayscale-0 md:h-16"
+            />
+            <span className="mt-1 text-xs text-gray-500"></span>
           </div>
           <div className="flex flex-col items-center">
-            <img src="/assets/logos/bits.png" alt="BITS Pilani" className="h-12 md:h-16 grayscale hover:grayscale-0 transition-all" />
-            <span className="text-xs text-gray-500 mt-1">BITS Pilani</span>
+            <img
+              src="/assets/logos/bits.png"
+              alt="BITS Pilani"
+              className="h-12 grayscale transition-all hover:grayscale-0 md:h-16"
+            />
+            <span className="mt-1 text-xs text-gray-500">BITS Pilani</span>
           </div>
         </div>
 
@@ -86,61 +102,57 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="content-card">
-        <div className="space-y-4">
-          <div className="space-y-2">
+      <section className="content-card space-y-5">
+        <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between">
+          <div>
             <h2 className="font-serif text-2xl font-semibold">The Research Lab</h2>
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-900">
-              <span className="font-medium">Latest Activity:</span>{' '}
-              {latestActivity ? (
-                <>
-                  <span>{latestActivity.title}</span> in{' '}
-                  <span className="font-medium">{formatStatus(latestActivity.status)}</span>
-                </>
-              ) : (
-                <span>Awaiting the next logged transition.</span>
-              )}
+            <p className="mt-2 text-sm text-gray-600">
+              A small portfolio mirror of the local lab. The full public timeline lives in the
+              ledger page.
+            </p>
+          </div>
+          {syncedAtLabel ? (
+            <div className="text-xs uppercase tracking-[0.18em] text-gray-500">
+              Synced {syncedAtLabel}
             </div>
-          </div>
-          <p className="text-gray-700">
-            A live, transparent ledger of my technical exploration from initial hypothesis through
-            sandboxing, results, artifacts, and broadcast.
-          </p>
-          <div className="space-y-2 text-sm text-gray-700">
-            <p>
-              <span className="font-medium">Latest Hypothesis:</span>{' '}
-              {formatActivityLine(latestHypothesis)}
-            </p>
-            <p>
-              <span className="font-medium">Latest To do:</span> {formatActivityLine(latestTodo)}
-            </p>
-            <p>
-              <span className="font-medium">Latest Output:</span>{' '}
-              {formatActivityLine(latestOutput)}
-            </p>
-          </div>
+          ) : null}
+        </div>
+
+        <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-900">
+          <span className="font-medium">Latest Activity:</span>{" "}
+          {latestActivityLine ? (
+            <span>
+              {latestActivityLine}
+              {latestActivityDate ? ` (${latestActivityDate})` : ""}
+            </span>
+          ) : (
+            <span>No task checkoffs have been synced yet.</span>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-3">
           <Button variant="outline" asChild>
-            <a href={RESEARCH_LAB_URL} target="_blank" rel="noreferrer">
-              View latest research activity and internal research guide
+            <a href={researchLedgerUrl} target="_blank" rel="noreferrer">
+              Open Research Ledger
             </a>
           </Button>
         </div>
       </section>
 
-      {/* Quick Links */}
-      <section className="grid md:grid-cols-3 gap-6">
+      <section className="grid gap-6 md:grid-cols-3">
         <div className="content-card">
-          <h3 className="font-serif text-xl font-semibold mb-3">Current Focus · MBRDI</h3>
-          <p className="text-gray-700 mb-4">
-            Perception systems for E2E autonomous navigation. Working on the transition from open-loop autonomy to closed-loop autonomy.
+          <h3 className="mb-3 font-serif text-xl font-semibold">Current Focus - MBRDI</h3>
+          <p className="mb-4 text-gray-700">
+            Perception systems for E2E autonomous navigation. Working on the transition from
+            open-loop autonomy to closed-loop autonomy.
           </p>
           <Link to="/projects" className="academic-link">
-            Explore current work →
+            Explore current work -&gt;
           </Link>
         </div>
         <div className="content-card">
-          <h3 className="font-serif text-xl font-semibold mb-3">Research Areas</h3>
-          <div className="space-y-2 mb-4">
+          <h3 className="mb-3 font-serif text-xl font-semibold">Research Areas</h3>
+          <div className="mb-4 space-y-2">
             <span className="tag">Computer Vision</span>
             <span className="tag">3D Perception</span>
             <span className="tag">Visual Navigation</span>
@@ -148,64 +160,93 @@ export default function Home() {
             <span className="tag">Deep Learning</span>
           </div>
           <Link to="/garden" className="academic-link">
-            Browse knowledge garden →
+            Browse knowledge garden -&gt;
           </Link>
         </div>
         <div className="content-card">
-          <h3 className="font-serif text-xl font-semibold mb-3">Connect</h3>
+          <h3 className="mb-3 font-serif text-xl font-semibold">Connect</h3>
           <div className="space-y-3">
-            <a href="mailto:suryachitti216@gmail.com" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
-              <Mail className="h-4 w-4 mr-2 flex-shrink-0" />
+            <a
+              href="mailto:suryachitti216@gmail.com"
+              className="flex items-center text-sm text-gray-700 hover:text-gray-900"
+            >
+              <Mail className="mr-2 h-4 w-4 flex-shrink-0" />
               <span className="truncate">suryachitti216@gmail.com</span>
             </a>
-            <a href="https://github.com/codechitti216" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
-              <Github className="h-4 w-4 mr-2 flex-shrink-0" />
+            <a
+              href="https://github.com/codechitti216"
+              className="flex items-center text-sm text-gray-700 hover:text-gray-900"
+            >
+              <Github className="mr-2 h-4 w-4 flex-shrink-0" />
               <span>GitHub</span>
             </a>
-            <a href="https://linkedin.com/in/surya-g-s-chitti" className="flex items-center text-gray-700 hover:text-gray-900 text-sm">
-              <Linkedin className="h-4 w-4 mr-2 flex-shrink-0" />
+            <a
+              href="https://linkedin.com/in/surya-g-s-chitti"
+              className="flex items-center text-sm text-gray-700 hover:text-gray-900"
+            >
+              <Linkedin className="mr-2 h-4 w-4 flex-shrink-0" />
               <span>LinkedIn</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
       <section className="prose max-w-none">
-  <h2>About Me</h2>
+        <h2>About Me</h2>
 
-  <p>
-    Perception Engineer at<a href="https://www.mbrdi.co.in/" target="_blank" style={{ color: 'blue' }}> Mercedes-Benz Research & Development India (MBRDI)</a>, 
-    working on end-to-end autonomous navigation systems with a focus on moving 
-    from open-loop to closed-loop autonomy. I studied Mathematics at BITS Pilani, which gave me the push to dive into the mathematical side of machine learning and eventually deep learning.
-  </p>
+        <p>
+          Perception Engineer at
+          <a href="https://www.mbrdi.co.in/" target="_blank" style={{ color: "blue" }}>
+            {" "}
+            Mercedes-Benz Research & Development India (MBRDI)
+          </a>
+          , working on end-to-end autonomous navigation systems with a focus on moving from
+          open-loop to closed-loop autonomy. I studied Mathematics at BITS Pilani, which gave me
+          the push to dive into the mathematical side of machine learning and eventually deep
+          learning.
+        </p>
 
-  <p>
-    My work spans Robotics, Perception, and AI. From classical computer vision to 
-    designing deep learning models for real world deployment. I’ve built autonomy 
-    stacks across sensor modalities including vision, LiDAR, and Doppler Velocity 
-    Loggers (DVL), with an emphasis on reliability in uncontrolled environments.
-  </p>
+        <p>
+          My work spans Robotics, Perception, and AI. From classical computer vision to designing
+          deep learning models for real world deployment. I have built autonomy stacks across
+          sensor modalities including vision, LiDAR, and Doppler Velocity Loggers (DVL), with an
+          emphasis on reliability in uncontrolled environments.
+        </p>
 
-  <p>
-    I previously worked at the <a href="https://www.linkedin.com/company/artificial-intelligence-and-robotics-laboratory/posts/?feedView=all" target="_blank" style={{ color: 'blue' }}>Artificial Intelligence & Robotics Lab</a> at IISc Bangalore under <a href="https://aero.iisc.ac.in/people/sureshsundaram/" target="_blank" style={{ color: 'blue' }}>Professor Suresh Sundaram</a> where I focused on precision navigation and perception of underwater drones and visual navigation of marine surface vehicles.
-  </p>
+        <p>
+          I previously worked at the{" "}
+          <a
+            href="https://www.linkedin.com/company/artificial-intelligence-and-robotics-laboratory/posts/?feedView=all"
+            target="_blank"
+            style={{ color: "blue" }}
+          >
+            Artificial Intelligence & Robotics Lab
+          </a>{" "}
+          at IISc Bangalore under{" "}
+          <a
+            href="https://aero.iisc.ac.in/people/sureshsundaram/"
+            target="_blank"
+            style={{ color: "blue" }}
+          >
+            Professor Suresh Sundaram
+          </a>{" "}
+          where I focused on precision navigation and perception of underwater drones and visual
+          navigation of marine surface vehicles.
+        </p>
 
-  <p>
-    My research interests center on the synthetic-to-real gap in deep learning and understanding why 
-    models that perform well in curated datasets fail in the field and developing 
-    perception systems that remain robust under noise, drift, and the complexities 
-    of real environments.
-  </p>
+        <p>
+          My research interests center on the synthetic-to-real gap in deep learning and
+          understanding why models that perform well in curated datasets fail in the field and
+          developing perception systems that remain robust under noise, drift, and the complexities
+          of real environments.
+        </p>
 
-  <p>
-    This website is my digital lab notebook. A place to document experiments, trace 
-    ideas, and build a long-term knowledge system. It serves both as a professional 
-    portfolio and a personal research garden.
-  </p>
-</section>
-
+        <p>
+          This website is my digital lab notebook. A place to document experiments, trace ideas,
+          and build a long-term knowledge system. It serves both as a professional portfolio and a
+          personal research garden.
+        </p>
+      </section>
     </div>
   );
 }
-
