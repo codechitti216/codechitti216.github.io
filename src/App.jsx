@@ -1,12 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import Garden from "./pages/Garden";
-import GardenDetail from "./pages/GardenDetail";
+import Notes from "./pages/Notes";
+import NoteDetail from "./pages/NoteDetail";
 import CV from "./pages/CV";
-import Contact from "./pages/Contact";
 import "./App.css";
 
 function App() {
@@ -15,12 +12,12 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/garden" element={<Garden />} />
-          <Route path="/garden/:id" element={<GardenDetail />} />
+          <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/:id" element={<NoteDetail />} />
           <Route path="/cv" element={<CV />} />
-          <Route path="/contact" element={<Contact />} />
+          {/* Redirect old garden routes */}
+          <Route path="/garden" element={<Notes />} />
+          <Route path="/garden/:id" element={<NoteDetail />} />
         </Routes>
       </Layout>
     </Router>
