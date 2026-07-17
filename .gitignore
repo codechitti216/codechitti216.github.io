@@ -23,4 +23,4 @@ pnpm-debug.log*
 
 # IDEs
 .vscode/
-.idea/ test
+.idea/ 
