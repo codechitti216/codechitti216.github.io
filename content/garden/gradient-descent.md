@@ -78,55 +78,42 @@ The exact minimum. In one step. No learning rate to tune.
 
 Newton's method accounts for the cross-parameter interactions that gradient descent ignores, and finds the optimal update for all weights simultaneously. This is the "correct" approach — it doesn't break the constant-weight assumption because it never makes that assumption in the first place.
 
+## What If We Don't Break the Assumption?
+
+There's a third option. What if we update only *one* weight per step — the one with the largest gradient — and leave everything else untouched? That way, the "hold others constant" condition is genuinely satisfied. The other weight really does stay constant.
+
+This is called **coordinate descent**. It's correct by construction. But with $N$ parameters, you'd need $N$ steps just to touch each weight once. For a model with a million parameters, that's a million steps per round. Unusable at scale.
+
 ## So Why Doesn't Everyone Use Newton's Method?
 
-Because it doesn't scale.
+Because it doesn't scale either.
 
 The Hessian is an $N \times N$ matrix, where $N$ is the number of parameters. A model with 1 million parameters needs a Hessian with 1 trillion entries. Storing it requires $O(N^2)$ memory. Inverting it costs $O(N^3)$ computation. For modern neural networks with billions of parameters, this is impossible.
 
 Gradient descent is $O(N)$. One gradient, one update, done.
 
-So gradient descent wins — not because it's mathematically correct, but because it's cheap enough to iterate. Each step ignores cross-parameter interactions, but the steps are so cheap that we can take millions of them. Newton's method gets the answer in fewer steps, but each step costs more than the entire gradient descent training run.
+So we have three approaches:
+
+- **Newton's method** — correct, accounts for all interactions, but $O(N^3)$ per step. Doesn't scale.
+- **Coordinate descent** — correct, never breaks the assumption, but needs $N$ steps per round. Doesn't scale.
+- **Gradient descent** — breaks the assumption, ignores cross-parameter interactions, but $O(N)$ per step. Cheap enough to run millions of times.
+
+Gradient descent wins — not because it's mathematically correct, but because it's cheap enough to iterate.
 
 ## Seeing It In Practice
 
-Let's move from toy functions to actual regression. We generate synthetic data with two **correlated** features — so the Hessian's cross-term is non-zero and the weights are genuinely entangled.
+The companion notebook runs all three methods on the same $z = x^2 + xy + y^2$ function from this post. Starting at $(1, 1)$, after 50 steps:
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/gradient-descent.ipynb)
 
-**Gradient descent** computes the gradient — partial derivatives assuming the other weight is constant — and updates both weights simultaneously:
+| Method | Loss after 50 steps | Breaks assumption? |
+|---|---|---|
+| Newton's method | 0.000000 (1 step) | No |
+| Gradient descent | 0.142658 | Yes |
+| Coordinate descent | 0.659274 | No |
 
-```python
-def gradient_descent(X, y, lr, n_steps):
-    n = X.shape[0]
-    w = np.zeros(X.shape[1])
+Newton gets the exact answer in 1 step. Gradient descent is 4.6x better than coordinate descent after the same number of steps. The "wrong" approach beats the "correct" one — because it updates all weights at once, even though each update assumes the others won't change.
 
-    for step in range(n_steps):
-        residuals = X @ w - y
-        grad = (2 / n) * X.T @ residuals  # each component assumes the other is constant
-        w = w - lr * grad                  # update both simultaneously
-    return w
-```
-
-**Newton's method** uses the Hessian to adjust the gradient, accounting for cross-parameter interactions:
-
-```python
-def newtons_method(X, y, n_steps):
-    n = X.shape[0]
-    w = np.zeros(X.shape[1])
-
-    H = (2 / n) * X.T @ X       # Hessian — includes the cross-term
-    H_inv = np.linalg.inv(H)
-
-    for step in range(n_steps):
-        residuals = X @ w - y
-        grad = (2 / n) * X.T @ residuals
-        w = w - H_inv @ grad     # Hessian-adjusted update
-    return w
-```
-
-The result: Newton's method reaches the exact minimum in **1 step**. Gradient descent takes ~100 steps to get close. The Hessian's cross-term is 1.46 — the parameters *are* entangled. Gradient descent ignores this. Newton's method uses it.
-
-The notebook walks through every step — the Hessian, the loss at each iteration, and the comparison plot. Open it in Colab and run it yourself.
+Open the notebook in Colab and run it yourself.
 
 *Coming soon: why SGD's noise from mini-batches might actually help generalization, and how the learning rate schedule partially compensates for what the Hessian would have given us.*
