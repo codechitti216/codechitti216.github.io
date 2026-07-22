@@ -12,7 +12,7 @@ When we call `loss.backward()` in PyTorch, a `.grad` value is computed for every
 
 Take a simple function: $z = x^2 + y^2$. What is $\partial z / \partial x$? It's $2x$. The $y^2$ term disappears — becomes zero — because we assume $y$ is constant. Similarly, $\partial z / \partial y = 2y$, because now we assume $x$ is constant and the $x^2$ term drops to zero.
 
-Notice that in this function, $x$ and $y$ don't interact at all — there's no term where they appear together. Now consider $z = x^2 + xy + y^2$. Here, $\partial z / \partial x = 2x + y$ — the derivative *depends on* $y$. And $\partial z / \partial y = x + 2y$ — it depends on $x$. The variables are entangled. Changing one affects how much the other matters.
+Notice that in this function, $x$ and $y$ don't interact at all — there's no term where they appear together. Now consider $z = x^2 + xy + y^2 + 0.5(x^4 + y^4)$. Here, $\partial z / \partial x = 2x + y + 2x^3$ — the derivative *depends on* $y$. And $\partial z / \partial y = x + 2y + 2y^3$ — it depends on $x$. The variables are entangled. Changing one affects how much the other matters.
 
 That's what PyTorch computes for every single weight in our model. For each weight, it asks: "If I nudge *just this weight* while holding everything else fixed, how does the loss change?"
 
@@ -26,25 +26,25 @@ That's the backfire.
 
 ## Proving the Backfire
 
-Let's see it happen. Take our entangled function $z = x^2 + xy + y^2$, starting at $x = 1, y = 1$. The loss is $z = 3$.
+Let's see it happen. Take our function $z = x^2 + xy + y^2 + 0.5(x^4 + y^4)$, starting at $x = 1, y = 1$. The loss is $z = 4$.
 
-The gradients are $\partial z / \partial x = 2(1) + 1 = 3$ and $\partial z / \partial y = 1 + 2(1) = 3$.
+The gradients are $\partial z / \partial x = 2 + 1 + 2 = 5$ and $\partial z / \partial y = 1 + 2 + 2 = 5$.
 
-With a learning rate of $\eta = 0.8$:
+With a learning rate of $\eta = 0.45$:
 
-- **Update only $x$:** $x_{new} = 1 - 0.8 \times 3 = -1.4$, $y$ stays at $1$. New $z = 1.96 - 1.4 + 1 = 1.56$. Loss went **down**.
-- **Update only $y$:** $y_{new} = -1.4$, $x$ stays at $1$. New $z = 1 - 1.4 + 1.96 = 1.56$. Loss went **down**.
-- **Update both simultaneously:** $x_{new} = -1.4$, $y_{new} = -1.4$. New $z = 1.96 + 1.96 + 1.96 = 5.88$. Loss went **up**.
+- **Update only $x$:** $x_{new} = 1 - 0.45 \times 5 = -1.25$, $y$ stays at $1$. New $z = 3.03$. Loss went **down**.
+- **Update only $y$:** $y_{new} = -1.25$, $x$ stays at $1$. New $z = 3.03$. Loss went **down**.
+- **Update both simultaneously:** $x_{new} = -1.25$, $y_{new} = -1.25$. New $z = 7.13$. Loss went **up**.
 
-Each update individually reduces the loss from $3$ to $1.56$. Together, they nearly double it to $5.88$. The cross-term $xy$ is the culprit — when both variables shift by a large amount in the same direction, the interaction amplifies the error.
+Each update individually reduces the loss from $4$ to $3.03$. Together, they nearly double it to $7.13$. The cross-term $xy$ and the quartic terms are the culprits — when both variables shift by a large amount, the interactions amplify the error.
 
 But does this *always* happen? Can we find a scenario where simultaneous updates are always worse, regardless of the learning rate?
 
 With $\eta = 0.1$:
 
-- **Update only $x$:** $z = 0.49 + 0.7 + 1 = 2.19$
-- **Update only $y$:** $z = 1 + 0.7 + 0.49 = 2.19$
-- **Update both:** $z = 0.49 + 0.49 + 0.49 = 1.47$
+- **Update only $x$:** $z = 2.28$
+- **Update only $y$:** $z = 2.28$
+- **Update both:** $z = 0.81$
 
 Simultaneous is *better*. Not just safe — actively better than updating one at a time.
 
@@ -58,25 +58,23 @@ There is an approach that does exactly this. It's called **Newton's method**.
 
 Instead of $\Delta \mathbf{w} = -\eta \nabla f$, Newton's method uses $\Delta \mathbf{w} = -H^{-1} \nabla f$, where $H$ is the **Hessian** — a matrix of all second-order partial derivatives, including every cross-term between every pair of weights. The Hessian captures exactly what gradient descent ignores: how changing one weight affects the optimal update for another.
 
-Let's try it on our example. $z = x^2 + xy + y^2$ at $(1, 1)$:
+Let's try it on our example. $z = x^2 + xy + y^2 + 0.5(x^4 + y^4)$ at $(1, 1)$:
 
-The Hessian is:
+The Hessian at $(1, 1)$ is:
 
-$$H = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$$
+$$H = \begin{pmatrix} 8 & 1 \\ 1 & 8 \end{pmatrix}$$
 
-Its inverse:
+But unlike a purely quadratic function, this Hessian *changes as the weights change*. At $(0, 0)$, it would be $\begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$ — completely different. This means Newton's method can't see the full landscape in one step. It computes the best update *for the current curvature*, takes a step, then recomputes.
 
-$$H^{-1} = \frac{1}{3}\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
+Starting at $(1, 1)$ with loss $= 4$:
 
-Newton's update:
+- **Step 1:** Newton uses the Hessian at $(1, 1)$, updates to $(0.44, 0.44)$. Loss $= 0.63$.
+- **Step 2:** Hessian has changed. Newton recomputes, updates to $(0.08, 0.08)$. Loss $= 0.02$.
+- **Step 3:** One more correction. Loss $\approx 0$.
 
-$$\Delta \mathbf{w} = -H^{-1} \nabla f = -\frac{1}{3}\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}\begin{pmatrix} 3 \\ 3 \end{pmatrix} = -\begin{pmatrix} 1 \\ 1 \end{pmatrix}$$
+Three steps to converge — not one. Newton's method is fast, but it's not magic. On non-quadratic functions, the Hessian shifts underfoot, and Newton has to keep adjusting.
 
-New weights: $(1, 1) - (1, 1) = (0, 0)$. $z = 0$.
-
-The exact minimum. In one step. No learning rate to tune.
-
-Newton's method accounts for the cross-parameter interactions that gradient descent ignores, and finds the optimal update for all weights simultaneously. This is the "correct" approach — it doesn't break the constant-weight assumption because it never makes that assumption in the first place.
+Still, three steps versus the dozens gradient descent needs. Newton accounts for the cross-parameter interactions that gradient descent ignores. It's the "correct" approach — but it comes at a cost.
 
 ## What If We Don't Break the Assumption?
 
@@ -102,17 +100,17 @@ Gradient descent wins — not because it's mathematically correct, but because i
 
 ## Seeing It In Practice
 
-The companion notebook runs all three methods on the same $z = x^2 + xy + y^2$ function from this post. Starting at $(1, 1)$, after 50 steps:
+The companion notebook runs all three methods on the same $z = x^2 + xy + y^2 + 0.5(x^4 + y^4)$ function from this post. Starting at $(1, 1)$:
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/gradient-descent.ipynb)
 
 | Method | Loss after 50 steps | Breaks assumption? |
 |---|---|---|
-| Newton's method | 0.000000 (1 step) | No |
-| Gradient descent | 0.142658 | Yes |
-| Coordinate descent | 0.659274 | No |
+| Newton's method | 0.000002 (3 steps) | No |
+| Gradient descent | 0.086027 | Yes |
+| Coordinate descent | 0.444442 | No |
 
-Newton gets the exact answer in 1 step. Gradient descent is 4.6x better than coordinate descent after the same number of steps. The "wrong" approach beats the "correct" one — because it updates all weights at once, even though each update assumes the others won't change.
+Newton converges in 3 steps — not one, because the Hessian changes at every point. Gradient descent is ~5x better than coordinate descent after the same number of steps. The "wrong" approach beats the "correct" one — because it updates all weights at once, even though each update assumes the others won't change.
 
 Open the notebook in Colab and run it yourself.
 
