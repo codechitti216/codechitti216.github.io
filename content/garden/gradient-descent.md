@@ -104,14 +104,12 @@ The companion notebook runs all three methods on the same $z = x^2 + xy + y^2 + 
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/gradient-descent.ipynb)
 
-| Method | Loss after 50 steps | Breaks assumption? |
-|---|---|---|
-| Newton's method | 0.000002 (3 steps) | No |
-| Gradient descent | 0.086027 | Yes |
-| Coordinate descent | 0.444442 | No |
+| Method | Loss | Steps | Breaks assumption? |
+|---|---|---|---|
+| Newton's method | 0.000002 | 3 | No |
+| Gradient descent | 0.086027 | 50 | Yes |
+| Coordinate descent | 0.444442 | 50 | No |
 
 Newton converges in 3 steps — not one, because the Hessian changes at every point. Gradient descent is ~5x better than coordinate descent after the same number of steps. The "wrong" approach beats the "correct" one — because it updates all weights at once, even though each update assumes the others won't change.
 
 Open the notebook in Colab and run it yourself.
-
-*Coming soon: why SGD's noise from mini-batches might actually help generalization, and how the learning rate schedule partially compensates for what the Hessian would have given us.*
