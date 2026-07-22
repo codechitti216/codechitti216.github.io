@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Github, Mail, Linkedin } from 'lucide-react';
 import { useMemo } from 'react';
 import { getAllContent } from '../lib/content';
+import TextScramble from '../components/TextScramble';
 
 export default function Home() {
   const recentWork = useMemo(() => getAllContent().slice(0, 5), []);
@@ -9,25 +10,32 @@ export default function Home() {
   return (
     <div className="py-12 space-y-14">
       {/* Bio */}
-      <section className="space-y-3">
-        <h1 className="font-serif text-3xl font-semibold text-gray-900">
-          Surya Chitti
-        </h1>
-        <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-          ML Research Engineer. Building and understanding deep learning systems
-          across perception, language, and reinforcement learning.
-          M.Sc. Mathematics, BITS Pilani.
-        </p>
-        <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
-          <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Mail className="h-3.5 w-3.5" /> Email
-          </a>
-          <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Github className="h-3.5 w-3.5" /> GitHub
-          </a>
-          <a href="https://linkedin.com/in/suryachitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
-          </a>
+      <section className="flex items-start gap-6">
+        <img
+          src="/profile.jpg"
+          alt="Surya Chitti"
+          className="w-20 h-20 rounded-full object-cover shrink-0"
+        />
+        <div className="space-y-3">
+          <h1 className="font-serif text-3xl font-semibold text-gray-900">
+            <TextScramble text="Surya Chitti" />
+          </h1>
+          <p className="text-base text-gray-600 leading-relaxed max-w-lg">
+            ML Research Engineer. Building and understanding deep learning systems
+            across perception, language, and reinforcement learning.
+            M.Sc. Mathematics, BITS Pilani.
+          </p>
+          <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
+            <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Mail className="h-3.5 w-3.5" /> Email
+            </a>
+            <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Github className="h-3.5 w-3.5" /> GitHub
+            </a>
+            <a href="https://linkedin.com/in/suryachitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+            </a>
+          </div>
         </div>
       </section>
 
