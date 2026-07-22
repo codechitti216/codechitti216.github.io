@@ -1,7 +1,6 @@
 ---
 title: "How Fair Is It to Compare Architectures on the Same Data?"
 date: "2026-01-09"
-tags: ["Benchmarking", "Model Evaluation", "Training Dynamics"]
 tier: "seed"
 status: "planned"
 published: true

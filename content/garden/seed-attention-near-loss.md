@@ -1,7 +1,6 @@
 ---
 title: "Paying Attention at the Right Place — Near the Loss"
 date: "2026-06-21"
-tags: ["Attention", "Loss Functions", "Training Dynamics"]
 tier: "seed"
 status: "planned"
 published: true

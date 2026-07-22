@@ -1,7 +1,6 @@
 ---
 title: "When a Model Doesn't Learn: Incapability or Data Hunger?"
 date: "2025-11-18"
-tags: ["Model Selection", "Bias-Variance", "Self-Supervised Learning"]
 tier: "seed"
 status: "planned"
 published: true

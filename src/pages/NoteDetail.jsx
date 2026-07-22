@@ -59,13 +59,6 @@ export default function NoteDetail() {
           {content.date && (
             <time>{new Date(content.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
           )}
-          {content.tags && content.tags.length > 0 && (
-            <div className="flex gap-1.5">
-              {content.tags.map(tag => (
-                <span key={tag} className="text-gray-400">{tag}</span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
