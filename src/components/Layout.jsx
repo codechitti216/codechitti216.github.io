@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Notes', href: '/notes' },
+    { name: 'Work', href: '/notes' },
   ];
 
   return (
