@@ -1,8 +1,8 @@
 ---
 title: "Why Gradient Descent Works (And When It Doesn't)"
 date: "2025-08-17"
-tier: "seed"
-status: "planned"
+tier: "note"
+status: "completed"
 published: true
 ---
 
