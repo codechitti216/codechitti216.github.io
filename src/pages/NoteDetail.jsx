@@ -55,22 +55,28 @@ export default function NoteDetail() {
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[rehypeKatex, rehypeRaw, rehypeHighlight]}
           components={{
-            img: ({ src, alt, ...props }) => (
-              <figure className="my-6">
-                <img
-                  src={src}
-                  alt={alt}
-                  className="rounded-lg border border-gray-100 w-full"
-                  loading="lazy"
-                  {...props}
-                />
-                {alt && (
-                  <figcaption className="mt-2 text-xs text-gray-500 text-center italic">
-                    {alt}
-                  </figcaption>
-                )}
-              </figure>
-            ),
+            img: ({ src, alt, ...props }) => {
+              const isBadge = src && (src.includes('badge') || src.includes('shields.io'));
+              if (isBadge) {
+                return <img src={src} alt={alt} className="inline-block h-5" loading="lazy" {...props} />;
+              }
+              return (
+                <figure className="my-6">
+                  <img
+                    src={src}
+                    alt={alt}
+                    className="rounded-lg border border-gray-100 w-full"
+                    loading="lazy"
+                    {...props}
+                  />
+                  {alt && (
+                    <figcaption className="mt-2 text-xs text-gray-500 text-center italic">
+                      {alt}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            },
             a: ({ href, children, ...props }) => (
               <a
                 href={href}
