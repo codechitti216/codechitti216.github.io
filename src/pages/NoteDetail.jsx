@@ -6,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
-import { getContentBySlug, TIERS } from '../lib/content';
+import { getContentBySlug } from '../lib/content';
 import 'katex/dist/katex.min.css';
 
 export default function NoteDetail() {
@@ -24,8 +24,6 @@ export default function NoteDetail() {
     );
   }
 
-  const tier = TIERS[content.tier || content.kind];
-
   // Fix image paths: replace relative paths like ../../public/assets/ with /assets/
   const processedBody = content.body
     .replace(/\(\.\.\/\.\.\/public\//g, '(/')
@@ -40,18 +38,7 @@ export default function NoteDetail() {
 
       {/* Header */}
       <div className="mt-6 mb-8 space-y-3">
-        <div className="flex items-center gap-2">
-          {tier && (
-            <span className={`text-[10px] uppercase tracking-wider font-medium px-1.5 py-0.5 rounded border ${tier.color}`}>
-              {tier.label}
-            </span>
-          )}
-          {content.status && (
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider">
-              {content.status}
-            </span>
-          )}
-        </div>
+
         <h1 className="font-serif text-2xl font-semibold text-gray-900 leading-tight">
           {content.title}
         </h1>
