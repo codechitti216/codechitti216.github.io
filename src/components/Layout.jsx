@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-gray-100 sticky top-0 z-50 bg-white">
-        <div className="max-w-3xl mx-auto px-6 py-4">
+        <div className="w-full px-8 md:px-12 py-4">
           <nav className="flex items-center justify-between">
             <Link to="/" className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors">
               surya chitti
@@ -35,12 +35,12 @@ const Layout = ({ children }) => {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 py-8">
+      <main className="max-w-4xl mx-auto px-8 md:px-12 py-10">
         {children}
       </main>
 
       <footer className="border-t border-gray-50 mt-20">
-        <div className="max-w-3xl mx-auto px-6 py-6">
+        <div className="w-full px-8 md:px-12 py-6">
           <p className="text-xs text-gray-300 text-center">
             suryachitti216@gmail.com
           </p>
