@@ -88,4 +88,53 @@ Gradient descent is $O(N)$. One gradient, one update, done.
 
 So gradient descent wins — not because it's mathematically correct, but because it's cheap enough to iterate. Each step ignores cross-parameter interactions, but the steps are so cheap that we can take millions of them. Newton's method gets the answer in fewer steps, but each step costs more than the entire gradient descent training run.
 
+## Seeing It In Practice
+
+Let's move from toy functions to a real dataset. We'll train a linear regression model on the diabetes dataset using both gradient descent and Newton's method, and watch the difference unfold.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/gradient-descent.ipynb)
+
+We use sklearn's diabetes dataset — 442 patients, 1 feature (BMI), 2 learnable parameters (slope + intercept). Small enough that the Hessian is a 2×2 matrix we can inspect by hand.
+
+The loss function is MSE:
+
+$$L(\mathbf{w}) = \frac{1}{n}\|X\mathbf{w} - \mathbf{y}\|^2$$
+
+**Gradient descent** computes the gradient — partial derivatives assuming the other weight is constant — and updates both weights simultaneously:
+
+```python
+def gradient_descent(X, y, lr, n_steps):
+    n = X.shape[0]
+    w = np.zeros(X.shape[1])
+
+    for step in range(n_steps):
+        residuals = X @ w - y
+        grad = (2 / n) * X.T @ residuals  # each component assumes the other is constant
+        w = w - lr * grad                  # update both simultaneously
+    return w
+```
+
+**Newton's method** uses the Hessian to adjust the gradient, accounting for cross-parameter interactions:
+
+```python
+def newtons_method(X, y, n_steps):
+    n = X.shape[0]
+    w = np.zeros(X.shape[1])
+
+    H = (2 / n) * X.T @ X       # Hessian — includes the cross-term
+    H_inv = np.linalg.inv(H)
+
+    for step in range(n_steps):
+        residuals = X @ w - y
+        grad = (2 / n) * X.T @ residuals
+        w = w - H_inv @ grad     # Hessian-adjusted update
+    return w
+```
+
+The result: Newton's method reaches the exact minimum in **1 step**. Gradient descent takes ~50 steps to get close. And with a learning rate that's too large, gradient descent doesn't just converge slowly — the loss explodes. That's the backfire, on real data.
+
+The Hessian for this problem has a non-zero off-diagonal entry — the parameters *are* entangled. Gradient descent ignores this. Newton's method uses it. The difference is visible in the loss curve, the weight trajectory, and the number of steps to convergence.
+
+The full notebook walks through every step with plots — loss curves, weight-space trajectories, and the fitted regression lines. Open it in Colab and run it yourself.
+
 *Coming soon: why SGD's noise from mini-batches might actually help generalization, and how the learning rate schedule partially compensates for what the Hessian would have given us.*
