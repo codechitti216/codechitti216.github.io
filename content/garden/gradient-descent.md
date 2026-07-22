@@ -90,15 +90,9 @@ So gradient descent wins — not because it's mathematically correct, but becaus
 
 ## Seeing It In Practice
 
-Let's move from toy functions to a real dataset. We'll train a linear regression model on the diabetes dataset using both gradient descent and Newton's method, and watch the difference unfold.
+Let's move from toy functions to actual regression. We generate synthetic data with two **correlated** features — so the Hessian's cross-term is non-zero and the weights are genuinely entangled.
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/gradient-descent.ipynb)
-
-We use sklearn's diabetes dataset — 442 patients, 1 feature (BMI), 2 learnable parameters (slope + intercept). Small enough that the Hessian is a 2×2 matrix we can inspect by hand.
-
-The loss function is MSE:
-
-$$L(\mathbf{w}) = \frac{1}{n}\|X\mathbf{w} - \mathbf{y}\|^2$$
 
 **Gradient descent** computes the gradient — partial derivatives assuming the other weight is constant — and updates both weights simultaneously:
 
@@ -131,10 +125,8 @@ def newtons_method(X, y, n_steps):
     return w
 ```
 
-The result: Newton's method reaches the exact minimum in **1 step**. Gradient descent takes ~50 steps to get close. And with a learning rate that's too large, gradient descent doesn't just converge slowly — the loss explodes. That's the backfire, on real data.
+The result: Newton's method reaches the exact minimum in **1 step**. Gradient descent takes ~100 steps to get close. The Hessian's cross-term is 1.46 — the parameters *are* entangled. Gradient descent ignores this. Newton's method uses it.
 
-The Hessian for this problem has a non-zero off-diagonal entry — the parameters *are* entangled. Gradient descent ignores this. Newton's method uses it. The difference is visible in the loss curve, the weight trajectory, and the number of steps to convergence.
-
-The full notebook walks through every step with plots — loss curves, weight-space trajectories, and the fitted regression lines. Open it in Colab and run it yourself.
+The notebook walks through every step — the Hessian, the loss at each iteration, and the comparison plot. Open it in Colab and run it yourself.
 
 *Coming soon: why SGD's noise from mini-batches might actually help generalization, and how the learning rate schedule partially compensates for what the Hessian would have given us.*
