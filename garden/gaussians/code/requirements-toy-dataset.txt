@@ -1,0 +1,10 @@
+# Synthetic Rubik orbit dataset (Python generator + verification).
+#
+# --config-only needs: numpy
+# Full RGB/depth render needs: pillow, trimesh, pyrender, PyOpenGL (PyOpenGL can be slow to install on some setups)
+numpy>=1.24,<2
+opencv-python>=4.8
+pillow>=10.0
+trimesh>=4.0
+pyrender>=0.1.45
+PyOpenGL>=3.1.0

@@ -1,0 +1,75 @@
+{
+  "dataset": "rubiks_orbit_v1",
+  "purpose": "Geometry / novel-view fundamentals (synthetic, calibrated).",
+  "conventions": {
+    "world_frame": "right-handed, +Y up, cube centered at origin",
+    "camera_model": "pinhole, OpenCV projection (x right, y down, z forward)",
+    "depth_maps": "pyrender float depth in scene units; 0 = background / invalid",
+    "masks": "255 = foreground cube, 0 = background"
+  },
+  "capture": {
+    "elevations_deg": [
+      45.0,
+      0.0,
+      -45.0
+    ],
+    "azimuth_step_deg": 10.0,
+    "azimuth_count": 36,
+    "orbit_radius": 3.0,
+    "cube_half_extent": 0.5,
+    "image_size_wh": [
+      512,
+      512
+    ],
+    "yfov_deg": 50.0,
+    "background_rgb": [
+      0.15,
+      0.15,
+      0.18
+    ]
+  },
+  "gt": {
+    "cube_corners_world": [
+      [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      [
+        0.5,
+        0.5,
+        -0.5
+      ],
+      [
+        -0.5,
+        0.5,
+        -0.5
+      ],
+      [
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      [
+        0.5,
+        -0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        -0.5,
+        0.5,
+        0.5
+      ]
+    ]
+  }
+}
