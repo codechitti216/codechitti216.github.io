@@ -108,8 +108,6 @@ We need a representation where distance means something. But where does the mean
 
 Words have friends too. In the sentence "I fed the **cat** yesterday," the friends of "cat" are the words surrounding it — *I, fed, the, yesterday*. This is called a **context window**.
 
-![A word circled in a sentence with arrows pointing to its neighboring words, labeled as its "context window"](placeholder-context-window.png)
-
 Now look at these two sentences:
 
 ```
@@ -296,11 +294,18 @@ But wait — the loss function uses a sigmoid. That's a nonlinearity. Does it co
 
 There's a theoretical counter-argument: the gradient that updates each word vector always takes the form $\alpha \cdot u_{w}$ — a scalar times another word's vector. The sigmoid determines the scalar $\alpha$ (how much to move), but the direction of movement is always along another word's vector. The nonlinearity modulates step sizes; it never contaminates the geometry.
 
-That's a clean argument. But does it hold up in practice? The notebook runs three ablations to find out:
+That's a clean argument. But the theory alone can't settle it — the nonlinear loss landscape means different optimization trajectories, which *could* lead to different final configurations even if the gradient directions are the same. We need experiments.
+
+The notebook runs six ablations:
 
 1. **Sigmoid vs linear loss** — train with and without the sigmoid. Do both learn the same cluster structure?
 2. **Input vs output embeddings** — each word has two vectors during training. A word has one meaning. Do both vectors learn the same relationships?
 3. **Two vectors vs one** — train with a single embedding per word, used for both center and context roles. Does it learn the same structure?
+4. **Skip-gram vs CBOW** — does CBOW's gradient dilution (from averaging context words) change what's learned?
+5. **Input vs averaged (in+out)/2** — does combining both embedding matrices produce better representations?
+6. **2D trained vs 20D PCA'd to 2D** — is PCA of high-dimensional embeddings the same as training directly in low dimensions?
+
+Plus: K-Means clustering in the original high-dimensional space with silhouette score to find the optimal number of clusters — no PCA, no information loss.
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/embeddings.ipynb)
 
@@ -318,18 +323,50 @@ A 300-dimensional space might sound excessive, but high dimensionality is what m
 
 The model doesn't use all 300 dimensions equally — the effective structure might occupy 50–100 meaningful directions, with the rest carrying noise. But having the extra room means the model never has to compromise, never has to smash two unrelated relationships into the same direction.
 
+This also means **PCA is a visualization tool, not a proof tool.** When we project 20D embeddings to 2D for plotting, PCA keeps only the two directions of maximum variance — throwing away potentially 70–80% of the information. Clusters survive projection because they dominate variance. But fine-grained relationships might not. The notebook demonstrates this directly: a model trained in 2D learns different structure than a 20D model projected to 2D, which in turn differs from the full 20D space. Each is solving a different problem.
+
 ## Where This Breaks
 
-Word2Vec is a static lookup table. One word, one vector, forever. This breaks in an obvious way: the same word can have completely different meanings depending on context.
+Every step of this pipeline introduces limitations. Some are annoying. Some are fatal.
+
+### The Tokenizer Is Already Biased
+
+Before the model sees a single training example, the tokenizer has already made choices. BPE's merge rules are learned from a specific corpus — different data produces different tokenizations of the same word. The "ground truth" segmentation is a statistical artifact, not an objective fact. And this bias propagates silently: the tokenization determines what tokens the model sees, which determines what patterns it can learn.
+
+### Polysemy — One Word, Two Meanings, One Vector
+
+Word2Vec is a static lookup table. One word, one vector, forever.
 
 "Bank" in "I sat by the river bank" and "I went to the bank to deposit money" gets the same vector. The lookup table doesn't know which sentence it's in — it returns the same fixed point in space regardless. That single vector is some average of the river meaning and the money meaning, which accurately represents neither.
+
+The notebook's clustering results expose this directly. When we train on Aesop's Fables, words that appear across multiple stories — like "fox," which appears in both the Grapes fable and the Crow fable — end up isolated in their own cluster. The model can't commit the word to either story's region because it belongs to both. That's the polysemy problem made visible.
+
+### Context Shaped the Vectors, but the Vectors Can't Use Context
 
 This isn't a data problem. More training data won't fix it. It's a structural limitation: the embedding is looked up, not computed. Context shaped the vector during training, but the vector can't adapt to new context at inference time.
 
 ### What Came Next
 
-Later models — ELMo, BERT, GPT — fix this by abandoning the lookup table entirely. Instead of retrieving a fixed vector, they run the **entire sentence** through a neural network and compute a different vector for each word depending on its surroundings.
+Later models — ELMo, BERT, GPT — fix the static problem by abandoning the lookup table entirely. Instead of retrieving a fixed vector, they run the **entire sentence** through a neural network and compute a different vector for each word depending on its surroundings.
 
 Each word's representation gets updated by looking at every other word in the sentence. "Bank" in "river bank" gets pulled toward the waterway meaning by the presence of "river." "Bank" in "deposit money" gets pulled toward the financial meaning by "deposit." The embedding is no longer looked up — it's **computed from the sentence**.
 
-The mechanism that enables this — attention — lets each word ask "which other words in this sentence should influence my meaning?" and weight them accordingly. That's a story for another post.
+The mechanism that enables this — attention — lets each word ask "which other words in this sentence should influence my meaning?" and weight them accordingly. That's a story for [another post](/garden/transformer).
+
+## What We Built
+
+This post covered the full pipeline from raw text to learned embeddings:
+
+| Step | Problem | Solution |
+|---|---|---|
+| Raw text → tokens | Whole words break on unseen input | BPE: data-adaptive subword tokenization |
+| Tokens → vectors | One-hot vectors are equidistant | Learned dense embeddings via Word2Vec |
+| Similarity measure | Jaccard ignores frequency | Cosine similarity on frequency vectors |
+| Training | Softmax over full vocabulary is too expensive | Negative sampling (contrastive learning) |
+| Two roles per word | Center and context need different representations | Two embedding matrices (input + output) |
+
+We also investigated six questions empirically — sigmoid vs linear loss, input vs output embeddings, single vs two vectors, skip-gram vs CBOW, averaged embeddings, and 2D trained vs high-dimensional PCA — because theoretical arguments about what *should* work are no substitute for checking what *actually* works.
+
+The companion notebook implements everything from scratch and runs all ablations on any text you paste in.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/codechitti216/codechitti216.github.io/blob/main/public/notebooks/embeddings.ipynb)
