@@ -131,65 +131,118 @@ And there's a deeper concern: we're *hoping* these misleading cases are rare eno
 
 The distributional hypothesis works **in proportion to how much data we have for each word.** That's an honest limitation. But for the words that matter most — the common ones — it works remarkably well.
 
-That's the insight. Now we need the machine.
+### Measuring Context Similarity — From Jaccard to Cosine
+
+How do we actually measure whether two words share contexts? The first attempt is **Jaccard similarity**: what fraction of context words do they share?
+
+Say from our corpus, "cat" appears near {the, sat, chased, on} and "dog" appears near {the, sat, chased, ran}. Jaccard looks at set overlap:
+
+$$J = \frac{|\text{shared}|}{|\text{union}|} = \frac{|\{\text{the, sat, chased}\}|}{|\{\text{the, sat, chased, on, ran}\}|} = \frac{3}{5} = 0.6$$
+
+But this ignores **frequency**. "The" might appear 50 times as context for "cat" and 2 times for "dog." Jaccard treats both the same — a word either appears or it doesn't. A context word appearing once counts as much as one appearing 100 times.
+
+The fix: represent each word as a **frequency vector** over all possible context words. Each dimension is the count of how often a context word appeared. Then measure similarity with the **dot product** or **cosine similarity**:
+
+$$\text{dot}(a, b) = \sum_i a_i \cdot b_i$$
+
+$$\text{cosine}(a, b) = \frac{a \cdot b}{\|a\| \|b\|}$$
+
+The dot product naturally weights frequent co-occurrences more heavily. Cosine normalizes by magnitude, focusing on the pattern rather than the scale.
+
+But these frequency vectors are **huge** — one dimension per context word in the vocabulary — and **sparse** — mostly zeros. What if we could learn **small, dense vectors** that capture the same contextual information? That's what Word2Vec does.
 
 ## The Machine — How Word2Vec Learns Structure
 
-Word2Vec (Mikolov et al., 2013) operationalizes the distributional hypothesis. It turns "words with similar contexts should be similar" into a training objective.
+Word2Vec (Mikolov et al., 2013) operationalizes the distributional hypothesis. Instead of counting context frequencies directly, it learns dense vectors by training on a prediction task.
 
-### Two Embeddings Per Word
+### Setup
 
-Every word gets two vectors — an **input embedding** $v$ used when the word is the center, and an **output embedding** $u$ used when it appears as context. Why two? Because context relationships aren't symmetric. "The" appears in the context of almost everything — it's a nearly universal neighbor. "Cat" is specific. When "cat" is center, "the" should score high as context. But when "the" is center, "cat" is no more special than any other noun. Two vectors let the model capture this asymmetry.
+Take three words $w_0, w_1, w_2$ in a sentence. Each word gets two vectors:
 
-After training, we throw away the output embeddings. The input embeddings become the final word vectors — a lookup table whose geometry was sculpted by context.
+- **Input embedding** $u_i$ — used when the word is the **center**
+- **Output embedding** $v_i$ — used when the word is **context**
 
-### The Task: Skip-Gram
+Two vectors because context relationships aren't symmetric. "The" is a great context word — it appears near everything. But as a center word, it's uninformative. Two vectors let each role have its own parameters. After training, we throw away the output embeddings and keep the input embeddings as the final word vectors.
 
-Slide a window across the text. At each position, pick a center word and look at its neighbors:
+### Skip-Gram
 
-```
-"the  [cat]  sat  on  the  mat"
-       ^
-    center    context: the, sat, on
-```
+Given a center word, predict each context word **separately**. Slide a window across the sentence. With $w_1$ as center and window size 1, the training pairs are:
 
-The model's task: given the center word "cat," predict that "the," "sat," and "on" are likely to appear nearby. No labels, no human annotation — just a word and its neighbors.
+$$(w_1, w_0) \quad \text{and} \quad (w_1, w_2)$$
 
-### Measuring Compatibility
+Each pair is its own training step.
 
-How does the model decide whether two words belong together? It computes the **dot product** of their vectors:
+**The score** for a pair $(w_1, w_0)$ — how compatible are they?
 
-$$\text{compatibility}(\text{cat}, \text{sat}) = v_{\text{cat}} \cdot u_{\text{sat}} = \sum_{i=1}^{d} v_{\text{cat}}^{(i)} \cdot u_{\text{sat}}^{(i)}$$
+$$s^+ = u_1 \cdot v_0$$
 
-High dot product means "these words belong together." Low means "they don't."
+**The loss** with negative sampling — pick a random word $w_k$ as a negative sample:
 
-To turn this into a probability, we'd use a softmax — normalize over the entire vocabulary:
+$$\mathcal{L} = -\log \sigma(s^+) - \log \sigma(-s^-)$$
 
-$$P(w_o \mid w_c) = \frac{\exp(v_{w_c} \cdot u_{w_o})}{\sum_{j=1}^{V} \exp(v_{w_c} \cdot u_j)}$$
+where $s^- = u_1 \cdot v_k$. The first term pulls the real pair together. The second pushes the random pair apart.
 
-But that denominator requires computing a dot product with every word in the vocabulary — all 50,000 of them — for every single training example. With billions of training examples, this is computationally fatal.
+**The gradients** — derived via chain rule:
 
-### The Shortcut: Negative Sampling
+$$\frac{\partial \mathcal{L}}{\partial u_1} = (\sigma(s^+) - 1) \cdot v_0 + \sigma(s^-) \cdot v_k$$
 
-Instead of comparing against the entire vocabulary, negative sampling reformulates the problem. For each real pair that appeared together in the text, take 5–10 random words that *didn't* appear in the context and push them apart. The loss:
+$$\frac{\partial \mathcal{L}}{\partial v_0} = (\sigma(s^+) - 1) \cdot u_1$$
 
-$$\mathcal{L} = -\log \sigma(v_{w_c} \cdot u_{w_o}) - \sum_{i=1}^{k} \log \sigma(-v_{w_c} \cdot u_{w_i})$$
+$$\frac{\partial \mathcal{L}}{\partial v_k} = \sigma(s^-) \cdot u_1$$
 
-where $\sigma$ is the sigmoid function. The first term pulls the real pair together — makes their dot product large. The second term pushes random anti-neighbors apart — makes their dot products negative.
+Every gradient is a **scalar times the other word's vector**. The sigmoid determines the scalar (how much to move). The direction is always along the other word's vector.
 
-This is **contrastive learning** — one of its earliest forms. SimCLR, CLIP, and every modern contrastive method uses the same skeleton: push positives together, push negatives apart.
+**The updates** with learning rate $\eta$:
 
-### Who Gets Updated?
+$$u_1 \leftarrow u_1 - \eta \left[ (\sigma(s^+) - 1) \cdot v_0 + \sigma(s^-) \cdot v_k \right]$$
 
-For each training sample, three kinds of vectors receive gradients:
+$$v_0 \leftarrow v_0 - \eta \left[ (\sigma(s^+) - 1) \cdot u_1 \right]$$
+
+$$v_k \leftarrow v_k - \eta \left[ \sigma(s^-) \cdot u_1 \right]$$
 
 | Vector | Updated by | Direction |
 |---|---|---|
-| Center word (input) | Pull + push gradients | Toward context, away from negatives |
-| Context word (output) | Pull gradient only | Toward center |
-| Negative words (output) | Push gradient only | Away from center |
+| $u_1$ (center input) | Pull + push | Toward $v_0$, away from $v_k$ |
+| $v_0$ (context output) | Pull only | Toward $u_1$ |
+| $v_k$ (negative output) | Push only | Away from $u_1$ |
 
-Every vector that participated in the loss gets a gradient. The center word feels both forces. The context word gets pulled closer. The negative samples get pushed away.
+### CBOW
+
+Given all context words **together**, predict the center word. With $w_1$ as center and context $\{w_0, w_2\}$:
+
+**Step 1 — Average the context input embeddings:**
+
+$$\bar{u} = \frac{u_0 + u_2}{2}$$
+
+**Step 2 — Score:**
+
+$$s^+ = \bar{u} \cdot v_1$$
+
+**Step 3 — Loss and gradient with respect to the average:**
+
+$$\frac{\partial \mathcal{L}}{\partial \bar{u}} = (\sigma(s^+) - 1) \cdot v_1$$
+
+**Step 4 — Distribute back to each context word:**
+
+Since $\bar{u} = \frac{u_0 + u_2}{2}$:
+
+$$\frac{\partial \mathcal{L}}{\partial u_0} = \frac{(\sigma(s^+) - 1)}{2} \cdot v_1 \qquad \frac{\partial \mathcal{L}}{\partial u_2} = \frac{(\sigma(s^+) - 1)}{2} \cdot v_1$$
+
+Each context word gets **$1/N$** of the gradient, where $N$ is the number of context words.
+
+### Skip-Gram vs CBOW — The Difference
+
+For the same word $w_0$ appearing as context of $w_1$:
+
+| | Skip-Gram | CBOW |
+|---|---|---|
+| Gradient for $u_0$ | $(\sigma(s^+) - 1) \cdot v_1$ | $\frac{(\sigma(s^+) - 1)}{2} \cdot v_1$ |
+| Direction | Along $v_1$ | Along $v_1$ |
+| Magnitude | Full | $1/N$ (diluted) |
+
+Same direction. Different magnitude. CBOW dilutes the gradient by the number of context words — the averaging smears out individual contributions. Skip-gram gives each word a full-strength update.
+
+This is why skip-gram handles rare words better. A rare word gets a dedicated, full-gradient training step every time it appears. In CBOW, its signal is diluted by the common words it shares the window with.
 
 ### Why Don't Random Negatives Break It?
 
