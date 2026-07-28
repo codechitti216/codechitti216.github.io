@@ -7,6 +7,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import { getContentBySlug } from '../lib/content';
+import TransformerViz from '../components/transformer/TransformerViz';
 import 'katex/dist/katex.min.css';
 
 export default function NoteDetail() {
@@ -48,6 +49,9 @@ export default function NoteDetail() {
           )}
         </div>
       </div>
+
+      {/* Interactive diagram for transformer post */}
+      {id === 'transformer' && <TransformerViz />}
 
       {/* Markdown body */}
       <article className="prose">

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformer — Interactive Architecture</title>
+<style>
+  :root {
+    --blue: #3b82f6; --blue-bg: #eff6ff; --blue-dark: #1d4ed8;
+    --red: #ef4444; --red-bg: #fef2f2;
+    --green: #22c55e; --green-bg: #f0fdf4;
+    --gray: #6b7280; --gray-light: #e5e7eb; --gray-bg: #f9fafb;
+    --border: #d1d5db; --text: #374151; --text-dark: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { font-family: Georgia, serif; color: var(--text-dark); background: #fafafa; line-height: 1.7; }
+
+  .page { max-width: 740px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.35rem; font-weight: 600; margin: 0 0 0.8rem; color: var(--text-dark); }
+  p  { margin-bottom: 1.1rem; color: #444; font-size: 0.94rem; }
+
+  /* ───── Diagram container ───── */
+  .diagram-wrap {
+    position: sticky; top: 0; z-index: 50;
+    background: #fff; border-bottom: 1px solid var(--gray-light);
+    padding: 0.75rem 0.5rem 0.4rem;
+    margin: 0 -1.5rem 1.5rem;
+    width: calc(100% + 3rem);
+  }
+
+  .diagram-inner { max-width: 700px; margin: 0 auto; position: relative; }
+
+  /* ───── SVG base ───── */
+  svg.arch { width: 100%; height: auto; display: block; }
+
+  /* ───── Component boxes ───── */
+  .box {
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+  }
+  .box.hidden { opacity: 0; pointer-events: none; }
+
+  .box rect {
+    fill: var(--gray-bg); stroke: var(--border); stroke-width: 1;
+    rx: 5; ry: 5;
+    transition: fill 0.3s, stroke 0.3s, stroke-width 0.2s;
+  }
+  .box text {
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    fill: var(--text); pointer-events: none;
+    transition: fill 0.3s;
+  }
+
+  /* Hover */
+  .box:not(.hidden):hover rect { stroke: var(--blue); stroke-width: 1.8; }
+
+  /* Active / expanded */
+  .box.active rect { stroke: var(--blue); stroke-width: 2; fill: var(--blue-bg); }
+  .box.active text { fill: var(--blue-dark); }
+
+  /* Problem / fix */
+  .box.problem rect { stroke: var(--red); stroke-width: 2; fill: var(--red-bg); }
+  .box.problem text { fill: var(--red); }
+  .box.fix rect     { stroke: var(--green); stroke-width: 2; fill: var(--green-bg); }
+  .box.fix text     { fill: var(--green); }
+
+  /* ───── Arrows ───── */
+  .flow {
+    fill: none; stroke: #bbb; stroke-width: 1.2;
+    marker-end: url(#ah);
+    transition: opacity 0.5s;
+  }
+  .flow.hidden { opacity: 0; }
+
+  /* Animated data-flow pulse */
+  .flow.pulse {
+    stroke: var(--blue); stroke-width: 1.6;
+    stroke-dasharray: 6 4;
+    animation: dash 1.2s linear infinite;
+  }
+  @keyframes dash { to { stroke-dashoffset: -20; } }
+
+  .cross-flow {
+    fill: none; stroke: var(--blue); stroke-width: 1.4;
+    stroke-dasharray: 5 3;
+    marker-end: url(#ahb);
+    transition: opacity 0.5s;
+  }
+  .cross-flow.hidden { opacity: 0; }
+  .cross-flow.pulse { animation: dash 1.2s linear infinite; }
+
+  /* ───── Brackets ───── */
+  .brace { fill: none; stroke: #ccc; stroke-width: 1; transition: opacity 0.5s; }
+  .brace.hidden { opacity: 0; }
+  .nx { font-family: -apple-system, sans-serif; font-size: 11px; fill: #aaa; transition: opacity 0.5s; }
+  .nx.hidden { opacity: 0; }
+
+  /* ───── Expand sub-detail panel ───── */
+  .sub-panel {
+    position: absolute; left: 0; right: 0;
+    background: #fff; border: 1px solid var(--gray-light); border-radius: 8px;
+    padding: 0.8rem 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    font-family: -apple-system, sans-serif; font-size: 0.82rem; color: #444;
+    display: none; z-index: 60;
+    animation: fadeUp 0.25s ease;
+  }
+  .sub-panel.open { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .sub-panel h3 {
+    font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.4rem;
+  }
+
+  .sub-panel .step {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    padding: 0.3rem 0; border-bottom: 1px solid #f3f3f3;
+  }
+  .sub-panel .step:last-child { border-bottom: none; }
+
+  .sub-panel .step-num {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--blue-bg); color: var(--blue-dark);
+    font-weight: 600; font-size: 0.72rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .sub-panel .close-btn {
+    position: absolute; top: 0.4rem; right: 0.6rem;
+    background: none; border: none; font-size: 1rem; color: #aaa;
+    cursor: pointer; line-height: 1;
+  }
+  .sub-panel .close-btn:hover { color: #333; }
+
+  .sub-panel .read-more {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.78rem;
+    color: var(--blue); text-decoration: none; font-weight: 500;
+  }
+  .sub-panel .read-more:hover { text-decoration: underline; }
+
+  /* ───── Step bar ───── */
+  .step-bar { display: flex; gap: 3px; justify-content: center; margin-top: 0.4rem; }
+  .pip { width: 22px; height: 3px; border-radius: 2px; background: var(--gray-light); transition: background 0.3s; }
+  .pip.on { background: var(--blue); }
+  .step-lbl {
+    text-align: center; font-family: -apple-system, sans-serif;
+    font-size: 0.68rem; color: #aaa; margin-top: 0.2rem; min-height: 0.9rem;
+  }
+
+  /* ───── Sections ───── */
+  .sect { min-height: 65vh; padding: 2.5rem 0 2rem; border-top: 1px solid #f0f0f0; }
+  .sect:first-of-type { border-top: none; }
+  .tail { height: 40vh; }
+
+  /* ───── Misc labels inside SVG ───── */
+  .lbl {
+    font-family: -apple-system, sans-serif; pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  .lbl.hidden { opacity: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>The Transformer, Inside and Out</h1>
+<p style="color:#999; font-size:0.8rem; margin-bottom:0;">Scroll through. Click any component to expand it.</p>
+
+<!-- ════════════════ DIAGRAM ════════════════ -->
+<div class="diagram-wrap" id="dw">
+<div class="diagram-inner" id="di">
+
+<svg class="arch" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="ah" viewBox="0 0 8 6" refX="8" refY="3" markerWidth="7" markerHeight="5" orient="auto">
+    <path d="M0,0 L8,3 L0,6z" fill="#bbb"/></marker>
+  <marker id="ahb" viewBox="0 0 8 6" refX="8" refY="3" markerWidth="7" markerHeight="5" orient="auto">
+    <path d="M0,0 L8,3 L0,6z" fill="#3b82f6"/></marker>
+</defs>
+
+<!--
+  Grid:
+    Encoder cx=160   Decoder cx=480
+    Box: 156×28      gap: 6
+    Flow: bottom→top
+    y positions (bottom to top):
+      Input label   y=388
+      Embed         y=352..380
+      PosEnc        y=310..338   (gap 14 from embed)
+      Attn          y=268..296
+      AddNorm1      y=234..262
+      FFN           y=200..228
+      AddNorm2      y=166..194
+      Encoder lbl   y=150
+-->
+
+<!-- ═══ ENCODER ═══ -->
+<text class="lbl" id="L-in" x="160" y="396" text-anchor="middle" font-size="10" fill="#9ca3af">Inputs</text>
+
+<g class="box hidden" id="B-emb" data-section="section-embeddings" data-expand="expand-embed">
+  <rect x="82" y="352" width="156" height="28"/>
+  <text x="160" y="370" text-anchor="middle" font-size="11">Input Embedding</text>
+</g>
+<line class="flow hidden" id="F-emb" x1="160" y1="352" x2="160" y2="340"/>
+
+<g class="box hidden" id="B-pos" data-section="section-positional" data-expand="expand-pos">
+  <rect x="82" y="310" width="156" height="28"/>
+  <text x="160" y="328" text-anchor="middle" font-size="11">+ Positional Encoding</text>
+</g>
+<line class="flow hidden" id="F-pos" x1="160" y1="310" x2="160" y2="298"/>
+
+<g class="box hidden" id="B-attn" data-section="section-attention" data-expand="expand-attn">
+  <rect x="82" y="268" width="156" height="28"/>
+  <text x="160" y="286" text-anchor="middle" font-size="11">Multi-Head Attention</text>
+</g>
+<line class="flow hidden" id="F-attn" x1="160" y1="268" x2="160" y2="264"/>
+
+<g class="box hidden" id="B-an1" data-section="section-block">
+  <rect x="82" y="234" width="156" height="28"/>
+  <text x="160" y="252" text-anchor="middle" font-size="11">Add & Norm</text>
+</g>
+<line class="flow hidden" id="F-an1" x1="160" y1="234" x2="160" y2="230"/>
+
+<g class="box hidden" id="B-ffn" data-section="section-block" data-expand="expand-ffn">
+  <rect x="82" y="200" width="156" height="28"/>
+  <text x="160" y="218" text-anchor="middle" font-size="11">Feed Forward</text>
+</g>
+<line class="flow hidden" id="F-ffn" x1="160" y1="200" x2="160" y2="196"/>
+
+<g class="box hidden" id="B-an2" data-section="section-block">
+  <rect x="82" y="166" width="156" height="28"/>
+  <text x="160" y="184" text-anchor="middle" font-size="11">Add & Norm</text>
+</g>
+
+<path class="brace hidden" id="BR-enc" d="M 74,164 L 68,164 L 68,298 L 74,298"/>
+<text class="nx hidden" id="NX-enc" x="58" y="234" text-anchor="middle">N×</text>
+
+<text class="lbl hidden" id="L-enc" x="160" y="154" text-anchor="middle" font-size="13" font-weight="600" fill="#111">Encoder</text>
+
+
+<!-- ═══ DECODER ═══ -->
+<text class="lbl hidden" id="L-out" x="480" y="396" text-anchor="middle" font-size="10" fill="#9ca3af">Outputs (shifted right)</text>
+
+<g class="box hidden" id="B-demb" data-section="section-decoder">
+  <rect x="402" y="352" width="156" height="28"/>
+  <text x="480" y="370" text-anchor="middle" font-size="11">Output Embedding</text>
+</g>
+<line class="flow hidden" id="F-demb" x1="480" y1="352" x2="480" y2="340"/>
+
+<g class="box hidden" id="B-dpos" data-section="section-decoder">
+  <rect x="402" y="310" width="156" height="28"/>
+  <text x="480" y="328" text-anchor="middle" font-size="11">+ Positional Encoding</text>
+</g>
+<line class="flow hidden" id="F-dpos" x1="480" y1="310" x2="480" y2="298"/>
+
+<g class="box hidden" id="B-dmattn" data-section="section-decoder" data-expand="expand-masked">
+  <rect x="402" y="268" width="156" height="28"/>
+  <text x="480" y="282" text-anchor="middle" font-size="10">Masked Self-Attention</text>
+</g>
+<line class="flow hidden" id="F-dmattn" x1="480" y1="268" x2="480" y2="264"/>
+
+<g class="box hidden" id="B-dan1" data-section="section-decoder">
+  <rect x="402" y="234" width="156" height="28"/>
+  <text x="480" y="252" text-anchor="middle" font-size="11">Add & Norm</text>
+</g>
+<line class="flow hidden" id="F-dan1" x1="480" y1="234" x2="480" y2="230"/>
+
+<g class="box hidden" id="B-cross" data-section="section-full" data-expand="expand-cross">
+  <rect x="402" y="200" width="156" height="28"/>
+  <text x="480" y="218" text-anchor="middle" font-size="11">Cross-Attention</text>
+</g>
+<line class="flow hidden" id="F-cross" x1="480" y1="200" x2="480" y2="196"/>
+
+<!-- Cross-attention arrow from encoder -->
+<path class="cross-flow hidden" id="F-xenc" d="M 238,180 L 320,180 L 320,214 L 402,214"/>
+<text class="lbl hidden" id="L-kv" x="320" y="174" text-anchor="middle" font-size="9" fill="#3b82f6">K, V</text>
+
+<g class="box hidden" id="B-dan2" data-section="section-full">
+  <rect x="402" y="166" width="156" height="28"/>
+  <text x="480" y="184" text-anchor="middle" font-size="11">Add & Norm</text>
+</g>
+<line class="flow hidden" id="F-dan2" x1="480" y1="166" x2="480" y2="162"/>
+
+<g class="box hidden" id="B-dffn" data-section="section-full">
+  <rect x="402" y="132" width="156" height="28"/>
+  <text x="480" y="150" text-anchor="middle" font-size="11">Feed Forward</text>
+</g>
+<line class="flow hidden" id="F-dffn" x1="480" y1="132" x2="480" y2="128"/>
+
+<g class="box hidden" id="B-dan3" data-section="section-full">
+  <rect x="402" y="98" width="156" height="28"/>
+  <text x="480" y="116" text-anchor="middle" font-size="11">Add & Norm</text>
+</g>
+<line class="flow hidden" id="F-dan3" x1="480" y1="98" x2="480" y2="88"/>
+
+<g class="box hidden" id="B-lin" data-section="section-full">
+  <rect x="420" y="58" width="120" height="28"/>
+  <text x="480" y="76" text-anchor="middle" font-size="10">Linear + Softmax</text>
+</g>
+
+<text class="lbl hidden" id="L-oprob" x="480" y="50" text-anchor="middle" font-size="10" fill="#9ca3af">Output Probabilities</text>
+
+<path class="brace hidden" id="BR-dec" d="M 566,96 L 572,96 L 572,298 L 566,298"/>
+<text class="nx hidden" id="NX-dec" x="584" y="200" text-anchor="middle">N×</text>
+
+
+<!-- ═══ SPECIAL: QKV labels ═══ -->
+<text class="lbl hidden" id="L-qkv" x="160" y="262" text-anchor="middle" font-size="9" font-weight="600" fill="#3b82f6">Q    K    V</text>
+
+<!-- ═══ SPECIAL: Problem overlay ═══ -->
+<g class="box hidden" id="B-prob">
+  <rect x="60" y="130" width="200" height="34" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="160" y="145" text-anchor="middle" font-size="9" fill="#dc2626">"dog attacked cat" vs "cat attacked dog"</text>
+  <text x="160" y="158" text-anchor="middle" font-size="9" fill="#dc2626">Same embeddings → Same attention scores</text>
+</g>
+
+</svg>
+
+<!-- ── Expand panels ── -->
+<div class="sub-panel" id="expand-embed">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Input Embedding</h3>
+  <div class="step"><span class="step-num">1</span><span>Token index (integer) enters the lookup table</span></div>
+  <div class="step"><span class="step-num">2</span><span>Lookup table shape: <b>(vocab_size, d_model)</b></span></div>
+  <div class="step"><span class="step-num">3</span><span>Output: dense vector scaled by √d_model</span></div>
+  <div class="step"><span class="step-num">4</span><span>Shape: <b>(batch, seq_len)</b> → <b>(batch, seq_len, d_model)</b></span></div>
+  <a class="read-more" href="#section-embeddings">Read full explanation ↓</a>
+</div>
+
+<div class="sub-panel" id="expand-pos">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Positional Encoding</h3>
+  <div class="step"><span class="step-num">1</span><span>Attention is position-blind — same words = same scores</span></div>
+  <div class="step"><span class="step-num">2</span><span><b>Sinusoidal:</b> PE(pos,2i) = sin(pos / 10000^(2i/d))</span></div>
+  <div class="step"><span class="step-num">3</span><span><b>Learned:</b> lookup table (max_len, d_model), trained end-to-end</span></div>
+  <div class="step"><span class="step-num">4</span><span>Added element-wise to token embeddings</span></div>
+  <a class="read-more" href="#section-positional">Read full explanation ↓</a>
+</div>
+
+<div class="sub-panel" id="expand-attn">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Multi-Head Attention</h3>
+  <div class="step"><span class="step-num">1</span><span>Project input → <b>Q</b> (query), <b>K</b> (key), <b>V</b> (value)</span></div>
+  <div class="step"><span class="step-num">2</span><span>Score: <b>QK<sup>T</sup> / √d<sub>k</sub></b> — dot product, scaled</span></div>
+  <div class="step"><span class="step-num">3</span><span>Softmax → attention weights (sum to 1 per row)</span></div>
+  <div class="step"><span class="step-num">4</span><span>Output: weighted sum of V — <b>softmax(QK<sup>T</sup>/√d)V</b></span></div>
+  <div class="step"><span class="step-num">5</span><span>Split into <b>h heads</b>, each with own Q,K,V. Concat + W<sub>O</sub></span></div>
+  <a class="read-more" href="#section-attention">Read full explanation ↓</a>
+</div>
+
+<div class="sub-panel" id="expand-ffn">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Feed-Forward Network</h3>
+  <div class="step"><span class="step-num">1</span><span>Expand: d_model → 4 × d_model (e.g. 512 → 2048)</span></div>
+  <div class="step"><span class="step-num">2</span><span>GELU activation — soft-gates negative values</span></div>
+  <div class="step"><span class="step-num">3</span><span>Compress: 4 × d_model → d_model</span></div>
+  <div class="step"><span class="step-num">4</span><span>Per-token transformation. Attention = inter-token, FFN = intra-token.</span></div>
+  <a class="read-more" href="#section-block">Read full explanation ↓</a>
+</div>
+
+<div class="sub-panel" id="expand-masked">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Masked Self-Attention</h3>
+  <div class="step"><span class="step-num">1</span><span>Same as self-attention, but with <b>causal mask</b></span></div>
+  <div class="step"><span class="step-num">2</span><span>Upper triangle of score matrix set to <b>-∞</b></span></div>
+  <div class="step"><span class="step-num">3</span><span>After softmax, future positions get weight 0</span></div>
+  <div class="step"><span class="step-num">4</span><span>Each token can only attend to itself and previous tokens</span></div>
+  <a class="read-more" href="#section-decoder">Read full explanation ↓</a>
+</div>
+
+<div class="sub-panel" id="expand-cross">
+  <button class="close-btn" onclick="closePanel(this)">&times;</button>
+  <h3>Cross-Attention</h3>
+  <div class="step"><span class="step-num">1</span><span><b>Q</b> from decoder (what am I looking for?)</span></div>
+  <div class="step"><span class="step-num">2</span><span><b>K, V</b> from encoder output (what does the input offer?)</span></div>
+  <div class="step"><span class="step-num">3</span><span>Self-attention first enriches Q with decoder context</span></div>
+  <div class="step"><span class="step-num">4</span><span>Then cross-attention queries the encoder meaningfully</span></div>
+  <a class="read-more" href="#section-full">Read full explanation ↓</a>
+</div>
+
+<div class="step-bar" id="sbar"></div>
+<div class="step-lbl" id="slbl"></div>
+
+</div><!-- diagram-inner -->
+</div><!-- diagram-wrap -->
+
+
+<!-- ════════════════ CONTENT SECTIONS ════════════════ -->
+
+<section class="sect" id="section-problem" data-step="0">
+  <h2>The Problem</h2>
+  <p>Before the Transformer, we had RNNs — an internal memory value that kept updating itself as the sequence went. But the issues were real: vanishing gradients made it impossible to learn from distant tokens, and every step had to wait for the previous one. GPUs with thousands of cores sat idle.</p>
+  <p>LSTMs and GRUs solved vanishing gradients with gating mechanisms. But they were still sequential, still slow, and long range dependencies still degraded over hundreds of tokens.</p>
+  <p>We needed an architecture that could look at any two positions directly — without marching through every step in between — and do it in parallel. That architecture is the Transformer.</p>
+</section>
+
+<section class="sect" id="section-embeddings" data-step="1">
+  <h2>From Tokens to Vectors</h2>
+  <p>Turn token indices into dense vectors. A lookup table of shape (vocab_size, d_model), randomly initialized, trained with the rest of the model. Given token index 47, pull out row 47. Scale by √d_model so the embeddings are on a comparable scale with the positional encodings we'll add next.</p>
+  <p>Input shape: (batch, seq_len). Output shape: (batch, seq_len, d_model). The embedding layer adds the last dimension — that's the whole point.</p>
+</section>
+
+<section class="sect" id="section-attention" data-step="2">
+  <h2>Attention</h2>
+  <p>We have our token embeddings. Multiply each by three learned matrices to produce a query (what are you looking for?), a key (what answer do I have?), and a value (what do I have to offer?).</p>
+  <p>Dot-product Q against all K's. Each dot product is a sum over d_k dimensions — variance grows to d_k. Divide by √d_k to normalize. Softmax turns scores into weights. Multiply weights by V — weighted sum. Each token comes out as a new vector enriched by the tokens that mattered most.</p>
+</section>
+
+<section class="sect" id="section-problem-pos" data-step="3">
+  <h2>But Something Is Missing</h2>
+  <p>"The dog attacked the cat" and "The cat attacked the dog." Same words, same embeddings, same Q, K, V. The attention scores come out identical. But these sentences mean completely different things.</p>
+  <p>Attention is a set operation. It has no idea that "dog" is at position 1 in one sentence and position 5 in the other. What's missing is positional information.</p>
+</section>
+
+<section class="sect" id="section-positional" data-step="4">
+  <h2>Positional Encoding</h2>
+  <p>A function from position to a vector, added element-wise to each token embedding. Sinusoidal: computed from a formula using sines and cosines at different frequencies. Continuous, no length ceiling, and for any fixed offset k, PE(pos+k) is a linear transformation of PE(pos) — a rotation that lets the model learn relative positions.</p>
+  <p>Learned: a lookup table trained end-to-end. Simpler, more flexible, but limited to the max length seen during training. The positional OOV problem.</p>
+  <p>Now "dog" at position 1 and "dog" at position 5 produce different attention scores. The problem is fixed.</p>
+</section>
+
+<section class="sect" id="section-multihead" data-step="5">
+  <h2>Multi-Head Attention</h2>
+  <p>One softmax, one distribution that sums to 1 — a single head is forced to spread its total attention across all tokens. When multiple tokens need high attention for different reasons, the weights get diluted.</p>
+  <p>Split d_model into h heads, each with dimension d_k = d_model/h. Each head has its own W_Q, W_K, W_V and its own independent softmax. Head 1 focuses on "attacked," head 4 focuses on "dog." No dilution. Concatenate, project through W_O.</p>
+  <p>We don't design what heads learn. They specialize during training. Some redundancy is inevitable — many heads can be pruned with minimal loss.</p>
+</section>
+
+<section class="sect" id="section-block" data-step="6">
+  <h2>The Transformer Block</h2>
+  <p>Attention alone is linear — weighted sums. The FFN adds nonlinearity: expand to 4×d_model, GELU activation (soft-gates negatives instead of ReLU's hard zero), compress back. Attention reads the room, FFN thinks about what it read.</p>
+  <p>Residual connections: x + Sublayer(x). Gradient highway — one path always has gradient 1, regardless of depth. Layer norm: pre-norm keeps the residual path clean, post-norm forces gradients through it.</p>
+  <p>One block: LayerNorm → Attention → Add → LayerNorm → FFN → Add. Stack N of these. That's the encoder — bidirectional, every token sees every other token.</p>
+</section>
+
+<section class="sect" id="section-decoder" data-step="7">
+  <h2>The Decoder</h2>
+  <p>Same structure, one addition: a causal mask. The upper triangle of the attention score matrix gets set to -∞ before softmax. Future positions get zero weight. Each token can only attend to itself and tokens before it.</p>
+  <p>This is what makes the decoder autoregressive — generate one token at a time, each conditioned on everything before it. BERT uses an encoder. GPT uses a decoder. For tasks like translation, we need both.</p>
+</section>
+
+<section class="sect" id="section-full" data-step="8">
+  <h2>The Full Architecture</h2>
+  <p>The decoder has two attention layers per block: self-attention first (know your own history), then cross-attention (read the encoder). Q comes from the decoder, K and V from the encoder output.</p>
+  <p>Why self-attention before cross-attention? Without it, position 5's query only knows about the token at position 5 — it hasn't interacted with positions 1-4. Self-attention enriches the query with decoder context. Then cross-attention sends a meaningful question to the encoder instead of a context-blind one.</p>
+  <p>Stack N encoder blocks + N decoder blocks + linear + softmax. That's the Transformer.</p>
+</section>
+
+<div class="tail"></div>
+</div><!-- page -->
+
+<script>
+(function(){
+
+/* ── Step definitions ── */
+const STEPS = [
+  { label:'The problem',
+    boxes:[], flows:[], special:{}, braces:[], labels:['L-in'],
+    active:[], problem:[], fix:[], pulse:[] },
+
+  { label:'Input embeddings',
+    boxes:['B-emb'], flows:['F-emb'], special:{}, braces:[], labels:['L-in'],
+    active:['B-emb'], problem:[], fix:[], pulse:['F-emb'] },
+
+  { label:'Attention — Q, K, V',
+    boxes:['B-emb','B-attn'], flows:['F-emb','F-pos'], special:{qkv:true}, braces:[], labels:['L-in'],
+    active:['B-attn'], problem:[], fix:[], pulse:['F-emb','F-pos'] },
+
+  { label:'Same words, same scores — position is missing',
+    boxes:['B-emb','B-attn'], flows:['F-emb','F-pos'], special:{qkv:true, prob:true}, braces:[], labels:['L-in'],
+    active:[], problem:['B-attn'], fix:[], pulse:[] },
+
+  { label:'Positional encoding fixes it',
+    boxes:['B-emb','B-pos','B-attn'], flows:['F-emb','F-pos'], special:{}, braces:[], labels:['L-in'],
+    active:[], problem:[], fix:['B-pos'], pulse:['F-emb','F-pos'] },
+
+  { label:'Multi-head attention',
+    boxes:['B-emb','B-pos','B-attn'], flows:['F-emb','F-pos'], special:{}, braces:[], labels:['L-in'],
+    active:['B-attn'], problem:[], fix:[], pulse:[] },
+
+  { label:'The encoder — full Transformer block',
+    boxes:['B-emb','B-pos','B-attn','B-an1','B-ffn','B-an2'],
+    flows:['F-emb','F-pos','F-attn','F-an1','F-ffn'],
+    special:{}, braces:['BR-enc','NX-enc'], labels:['L-in','L-enc'],
+    active:['B-ffn'], problem:[], fix:[], pulse:['F-emb','F-pos','F-attn','F-an1','F-ffn'] },
+
+  { label:'The decoder — causal masking',
+    boxes:['B-emb','B-pos','B-attn','B-an1','B-ffn','B-an2',
+           'B-demb','B-dpos','B-dmattn','B-dan1'],
+    flows:['F-emb','F-pos','F-attn','F-an1','F-ffn',
+           'F-demb','F-dpos','F-dmattn'],
+    special:{}, braces:['BR-enc','NX-enc'], labels:['L-in','L-enc','L-out'],
+    active:['B-dmattn'], problem:[], fix:[],
+    pulse:['F-demb','F-dpos','F-dmattn'] },
+
+  { label:'Full architecture — cross-attention connects encoder and decoder',
+    boxes:['B-emb','B-pos','B-attn','B-an1','B-ffn','B-an2',
+           'B-demb','B-dpos','B-dmattn','B-dan1','B-cross','B-dan2','B-dffn','B-dan3','B-lin'],
+    flows:['F-emb','F-pos','F-attn','F-an1','F-ffn',
+           'F-demb','F-dpos','F-dmattn','F-dan1','F-cross','F-dan2','F-dffn','F-dan3'],
+    cross:['F-xenc'],
+    special:{kv:true}, braces:['BR-enc','NX-enc','BR-dec','NX-dec'],
+    labels:['L-in','L-enc','L-out','L-oprob'],
+    active:['B-cross'], problem:[], fix:[],
+    pulse:['F-xenc'] }
+];
+
+/* ── Build pips ── */
+const sbar = document.getElementById('sbar');
+const slbl = document.getElementById('slbl');
+STEPS.forEach((_,i)=>{
+  const p = document.createElement('div');
+  p.className = 'pip'; p.dataset.step = i;
+  sbar.appendChild(p);
+});
+
+/* ── All element caches ── */
+const allBoxes = document.querySelectorAll('.box');
+const allFlows = document.querySelectorAll('.flow');
+const allCross = document.querySelectorAll('.cross-flow');
+const allBraces = document.querySelectorAll('.brace, .nx');
+const allLabels = document.querySelectorAll('.lbl');
+
+let cur = -1;
+
+function applyStep(s) {
+  if (s === cur) return;
+  cur = s;
+  const c = STEPS[s];
+
+  // Close any open panel
+  document.querySelectorAll('.sub-panel.open').forEach(p => p.classList.remove('open'));
+
+  // Boxes
+  allBoxes.forEach(b => {
+    const id = b.id;
+    const show = c.boxes.includes(id) || (c.special.prob && id==='B-prob');
+    b.classList.toggle('hidden', !show);
+    b.classList.remove('active','problem','fix');
+    if (c.active.includes(id)) b.classList.add('active');
+    if (c.problem.includes(id)) b.classList.add('problem');
+    if (c.fix.includes(id)) b.classList.add('fix');
+  });
+
+  // Flows
+  allFlows.forEach(f => {
+    const show = c.flows.includes(f.id);
+    f.classList.toggle('hidden', !show);
+    f.classList.toggle('pulse', (c.pulse||[]).includes(f.id));
+  });
+
+  // Cross flows
+  allCross.forEach(f => {
+    const show = (c.cross||[]).includes(f.id);
+    f.classList.toggle('hidden', !show);
+    f.classList.toggle('pulse', (c.pulse||[]).includes(f.id));
+  });
+
+  // Braces
+  allBraces.forEach(b => {
+    b.classList.toggle('hidden', !c.braces.includes(b.id));
+  });
+
+  // Labels
+  allLabels.forEach(l => {
+    const id = l.id;
+    const show = c.labels.includes(id)
+      || (c.special.qkv && id==='L-qkv')
+      || (c.special.kv && id==='L-kv');
+    l.classList.toggle('hidden', !show);
+  });
+
+  // Pips
+  document.querySelectorAll('.pip').forEach(p => {
+    p.classList.toggle('on', parseInt(p.dataset.step) <= s);
+  });
+  slbl.textContent = c.label;
+}
+
+/* ── Scroll sync ── */
+const dw = document.getElementById('dw');
+const sects = document.querySelectorAll('.sect');
+
+function getStep() {
+  const trigger = dw.getBoundingClientRect().bottom + 30;
+  let step = 0;
+  sects.forEach(sec => {
+    if (sec.getBoundingClientRect().top < trigger) step = parseInt(sec.dataset.step);
+  });
+  return step;
+}
+
+let raf = false;
+window.addEventListener('scroll', () => {
+  if (!raf) { requestAnimationFrame(() => { applyStep(getStep()); raf = false; }); raf = true; }
+}, {passive:true});
+
+/* ── Click to expand ── */
+allBoxes.forEach(box => {
+  box.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const panelId = box.dataset.expand;
+    if (!panelId) {
+      // No expand — scroll to section
+      const secId = box.dataset.section;
+      if (secId) document.getElementById(secId).scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+
+    // Close others
+    document.querySelectorAll('.sub-panel.open').forEach(p => p.classList.remove('open'));
+
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.classList.add('open');
+      // Position panel below diagram
+      panel.style.top = 'auto';
+      panel.style.bottom = '-' + (panel.offsetHeight + 8) + 'px';
+      // Actually, position at bottom of diagram-inner
+      const diRect = document.getElementById('di').getBoundingClientRect();
+      const svgEl = document.querySelector('svg.arch');
+      const svgRect = svgEl.getBoundingClientRect();
+      panel.style.top = (svgRect.height + 8) + 'px';
+      panel.style.bottom = 'auto';
+    }
+  });
+});
+
+/* Close panel on outside click */
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.sub-panel') && !e.target.closest('.box')) {
+    document.querySelectorAll('.sub-panel.open').forEach(p => p.classList.remove('open'));
+  }
+});
+
+window.closePanel = function(btn) { btn.closest('.sub-panel').classList.remove('open'); };
+
+/* ── Init ── */
+applyStep(0);
+
+})();
+</script>
+</body>
+</html>
