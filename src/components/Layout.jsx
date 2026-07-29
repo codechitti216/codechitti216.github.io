@@ -6,6 +6,8 @@ const Layout = ({ children }) => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Work', href: '/notes' },
+    { name: 'Learning', href: '/learning' },
+    { name: 'Ideas', href: '/ideas' },
   ];
 
   return (
@@ -22,7 +24,7 @@ const Layout = ({ children }) => {
                   key={item.name}
                   to={item.href}
                   className={`text-sm transition-colors ${
-                    location.pathname.startsWith(item.href)
+                    location.pathname.startsWith(item.href) && item.href !== '/'
                       ? 'text-gray-900'
                       : 'text-gray-400 hover:text-gray-700'
                   }`}
