@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AdminProvider } from "./context/AdminContext";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Notes from "./pages/Notes";
@@ -13,6 +14,7 @@ import "./App.css";
 function App() {
   return (
     <Router>
+      <AdminProvider>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,6 +30,7 @@ function App() {
           <Route path="/garden/:id" element={<NoteDetail />} />
         </Routes>
       </Layout>
+      </AdminProvider>
     </Router>
   );
 }

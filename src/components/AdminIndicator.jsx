@@ -1,13 +1,17 @@
-import useAdmin from '../hooks/useAdmin';
+import { useAdmin } from '../context/AdminContext';
 import PasswordModal from './PasswordModal';
 
 export default function AdminIndicator() {
-  const { isAdmin, showLoginModal, submitPassword, cancelLogin, logout } = useAdmin();
+  const { isAdmin, showLoginModal, challenge, submitAnswer, cancelLogin, logout } = useAdmin();
 
   return (
     <>
-      {showLoginModal && (
-        <PasswordModal onSubmit={submitPassword} onCancel={cancelLogin} />
+      {showLoginModal && challenge && (
+        <PasswordModal
+          question={challenge.q}
+          onSubmit={submitAnswer}
+          onCancel={cancelLogin}
+        />
       )}
       {isAdmin && (
         <button

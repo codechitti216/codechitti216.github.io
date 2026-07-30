@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FileText, Plus, X } from 'lucide-react';
-import useAdmin from '../hooks/useAdmin';
+import { useAdmin } from '../context/AdminContext';
 
 function getStoredSeries() {
   const saved = localStorage.getItem('lecture-series');

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function PasswordModal({ onSubmit, onCancel }) {
-  const [password, setPassword] = useState('');
+export default function PasswordModal({ question, onSubmit, onCancel }) {
+  const [answer, setAnswer] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function PasswordModal({ onSubmit, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(password);
+    onSubmit(answer);
   };
 
   return (
@@ -30,14 +30,17 @@ export default function PasswordModal({ onSubmit, onCancel }) {
       <form
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white rounded-lg shadow-lg p-6 w-72 space-y-4"
+        className="relative bg-white rounded-lg shadow-lg p-6 w-80 space-y-4"
       >
+        {question && (
+          <p className="text-sm text-gray-700 leading-relaxed">{question}</p>
+        )}
         <input
           ref={inputRef}
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          type="text"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="Answer"
           className="w-full text-sm border border-gray-200 rounded px-3 py-2 focus:outline-none focus:border-gray-400"
         />
         <div className="flex gap-2">
