@@ -4,6 +4,14 @@ import { useMemo } from 'react';
 import { getAllContent } from '../lib/content';
 import TextScramble from '../components/TextScramble';
 
+const institutions = [
+  { name: 'BITS Pilani', logo: '/logos/bits-pilani.png', url: 'https://www.bits-pilani.ac.in/' },
+  { name: 'Mercedes-Benz R&D', logo: '/logos/mercedes.png', url: 'https://www.mbrdi.co.in/' },
+  { name: 'IISc Bangalore', logo: '/logos/iisc.png', url: 'https://iisc.ac.in/' },
+  { name: 'IIIT Bangalore', logo: '/logos/iiit-bangalore.png', url: 'https://www.iiitb.ac.in/' },
+  { name: 'AI4Bharat, IIT Madras', logo: '/logos/iit-madras.png', url: 'https://ai4bharat.iitm.ac.in/' },
+];
+
 export default function Home() {
   const recentWork = useMemo(() => getAllContent().slice(0, 5), []);
 
@@ -30,11 +38,31 @@ export default function Home() {
             <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
               <Github className="h-3.5 w-3.5" /> GitHub
             </a>
-            <a href="https://linkedin.com/in/suryachitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+            <a href="https://linkedin.com/in/surya-g-s-chitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
               <Linkedin className="h-3.5 w-3.5" /> LinkedIn
             </a>
           </div>
         </div>
+      </section>
+
+      {/* Institutions */}
+      <section className="flex items-center gap-6 flex-wrap">
+        {institutions.map((inst) => (
+          <a
+            key={inst.name}
+            href={inst.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={inst.name}
+            className="opacity-40 hover:opacity-100 transition-opacity"
+          >
+            <img
+              src={inst.logo}
+              alt={inst.name}
+              className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all"
+            />
+          </a>
+        ))}
       </section>
 
       {/* Recent work */}
