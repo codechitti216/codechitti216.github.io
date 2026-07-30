@@ -5,16 +5,20 @@ import { getAllContent, TIERS } from '../lib/content';
 export default function Notes() {
   const allContent = useMemo(() => getAllContent(), []);
 
-  // Split into investigations (experiment, paper, notebook, research, tool) and notes (note, seed)
+  // Split into investigations (experiment, paper, research, tool) and notes (note, notebook, seed)
+  const investigationTiers = ['experiment', 'paper', 'research', 'tool'];
   const investigations = allContent.filter(item =>
-    ['experiment', 'paper', 'notebook', 'research', 'tool'].includes(item.tier)
+    item.tier && investigationTiers.some(t => item.tier.includes(t))
   );
   const notes = allContent.filter(item =>
-    ['note', 'seed'].includes(item.tier) || !item.tier
+    !item.tier || !investigationTiers.some(t => item.tier.includes(t))
   );
 
   const TierBadge = ({ tier }) => {
-    const tierInfo = TIERS[tier];
+    if (!tier) return null;
+    // Handle compound tiers like "note + notebook"
+    const primaryTier = tier.split('+')[0].trim().split(' ')[0].trim();
+    const tierInfo = TIERS[primaryTier];
     if (!tierInfo) return null;
     return (
       <span className={`text-[10px] px-1.5 py-0.5 rounded border ${tierInfo.color}`}>

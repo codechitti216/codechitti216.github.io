@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Notes from "./pages/Notes";
 import NoteDetail from "./pages/NoteDetail";
 import Learning from "./pages/Learning";
+import CourseDetail from "./pages/CourseDetail";
 import Ideas from "./pages/Ideas";
 import TransformerDemo from "./pages/TransformerDemo";
 import "./App.css";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/notes" element={<Notes />} />
           <Route path="/notes/:id" element={<NoteDetail />} />
           <Route path="/learning" element={<Learning />} />
+          <Route path="/learning/:courseId" element={<CourseDetail />} />
           <Route path="/ideas" element={<Ideas />} />
           <Route path="/transformer-demo" element={<TransformerDemo />} />
           {/* Old routes redirect */}
