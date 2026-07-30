@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FileText, Plus, X } from 'lucide-react';
-
-const ADMIN_KEY = 'surya-admin';
+import useAdmin from '../hooks/useAdmin';
 
 function getStoredSeries() {
   const saved = localStorage.getItem('lecture-series');
@@ -18,7 +17,7 @@ function extractThumbnail(url) {
 }
 
 export default function LectureSeries() {
-  const isAdmin = localStorage.getItem(ADMIN_KEY) === 'true';
+  const { isAdmin } = useAdmin();
   const [showForm, setShowForm] = useState(false);
 
   // Merge: localStorage overrides, fallback to JSON import

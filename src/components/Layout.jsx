@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import AdminIndicator from './AdminIndicator';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const Layout = ({ children }) => {
           </p>
         </div>
       </footer>
+      <AdminIndicator />
     </div>
   );
 };
