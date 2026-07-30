@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllContent, TIERS } from '../lib/content';
+import LectureSeries from '../components/LectureSeries';
 
 export default function Notes() {
   const allContent = useMemo(() => getAllContent(), []);
@@ -16,7 +17,6 @@ export default function Notes() {
 
   const TierBadge = ({ tier }) => {
     if (!tier) return null;
-    // Handle compound tiers like "note + notebook"
     const primaryTier = tier.split('+')[0].trim().split(' ')[0].trim();
     const tierInfo = TIERS[primaryTier];
     if (!tierInfo) return null;
@@ -83,6 +83,9 @@ export default function Notes() {
           </div>
         </section>
       )}
+
+      {/* Lecture Series */}
+      <LectureSeries />
 
       {allContent.length === 0 && (
         <p className="text-sm text-gray-400 py-8 text-center">No content yet. Start building.</p>
