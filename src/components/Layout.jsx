@@ -6,7 +6,6 @@ const Layout = ({ children }) => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Work', href: '/notes' },
-    { name: 'Learning', href: '/learning' },
     { name: 'Ideas', href: '/ideas' },
   ];
 
