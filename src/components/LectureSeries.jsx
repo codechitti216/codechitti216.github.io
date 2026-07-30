@@ -1,63 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FileText, Plus, X, Pencil, Trash2 } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
-
-function getStoredSeries() {
-  const saved = localStorage.getItem('lecture-series');
-  return saved ? JSON.parse(saved) : null;
-}
-
-function extractThumbnail(url) {
-  if (!url) return null;
-  const match = url.match(/(?:v=|\/vi\/|youtu\.be\/|embed\/)([\w-]{11})/);
-  if (match) return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
-  return null;
-}
+import { supabase } from '../lib/supabase';
 
 export default function LectureSeries() {
   const { isAdmin } = useAdmin();
   const [showForm, setShowForm] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [series, setSeries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [series, setSeries] = useState(() => {
-    const stored = getStoredSeries();
-    if (stored) return stored;
-    try {
-      const data = require('../data/lecture-series.json');
-      return data.series || [];
-    } catch {
-      return [];
-    }
-  });
+  const fetchSeries = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('lecture_series')
+      .select('*')
+      .order('created_at', { ascending: true });
 
-  useEffect(() => {
-    if (!getStoredSeries()) {
-      import('../data/lecture-series.json').then(data => {
-        setSeries(data.series || []);
-      });
+    if (!error && data) {
+      setSeries(data);
     }
+    setLoading(false);
   }, []);
 
-  const saveSeries = (updated) => {
-    setSeries(updated);
-    localStorage.setItem('lecture-series', JSON.stringify(updated));
+  useEffect(() => {
+    fetchSeries();
+  }, [fetchSeries]);
+
+  const addSeries = async (entry) => {
+    const { error } = await supabase.from('lecture_series').insert(entry);
+    if (!error) {
+      await fetchSeries();
+      setShowForm(false);
+    }
   };
 
-  const addSeries = (entry) => {
-    saveSeries([...series, entry]);
-    setShowForm(false);
+  const updateSeries = async (id, entry) => {
+    const { error } = await supabase.from('lecture_series').update(entry).eq('id', id);
+    if (!error) {
+      await fetchSeries();
+      setEditingIndex(null);
+    }
   };
 
-  const updateSeries = (index, entry) => {
-    const updated = series.map((s, i) => i === index ? entry : s);
-    saveSeries(updated);
-    setEditingIndex(null);
+  const deleteSeries = async (id) => {
+    const { error } = await supabase.from('lecture_series').delete().eq('id', id);
+    if (!error) {
+      await fetchSeries();
+    }
   };
 
-  const deleteSeries = (index) => {
-    saveSeries(series.filter((_, i) => i !== index));
-  };
-
+  if (loading) return null;
   if (series.length === 0 && !isAdmin) return null;
 
   return (
@@ -69,14 +61,14 @@ export default function LectureSeries() {
           {series.map((s, i) => (
             editingIndex === i ? (
               <SeriesForm
-                key={i}
+                key={s.id}
                 initial={s}
-                onSubmit={(entry) => updateSeries(i, entry)}
+                onSubmit={(entry) => updateSeries(s.id, entry)}
                 onCancel={() => setEditingIndex(null)}
-                onDelete={() => deleteSeries(i)}
+                onDelete={() => deleteSeries(s.id)}
               />
             ) : (
-              <div key={i} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0 group">
+              <div key={s.id} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0 group">
                 <div className="min-w-0">
                   <a
                     href={s.url}
@@ -150,7 +142,6 @@ function SeriesForm({ initial, onSubmit, onCancel, onDelete }) {
       instructor: instructor || null,
       url,
       notes: notes || null,
-      thumbnail: extractThumbnail(url),
     });
   };
 
