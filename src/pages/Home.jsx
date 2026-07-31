@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Github, Mail, Linkedin } from 'lucide-react';
+import { Github, Mail, Linkedin, Music } from 'lucide-react';
 import { useMemo } from 'react';
 import { getAllContent } from '../lib/content';
 import TextScramble from '../components/TextScramble';
@@ -29,7 +29,10 @@ export default function Home() {
             <TextScramble text="Surya Chitti" />
           </h1>
           <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-            M.Sc. Mathematics, BITS Pilani. Building and investigating deep learning systems.
+            M.Sc. Mathematics, BITS Pilani. You either contribute to the uprise or you become too good at something that you're irreplaceable. On a quest to figure out which one — and maybe both.
+          </p>
+          <p className="text-sm text-gray-400">
+            When I'm not doing that, I'm <a href="https://www.instagram.com/garagesuri216/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2">recreating epic soundtracks on GarageBand</a>.
           </p>
           <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
             <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
@@ -65,11 +68,10 @@ export default function Home() {
         ))}
       </section>
 
-      {/* Recent work */}
+      {/* Work */}
       {recentWork.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-baseline justify-between">
-            <h2 className="font-serif text-lg font-semibold text-gray-900">Recent work</h2>
             <Link to="/notes" className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
               View all &rarr;
             </Link>
