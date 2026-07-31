@@ -57,6 +57,7 @@ const timeline = [
       { name: 'Prof. Mitesh Khapra', url: 'https://ai4bharat.iitm.ac.in/people' },
     ],
     links: [],
+    video: '/assets/iitm-campus.mp4',
   },
   {
     name: 'BITS Pilani',
@@ -193,6 +194,16 @@ function TimelineEntry({ entry }) {
                   </a>
                 )}
               </div>
+            )}
+            {entry.video && (
+              <video
+                src={entry.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="mt-3 rounded w-full max-h-48 object-cover"
+              />
             )}
           </div>
         )}
