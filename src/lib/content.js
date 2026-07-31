@@ -1,7 +1,7 @@
 import fm from 'front-matter';
 
 // Import all markdown files from content directories
-const gardenModules = import.meta.glob('/content/garden/*.md', { as: 'raw', eager: true });
+const gardenModules = import.meta.glob('/content/logs/*.md', { as: 'raw', eager: true });
 
 function parseContent(rawContent, filePath) {
   const { attributes, body } = fm(rawContent);
