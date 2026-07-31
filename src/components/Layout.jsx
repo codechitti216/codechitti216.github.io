@@ -41,13 +41,6 @@ const Layout = ({ children }) => {
         {children}
       </main>
 
-      <footer className="border-t border-gray-50 mt-20">
-        <div className="w-full px-8 md:px-12 py-6">
-          <p className="text-xs text-gray-300 text-center">
-            suryachitti216@gmail.com
-          </p>
-        </div>
-      </footer>
       <AdminIndicator />
     </div>
   );
