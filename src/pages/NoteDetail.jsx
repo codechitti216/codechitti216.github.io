@@ -7,7 +7,6 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import { getContentBySlug } from '../lib/content';
-import TransformerViz from '../components/transformer/TransformerViz';
 import 'katex/dist/katex.min.css';
 
 export default function NoteDetail() {
@@ -34,7 +33,7 @@ export default function NoteDetail() {
     <div className="py-8">
       {/* Back link */}
       <Link to="/notes" className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
-        &larr; back to work
+        &larr; back to log
       </Link>
 
       {/* Header */}
@@ -49,9 +48,6 @@ export default function NoteDetail() {
           )}
         </div>
       </div>
-
-      {/* Interactive diagram for transformer post */}
-      {id === 'transformer' && <TransformerViz />}
 
       {/* Markdown body */}
       <article className="prose">

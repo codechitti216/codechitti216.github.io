@@ -2,12 +2,77 @@ import { Github, Mail, Linkedin, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import TextScramble from '../components/TextScramble';
 
-const institutions = [
-  { name: 'BITS Pilani', logo: '/logos/bits-pilani.png', url: 'https://www.bits-pilani.ac.in/' },
-  { name: 'Mercedes-Benz R&D', logo: '/logos/mercedes.png', url: 'https://www.mbrdi.co.in/' },
-  { name: 'IISc Bangalore', logo: '/logos/iisc.png', url: 'https://iisc.ac.in/' },
-  { name: 'IIIT Bangalore', logo: '/loalore.png', url: 'https://www.iiitb.ac.in/' },
-  { name: 'AI4Bharat, IIT Madras', logo: '/logos/iit-madras.png', url: 'https://ai4bharat.iitm.ac.in/' },
+const timeline = [
+  {
+    name: 'Mercedes-Benz R&D India',
+    logo: '/logos/mercedes.png',
+    url: 'https://www.mbrdi.co.in/',
+    role: 'Research Engineer',
+    period: 'Sep 2025 – Aug 2026',
+    description: 'Working on perception and AI systems for autonomous driving research.',
+    mentors: [],
+    links: [],
+    photo: '/assets/mbrdi-team-outing.jpg',
+  },
+  {
+    name: 'IISc Bangalore',
+    logo: '/logos/iisc.png',
+    url: 'https://iisc.ac.in/',
+    role: 'Research Intern',
+    period: 'Jan 2025 – Jul 2025',
+    description: 'Worked on deep learning research in the Computational Mathematics group.',
+    mentors: [
+      { name: 'Dr. Rajini Makam', url: 'https://math.iisc.ac.in/~rajinimakam/' },
+      { name: 'Prof. Suresh Sundaram', url: 'https://aero.iisc.ac.in/people/suresh-sundaram/' },
+    ],
+    links: [
+      { label: 'Code', url: 'https://github.com/codechitti216' },
+      { label: 'Thesis', url: '#' },
+    ],
+    photo: '/assets/iisc-photo.jpg',
+  },
+  {
+    name: 'GVCL, IIIT Bangalore',
+    logo: '/logos/GVCL.jpg',
+    url: 'https://www.iiitb.ac.in/',
+    role: 'Research Intern',
+    period: 'Jul 2024 – Dec 2024',
+    description: 'Research in the Graph Visualization and Computing Lab.',
+    mentors: [
+      { name: 'Prof. Jaya Sreevalsan Nair', url: 'https://faculty.iiitb.ac.in/jaya/' },
+    ],
+    links: [
+      { label: 'Thesis', url: '#' },
+    ],
+    photo: null,
+  },
+  {
+    name: 'AI4Bharat, IIT Madras',
+    logo: '/logos/iit-madras.png',
+    url: 'https://ai4bharat.iitm.ac.in/',
+    role: 'Research Intern',
+    period: 'Aug 2023 – Sep 2023',
+    description: "Prof. Mitesh Khapra's Deep Learning lectures were the foundation stone of my ML journey. Getting to work at AI4Bharat was a full-circle moment.",
+    mentors: [
+      { name: 'Md Safi Ur Rahman Khan', url: '#' },
+      { name: 'Prof. Mitesh Khapra', url: 'https://www.cse.iitm.ac.in/~miteshk/' },
+    ],
+    links: [
+      { label: 'Video', url: '/assets/iitm-campus.mp4' },
+    ],
+    photo: null,
+  },
+  {
+    name: 'BITS Pilani',
+    logo: '/logos/bits-pilani.png',
+    url: 'https://www.bits-pilani.ac.in/',
+    role: 'Dual Degree, B.E. + M.Sc. Mathematics',
+    period: 'Sep 2020 – Sep 2025',
+    description: 'Five years of engineering and mathematics. Where the obsession started.',
+    mentors: [],
+    links: [],
+    photo: '/assets/bits-pilani-photo.jpg',
+  },
 ];
 
 function TimelineEntry({ entry }) {
@@ -94,8 +159,6 @@ function TimelineEntry({ entry }) {
 }
 
 export default function Home() {
-  const recentWork = useMemo(() => getAllContent().slice(0, 5), []);
-
   return (
     <div className="py-12 space-y-14">
       {/* Bio */}
@@ -103,48 +166,46 @@ export default function Home() {
         <img
           src="/profile.jpg"
           alt="Surya Chitti"
-          className="w-20 h-20 rounded-full object-cover shrink-0"
+          className="w-32 h-32 rounded-full object-cover shrink-0"
         />
-        <div className="space-y-3">
-          <h1></h1> className="font-serif text-3xl font-semibold text-gray-900">
-            <TextScramble text="Surya Chitti" />
- <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-            Mathematics @BITS Pilani. You either contribute to the uprise of AI or you become too good at something that you're irreplaceable. On a quest to figure out which one — and maybe both.
-          </p>
-          <p className="text-sm text-gray-400">
-            When I'm not doing that, I'm <a href="https://www.instagram.com/garagesuri216/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 transiM-colors underline decoration-gray-300 underline-o�öo\set-2">recreating epic soundtracks on GarageBand. The GOATS: A R Rahman, Ilayaraja, Hans Zimmer, Ludwig G�ransson.</a>
-          </p>
-          <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
-            <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-              <Mail className="h-3.5 w-3.5" /> Email
-            </a>
-            <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-              <Github className="h-3.5 w-3.5" /> GitHub
-            </a>
-            <a href="https://linkedin.com/in/surya-g-s-chitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-              <Linkedin className="h-3.5 w-3.5" /> LinkedIn
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Institutions */}
-      <section className="flex items-center gap-6 flex-wrap">
-        {institutions.map((inst) => (
+        <div className="space-y-3 max-w-lg">
+        <h1 className="font-serif text-3xl font-semibold text-gray-900">
+          <TextScramble text="Surya Chitti" />
+        </h1>
+        <p className="text-base text-gray-600 leading-relaxed">
+          Mathematics @BITS Pilani. You either contribute to the rise of AI or become so good at something that you're irreplaceable. Chasing the intersection of both.
+        </p>
+        <p className="text-sm text-gray-400">
+          When I'm not doing that, I'm{' '}
           <a
-            key={inst.name}
-            href={inst.url}
+            href="https://www.instagram.com/garagesuri216/"
             target="_blank"
             rel="noopener noreferrer"
-            title={inst.name}
-            className="opacity-40 hover:opacity-100 transition-opacity"
+            className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2"
           >
-            <img
-              src={inst.logo}
-              alt={inst.name}
-              className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-            />
+            recreating epic soundtracks on GarageBand
           </a>
+          . The GOATs: A R Rahman, Ilayaraja, Hans Zimmer, Ludwig Göransson.
+        </p>
+        <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
+          <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+            <Mail className="h-3.5 w-3.5" /> Email
+          </a>
+          <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+            <Github className="h-3.5 w-3.5" /> GitHub
+          </a>
+          <a href="https://linkedin.com/in/surya-g-s-chitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+          </a>
+          <a href="/cv.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+            CV ↗
+          </a>
+        </div>
+        </div>
+      </section>
+      <section>
+        {timeline.map(entry => (
+          <TimelineEntry key={entry.name} entry={entry} />
         ))}
       </section>
     </div>
