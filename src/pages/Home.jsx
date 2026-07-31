@@ -29,10 +29,10 @@ export default function Home() {
             <TextScramble text="Surya Chitti" />
           </h1>
           <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-            M.Sc. Mathematics, BITS Pilani. You either contribute to the uprise or you become too good at something that you're irreplaceable. On a quest to figure out which one — and maybe both.
+            Mathematics @BITS Pilani. You either contribute to the uprise of AI or you become too good at something that you're irreplaceable. On a quest to figure out which one — and maybe both.
           </p>
           <p className="text-sm text-gray-400">
-            When I'm not doing that, I'm <a href="https://www.instagram.com/garagesuri216/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2">recreating epic soundtracks on GarageBand</a>.
+            When I'm not doing that, I'm <a href="https://www.instagram.com/garagesuri216/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2">recreating epic soundtracks on GarageBand. The GOATS : A R Rahman, Ilayaraja, Hanz Zimmer, Ludwig Göransson. </a>.
           </p>
           <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
             <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
