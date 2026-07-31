@@ -9,25 +9,25 @@ const timeline = [
     url: 'https://www.mbrdi.co.in/',
     role: 'Research Engineer',
     period: 'Sep 2025 – Aug 2026',
-    description: 'First introduction to working at big scale — end-to-end autonomous driving, applied research team. Taught me how to work in an organized manner, prioritization, what corporates actually care about, and how to ship in a real team.',
+    description: 'First introduction to working at big scale: end-to-end autonomous driving, applied research team. Taught me how to work in an organized manner, prioritization, what corporates actually care about, and how to ship in a real team.',
     mentors: [],
     links: [],
     photo: '/assets/mbrdi-team-outing.jpg',
   },
   {
-    name: 'IISc Bangalore',
+    name: 'AI & Robotics Lab, IISc',
     logo: '/logos/iisc.png',
     url: 'https://iisc.ac.in/',
-    role: 'Research Intern',
+    role: 'Masters Thesis',
     period: 'Jan 2025 – Jul 2025',
-    description: 'Worked on deep learning research in the Computational Mathematics group.',
+    description: 'Sensor fusion, Robotics, Visual Navigation, Architecture Design, Experiment design. Taught me adversarial thinking.',
     mentors: [
-      { name: 'Dr. Rajini Makam', url: 'https://math.iisc.ac.in/~rajinimakam/' },
-      { name: 'Prof. Suresh Sundaram', url: 'https://aero.iisc.ac.in/people/suresh-sundaram/' },
+      { name: 'Dr. Rajini Makam', url: 'https://in.linkedin.com/in/rajinimakam' },
+      { name: 'Prof. Suresh Sundaram', url: 'https://aero.iisc.ac.in/people/sureshsundaram/' },
     ],
     links: [
-      { label: 'Code', url: 'https://github.com/codechitti216' },
-      { label: 'Thesis', url: '#' },
+      { label: 'Code', url: 'https://github.com/codechitti216/AIRL_Work' },
+      { label: 'Thesis', url: 'https://drive.google.com/file/d/12lxM_wQ9xsNQrMeVWLbBEVxs8huI3taH/view' },
     ],
     photo: '/assets/iisc-photo.jpg',
   },
@@ -35,40 +35,61 @@ const timeline = [
     name: 'GVCL, IIIT Bangalore',
     logo: '/logos/GVCL.jpg',
     url: 'https://www.iiitb.ac.in/',
-    role: 'Research Intern',
+    role: 'Undergraduate Thesis',
     period: 'Jul 2024 – Dec 2024',
-    description: 'Research in the Graph Visualization and Computing Lab.',
+    description: '3D Vision, Point Clouds, Perception.',
     mentors: [
-      { name: 'Prof. Jaya Sreevalsan Nair', url: 'https://faculty.iiitb.ac.in/jaya/' },
+      { name: 'Prof. Jaya Sreevalsan Nair', url: 'https://www.iiitb.ac.in/faculty/jaya-sreevalsan-nair' },
     ],
     links: [
-      { label: 'Thesis', url: '#' },
+      { label: 'Thesis', url: 'https://drive.google.com/file/d/1NCWIILbvL6AOrhtrmfDbKl6pTAi8XbU6/view' },
     ],
-    photo: null,
   },
   {
     name: 'AI4Bharat, IIT Madras',
     logo: '/logos/iit-madras.png',
     url: 'https://ai4bharat.iitm.ac.in/',
-    role: 'Research Intern',
+    role: 'Student Intern',
     period: 'Aug 2023 – Sep 2023',
-    description: "Prof. Mitesh Khapra's Deep Learning lectures were the foundation stone of my ML journey. Getting to work at AI4Bharat was a full-circle moment.",
+    description: "Prof. Mitesh Khapra's Deep Learning lectures were the foundation stone. Got introduced to data at scale, the background work that goes into corpus creation and curation. Also, IIT Madras in rainy season is a vibe. Looking at deer and monkeys from the Coffee Day inside campus, Paniyaram outside the Velachery gate.",
     mentors: [
-      { name: 'Md Safi Ur Rahman Khan', url: '#' },
-      { name: 'Prof. Mitesh Khapra', url: 'https://www.cse.iitm.ac.in/~miteshk/' },
+      { name: 'Md Safi Ur Rahman Khan', url: 'http://safikhansoofiyani.github.io/' },
+      { name: 'Prof. Mitesh Khapra', url: 'https://ai4bharat.iitm.ac.in/people' },
     ],
-    links: [
-      { label: 'Video', url: '/assets/iitm-campus.mp4' },
-    ],
-    photo: null,
+    links: [],
+    video: '/assets/iitm-campus.mp4',
   },
   {
     name: 'BITS Pilani',
     logo: '/logos/bits-pilani.png',
     url: 'https://www.bits-pilani.ac.in/',
-    role: 'Dual Degree, B.E. + M.Sc. Mathematics',
+    role: 'Dual Degree, Engineering & Mathematics',
     period: 'Sep 2020 – Sep 2025',
-    description: 'Five years of engineering and mathematics. Where the obsession started.',
+    sections: [
+      {
+        label: 'Favourite Courses',
+        items: ['Elementary Real Analysis', 'Measure Theory', 'Topology', 'Machine Learning', 'Fundamentals of Data Science'],
+      },
+      {
+        label: 'Study Projects',
+        items: [
+          { text: 'Algebraic Topology', mentor: { name: 'Prof. Sharan Gopal', url: 'https://www.bits-pilani.ac.in/sharan-gopal/' } },
+          { text: 'Algorithms & Probabilistic Methods' },
+        ],
+      },
+      {
+        label: 'Research Projects',
+        items: [
+          {
+            text: '2D Vision — Detection & Image Processing',
+            mentors: [
+              { name: 'Prof. Jagadeesh Anmala', url: 'https://www.bits-pilani.ac.in/hyderabad/jagadeesh-anmala/' },
+              { name: 'Prof. Mohan S C', url: 'https://www.bits-pilani.ac.in/hyderabad/mohan-s-c/' },
+            ],
+          },
+        ],
+      },
+    ],
     mentors: [],
     links: [],
     photo: '/assets/bits-pilani-photo.jpg',
@@ -110,9 +131,38 @@ function TimelineEntry({ entry }) {
 
         {open && (
           <div className="mt-2 space-y-2">
-            <p className="text-sm text-gray-500 leading-relaxed">{entry.description}</p>
+            {entry.description && (
+              <p className="text-sm text-gray-500 leading-relaxed">{entry.description}</p>
+            )}
 
-            {entry.mentors.length > 0 && (
+            {entry.sections && entry.sections.map(section => (
+              <div key={section.label}>
+                <p className="text-xs font-medium text-gray-500 mt-2 mb-1">{section.label}</p>
+                <ul className="space-y-0.5">
+                  {section.items.map((item, i) => {
+                    const text = typeof item === 'string' ? item : item.text;
+                    const mentors = typeof item === 'string' ? [] : (item.mentors || (item.mentor ? [item.mentor] : []));
+                    return (
+                      <li key={i} className="text-xs text-gray-400 flex flex-wrap items-baseline gap-1">
+                        <span>{text}</span>
+                        {mentors.length > 0 && (
+                          <span className="text-gray-300">
+                            ({mentors.map((m, mi) => (
+                              <span key={m.name}>
+                                <a href={m.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 decoration-gray-200 hover:text-gray-600 transition-colors">{m.name}</a>
+                                {mi < mentors.length - 1 ? ', ' : ''}
+                              </span>
+                            ))})
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+
+            {entry.mentors && entry.mentors.length > 0 && (
               <p className="text-xs text-gray-400">
                 Mentored by{' '}
                 {entry.mentors.map((m, i) => (
@@ -126,9 +176,9 @@ function TimelineEntry({ entry }) {
               </p>
             )}
 
-            {(entry.links.length > 0 || entry.photo) && (
+            {(entry.links?.length > 0 || entry.photo || entry.video) && (
               <div className="flex items-center gap-3 pt-1">
-                {entry.links.map(l => (
+                {entry.links?.map(l => (
                   <a
                     key={l.label}
                     href={l.url}
@@ -149,6 +199,16 @@ function TimelineEntry({ entry }) {
                     [Photo]
                   </a>
                 )}
+                {entry.video && (
+                  <a
+                    href={entry.video}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-gray-400 hover:text-gray-700 transition-colors underline underline-offset-2 decoration-gray-300"
+                  >
+                    [Video]
+                  </a>
+                )}
               </div>
             )}
           </div>
@@ -161,7 +221,6 @@ function TimelineEntry({ entry }) {
 export default function Home() {
   return (
     <div className="py-12 space-y-14">
-      {/* Bio */}
       <section className="flex items-start gap-6">
         <img
           src="/profile.jpg"
@@ -169,42 +228,43 @@ export default function Home() {
           className="w-32 h-32 rounded-full object-cover shrink-0"
         />
         <div className="space-y-3 max-w-lg">
-        <h1 className="font-serif text-3xl font-semibold text-gray-900">
-          <TextScramble text="Surya Chitti" />
-        </h1>
-        <p className="text-base text-gray-600 leading-relaxed">
-          Mathematics @BITS Pilani. You either contribute to the rise of AI or become so good at something that you're irreplaceable. Chasing the intersection of both.
-        </p>
-        <p className="text-sm text-gray-400">
-          When I'm not doing that, I'm{' '}
-          <a
-            href="https://www.instagram.com/garagesuri216/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2"
-          >
-            recreating epic soundtracks on GarageBand
-          </a>
-          . The GOATs: A R Rahman, Ilayaraja, Hans Zimmer, Ludwig Göransson.
-        </p>
-        <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
-          <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Mail className="h-3.5 w-3.5" /> Email
-          </a>
-          <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Github className="h-3.5 w-3.5" /> GitHub
-          </a>
-          <a href="https://linkedin.com/in/surya-g-s-chitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
-          </a>
-          <a href="/cv.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
-            CV ↗
-          </a>
-        </div>
+          <h1 className="font-serif text-3xl font-semibold text-gray-900">
+            <TextScramble text="Surya Chitti" />
+          </h1>
+          <p className="text-base text-gray-600 leading-relaxed">
+            Mathematics @BITS Pilani. You either contribute to the rise of AI or become so good at something that you're irreplaceable. Chasing the intersection of both.
+          </p>
+          <p className="text-sm text-gray-400">
+            When I'm not doing that, I'm{' '}
+            <a
+              href="https://www.instagram.com/garagesuri216/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700 transition-colors underline decoration-gray-300 underline-offset-2"
+            >
+              recreating epic soundtracks on GarageBand
+            </a>
+            . My GOATs: A R Rahman, Ilayaraja, Hans Zimmer, Ludwig Göransson.
+          </p>
+          <div className="flex items-center gap-5 pt-1 text-sm text-gray-400">
+            <a href="mailto:suryachitti216@gmail.com" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Mail className="h-3.5 w-3.5" /> Email
+            </a>
+            <a href="https://github.com/codechitti216" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Github className="h-3.5 w-3.5" /> GitHub
+            </a>
+            <a href="https://linkedin.com/in/surya-g-s-chitti" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+            </a>
+            <a href="/cv.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-gray-700 transition-colors">
+              CV ↗
+            </a>
+          </div>
         </div>
       </section>
+
       <section>
-        {timeline.map(entry => (
+        {timeline.map((entry) => (
           <TimelineEntry key={entry.name} entry={entry} />
         ))}
       </section>
