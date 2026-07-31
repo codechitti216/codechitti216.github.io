@@ -9,7 +9,7 @@ const timeline = [
     url: 'https://www.mbrdi.co.in/',
     role: 'Research Engineer',
     period: 'Sep 2025 – Aug 2026',
-    description: 'Working on perception and AI systems for autonomous driving research.',
+    description: 'First introduction to working at big scale — end-to-end autonomous driving, applied research team. Taught me how to work in an organized manner, prioritization, what corporates actually care about, and how to ship in a real team.',
     mentors: [],
     links: [],
     photo: '/assets/mbrdi-team-outing.jpg',
