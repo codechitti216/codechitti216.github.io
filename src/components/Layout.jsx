@@ -38,14 +38,6 @@ const Layout = ({ children }) => {
       <main className="max-w-4xl mx-auto px-8 md:px-12 py-10">
         {children}
       </main>
-
-      <footer className="border-t border-gray-50 mt-20">
-        <div className="w-full px-8 md:px-12 py-6">
-          <p className="text-xs text-gray-300 text-center">
-            suryachitti216@gmail.com · <a href="/cv.pdf" target="_blank" rel="noreferrer" className="hover:text-gray-500 transition-colors">cv ↗</a>
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
