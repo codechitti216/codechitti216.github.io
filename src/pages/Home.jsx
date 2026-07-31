@@ -232,7 +232,7 @@ export default function Home() {
             <TextScramble text="Surya Chitti" />
           </h1>
           <p className="text-base text-gray-600 leading-relaxed">
-            Mathematics @BITS Pilani. You either contribute to the rise of AI or become so good at something that you're irreplaceable. Chasing the intersection of both.
+            Either contribute to the rise of AI or become so good at something that you're irreplaceable. Chasing the intersection of both.
           </p>
           <p className="text-sm text-gray-400">
             When I'm not doing that, I'm{' '}
