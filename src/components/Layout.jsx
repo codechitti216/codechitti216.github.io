@@ -6,8 +6,7 @@ const Layout = ({ children }) => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Work', href: '/notes' },
-    { name: 'Ideas', href: '/ideas' },
+    { name: 'Log', href: '/notes' },
   ];
 
   return (
@@ -41,6 +40,13 @@ const Layout = ({ children }) => {
         {children}
       </main>
 
+      <footer className="border-t border-gray-50 mt-20">
+        <div className="w-full px-8 md:px-12 py-6">
+          <p className="text-xs text-gray-300 text-center">
+            suryachitti216@gmail.com · <a href="/cv.pdf" target="_blank" rel="noreferrer" className="hover:text-gray-500 transition-colors">cv ↗</a>
+          </p>
+        </div>
+      </footer>
       <AdminIndicator />
     </div>
   );
