@@ -6,9 +6,20 @@ export default function Notes() {
   const allContent = useMemo(() => getAllContent(), []);
   const [query, setQuery] = useState('');
 
-  const filtered = query.trim()
-    ? allContent.filter(item => item.title?.toLowerCase().includes(query.toLowerCase()))
-    : allContent;
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return allContent;
+    return allContent
+      .map(item => {
+        const titleMatch = item.title?.toLowerCase().includes(q);
+        const bodyMatch = item.body?.toLowerCase().includes(q);
+        if (!titleMatch && !bodyMatch) return null;
+        return { item, score: titleMatch ? 2 : 1 };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score)
+      .map(r => r.item);
+  }, [allContent, query]);
 
   return (
     <div className="py-8 space-y-8">
