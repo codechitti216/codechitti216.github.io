@@ -170,7 +170,7 @@ function TimelineEntry({ entry }) {
               </p>
             )}
 
-            {(entry.links.length > 0 || entry.photo) && (
+            {(entry.links.length > 0 || entry.photo || entry.video) && (
               <div className="flex items-center gap-3 pt-1">
                 {entry.links.map(l => (
                   <a
@@ -193,17 +193,17 @@ function TimelineEntry({ entry }) {
                     [Photo]
                   </a>
                 )}
+                {entry.video && (
+                  <a
+                    href={entry.video}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-gray-400 hover:text-gray-700 transition-colors underline underline-offset-2 decoration-gray-300"
+                  >
+                    [Video]
+                  </a>
+                )}
               </div>
-            )}
-            {entry.video && (
-              <video
-                src={entry.video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="mt-3 rounded w-full max-h-48 object-cover"
-              />
             )}
           </div>
         )}
