@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Github, Mail, Linkedin, Music } from 'lucide-react';
-import { useMemo } from 'react';
-import { getAllContent } from '../lib/content';
+import { Github, Mail, Linkedin } from 'lucide-react';
 import TextScramble from '../components/TextScramble';
 
 const institutions = [
@@ -13,8 +10,6 @@ const institutions = [
 ];
 
 export default function Home() {
-  const recentWork = useMemo(() => getAllContent().slice(0, 5), []);
-
   return (
     <div className="py-12 space-y-14">
       {/* Bio */}
@@ -68,34 +63,7 @@ export default function Home() {
         ))}
       </section>
 
-      {/* Work */}
-      {recentWork.length > 0 && (
-        <section className="space-y-4">
-          <div className="flex items-baseline justify-between">
-            <Link to="/notes" className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
-              View all &rarr;
-            </Link>
-          </div>
-          <div className="space-y-1">
-            {recentWork.map(item => (
-                <Link
-                  key={item.slug}
-                  to={`/notes/${item.slug}`}
-                  className="block group py-2.5 border-b border-gray-50 last:border-0"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm text-gray-900 group-hover:text-gray-500 transition-colors truncate">
-                      {item.title}
-                    </span>
-                    <span className="text-[11px] text-gray-400 whitespace-nowrap shrink-0">
-                      {item.date ? new Date(item.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : ''}
-                    </span>
-                  </div>
-                </Link>
-            ))}
-          </div>
-        </section>
-      )}
+
     </div>
   );
 }
