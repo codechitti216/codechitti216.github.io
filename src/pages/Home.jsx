@@ -4,6 +4,16 @@ import TextScramble from '../components/TextScramble';
 
 const timeline = [
   {
+    name: 'Jocata Financial Advisory & Technology',
+    logo: '/logos/jocata.png',
+    url: 'https://www.jocata.com/',
+    role: 'ML Research & Development',
+    period: 'Sep 2026 – Present',
+    description: "A BillDesk subsidiary. Working on ML research and development in credit risk modelling and persona scoring for some of the premier institutions in the country.",
+    mentors: [],
+    links: [],
+  },
+  {
     name: 'Mercedes-Benz R&D India',
     logo: '/logos/mercedes.png',
     url: 'https://www.mbrdi.co.in/',
