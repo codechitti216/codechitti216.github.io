@@ -1,0 +1,4 @@
+# Keypoint matching experiment (SIFT / ORB / AKAZE)
+# Use with repo venv: python -m venv .venv_keymatch && pip install -r experiments/keypoint_matching/requirements.txt
+numpy>=1.24,<2
+opencv-python>=4.8
