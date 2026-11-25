@@ -173,9 +173,9 @@ Edit `src/pages/Contact.jsx`:
 - Research interests
 
 ### CV Updates
-1. **Content**: Edit `src/pages/CV.jsx`
-2. **PDF**: Replace `public/cv.pdf` with updated version
-3. **Download**: Ensure the download link works
+1. **Source**: Edit `cv/cv.tex`
+2. **PDF**: From `cv/`, run `pdflatex cv.tex` and copy `cv.pdf` to `public/cv.pdf`
+3. **Download**: The site links to `/cv.pdf`
 
 ### About Section
 Edit `src/pages/Home.jsx`:
