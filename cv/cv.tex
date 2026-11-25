@@ -1,0 +1,100 @@
+% One-page CV. Build from this directory:
+%   pdflatex cv.tex && cp cv.pdf ../public/cv.pdf
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.45in]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,urlcolor=cvblue,linkcolor=cvblue]{hyperref}
+\definecolor{cvblue}{RGB}{6,69,173}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\makeatletter
+\renewcommand{\small}{\@setfontsize\small{9}{12.9}}
+\makeatother
+
+\newcommand{\cvsep}{\ \textemdash\ }
+\newcommand{\cvsection}[1]{%
+  \par\vspace{6.4pt}%
+  \noindent{\normalsize\bfseries #1}\par\vspace{-8.6pt}%
+  \noindent\rule{\textwidth}{0.4pt}\par\vspace{-2.4pt}%
+}
+\newcommand{\cvrole}[3]{%
+  \par\vspace{1.6pt}%
+  \noindent\textbf{#1}\cvsep{\itshape #2\hfill #3}\par
+}
+
+\setlist[itemize]{leftmargin=14pt,label=\normalsize\textbullet,itemsep=1.15pt,topsep=2.4pt,parsep=0pt,partopsep=0pt,labelsep=4.5pt}
+
+\begin{document}
+\vspace*{-14pt}
+{\centering
+{\Large\bfseries Surya GS Chitti}\par
+\vspace{3.4pt}
+{\small\href{mailto:suryachitti216@gmail.com}{suryachitti216@gmail.com}\cvsep%
++91-7893339846\cvsep%
+\href{https://github.com/codechitti216}{GitHub}\cvsep%
+\href{https://linkedin.com/in/surya-g-s-chitti}{LinkedIn}\cvsep%
+\href{https://codechitti216.github.io}{Blog}\cvsep%
+Bangalore / Hyderabad}\par
+}
+\vspace{1pt}
+
+\small
+\cvsection{Education}
+\noindent\textbf{BITS Pilani}\hfill 2020--2025\par
+\noindent M.Sc.\ Mathematics + B.E.\ Civil Engineering\hspace{1.15em}\textemdash\hspace{0.85em}Minor: Computing \& Intelligence\par
+\noindent\textit{ML, AI, Probability \& Statistics, Optimization, Numerical Methods, Graph Theory}\par
+
+\cvsection{Technical Skills}
+\noindent\textbf{Core:} Deep Learning, Self-Supervised Learning, Knowledge Distillation, Reinforcement Learning, Multi-Modal Fusion\par
+\noindent\textbf{Stack:} Python, PyTorch, OpenCV, Docker, SQL, Linux, Git, PyTorch DDP\par
+
+\cvsection{Experience}
+\cvrole{Jocata Financial Advisory \& Technology}{ML Research \& Development}{Sep 2026 -- Present}
+\begin{itemize}
+  \item A BillDesk subsidiary. Working on ML research and development in credit risk modelling and persona scoring for some of the premier institutions in the country.
+\end{itemize}
+
+\cvrole{Mercedes-Benz Research \& Development India}{Research Engineer}{Sep 2025 -- Aug 2026}
+\noindent{\itshape End-to-End Perception \& Planning, Applied Research Team}\par
+\begin{itemize}
+  \item \textbf{Data Pipeline:} Built a 5-stage pipeline from scratch (structure validation, per-frame quality gating, cross-sensor sync verification, road geometry classification, training-ready formatting) for \textbf{24 TB} of multi-sensor data (6 cameras, LiDAR, IMU). Also built a web app for the team to browse and curate data. Processing time per rosbag dropped from 225 to 25 minutes (\textbf{9}$\times$).
+  \item \textbf{Scenario Mining:} Training data was heavily imbalanced toward straight-road cruising. Built a clustering pipeline over \textbf{2.3M} frames to categorize recordings by maneuver type (lane changes, braking, turns, cruising) and rebalance the training distribution.
+  \item \textbf{ML Infrastructure:} Built a config-driven training framework with automated post-training validation, checkpointing, and result visualization. All architecture experiments in the team ran on this infrastructure.
+  \item \textbf{Architecture Ablation:} Systematically ablated temporal context (past 3 frames), auxiliary sensor fusion, and ego-motion conditioning. Scaled from single-camera to \textbf{multi-camera fusion} using learned spatial projection and self-supervised depth, removing the need for manual depth labels.
+  \item \textbf{Knowledge Distillation:} Designed a 3-stage progressive distillation pipeline to transfer from a sensor-rich teacher to an image-only student. Each stage recovered more of the teacher's L2 waypoint accuracy: feature-level \textbf{31\%}, +output-level \textbf{67\%}, +ground-truth supervision \textbf{79\%}.
+  \item \textbf{Sequential Prediction:} Designed an autoregressive GRU decoder with relative deltas instead of independent MLP heads. L2 displacement error dropped by \textbf{23\%}.
+  \item \textbf{Sim-to-Real:} Implemented and compared \textbf{3 domain-adaptation approaches}: neural rendering, image-to-image translation, and direct synthetic training. Built the closed-loop evaluation framework to measure performance KPIs.
+  \item \textbf{Sensor Calibration:} Built LiDAR-Camera and LiDAR-IMU calibration pipeline by implementing PnP-based extrinsics and hand-eye solver with online refinement via Powell optimization on alignment objectives.
+\end{itemize}
+
+\cvrole{AI \& Robotics Lab, IISc Bangalore}{Research Intern}{Jan 2025 -- Jul 2025}
+\noindent{\itshape Mentored by \href{https://in.linkedin.com/in/rajinimakam}{Dr.\ Rajini Makam} \& \href{https://aero.iisc.ac.in/people/sureshsundaram/}{Prof.\ Suresh Sundaram}}%
+\ {\footnotesize\href{https://github.com/codechitti216/AIRL_Work}{[Code]} \href{https://drive.google.com/file/d/12lxM_wQ9xsNQrMeVWLbBEVxs8huI3taH/view}{[Thesis]}}\par
+\begin{itemize}
+  \item Built velocity estimation pipeline using Memory Neuron Networks for DRDO, robust under sensor degradation; \textbf{0.05 m/s RMSE} across \textbf{13 test trajectories}. Sole author of delivered production codebase.
+  \item Audited pretrained depth model, traced failures to domain-specific preprocessing assumptions, re-derived for target domain. Evaluated visual navigation agents in simulation; identified training-distribution bias that fine-tuning could not override.
+\end{itemize}
+
+\cvrole{GVCL, IIIT Bangalore}{Research Intern}{Jul 2024 -- Dec 2024}
+\noindent{\itshape Mentored by \href{https://www.iiitb.ac.in/faculty/jaya-sreevalsan-nair}{Prof.\ Jaya Sreevalsan Nair}}%
+\ {\footnotesize\href{https://drive.google.com/file/d/1NCWIILbvL6AOrhtrmfDbKl6pTAi8XbU6/view}{[Thesis]}}\par
+\begin{itemize}
+  \item Evaluated 3D point cloud segmentation models (KPConv, PointNet++) on multi-modal data. Built geometric alignment pipeline for cross-modal registration; applied ICP to merge sequential scans for spatial densification.
+\end{itemize}
+
+\cvrole{AI4Bharat, IIT Madras}{Research Intern}{Aug 2023 -- Sep 2023}
+\noindent{\itshape Mentored by \href{http://safikhansoofiyani.github.io/}{Md Safi Ur Rahman Khan} \& \href{https://ai4bharat.iitm.ac.in/people}{Prof.\ Mitesh Khapra}}\par
+\begin{itemize}
+  \item Processed multilingual NLP corpora (\textbf{2,000+ videos}, \textbf{3,000+ websites}) with script-aware filtering for low-resource language translation. Built prompt collection interface for instruction tuning of large language models.
+\end{itemize}
+
+\cvsection{Technical Writing}
+\begin{itemize}
+  \item \href{https://codechitti216.github.io/notes/gradient-descent}{\textbf{Why Gradient Descent Works (And When It Doesn't):}} Proved when simultaneous parameter updates backfire. Compared Newton's method and coordinate descent with derivations and interactive notebook.
+  \item \href{https://codechitti216.github.io/notes/embeddings}{\textbf{Embeddings From First Principles:}} BPE tokenization, Word2Vec (Skip-gram \& CBOW) with full gradient derivations, 6 ablation experiments implemented from scratch.
+\end{itemize}
+\end{document}
